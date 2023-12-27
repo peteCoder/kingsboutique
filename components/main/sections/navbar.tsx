@@ -57,6 +57,8 @@ const Navbar = () => {
               </ul>
               {/* For Mobile screens */}
             </nav>
+
+            
             {/* Nav Icons */}
             <div className="flex items-center text-[14px] justify-between md:gap-2">
               <div className="block md:hidden nav-links">

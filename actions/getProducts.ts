@@ -1,7 +1,7 @@
 import { sanityClient } from "@/lib/client";
 
 export const getProducts = async () => {
-  const query = `*[_type == 'product']{
+  const query = `*[_type == 'product'  && is_featured == true]{
     _id,
     _updatedAt,
     _createdAt,

@@ -33,7 +33,7 @@ const CategoryCard: React.FC<CategoryProps> = ({
   return (
     <div
       style={{
-        backgroundImage: `url(${urlFor(featuredCategory?.bannerImage).url()})`,
+        backgroundImage: `url(${urlFor(featuredCategory?.bannerImage)?.url()})`,
       }}
       className={cn(
         "min-h-[340px] bg-center bg-no-repeat bg-cover rounded-2xl flex items-center justify-center bg-[#f1f5f9]",

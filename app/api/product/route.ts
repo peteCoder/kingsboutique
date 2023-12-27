@@ -24,7 +24,7 @@ export async function GET(req: NextRequest) {
 
     console.log("categoryId", typeof categoryId);
 
-    const query = `*[_type == 'product' && category->_id match $categoryId]{
+    const query = `*[_type == 'product' && category->_id match $categoryId  && is_featured == true]{
       _id,
       _updatedAt,
       _createdAt,

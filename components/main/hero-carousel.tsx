@@ -131,7 +131,7 @@ export function CarouselTransition({
         </Carousel>
       ) : (
         <Carousel
-          className="w-full h-[90vh] rounded-xl"
+          className="w-full h-[40vh] md:h-[50vh] lg:h-[70vh] rounded-xl"
           prevArrow={({ handlePrev }) => {
             if (heroBanner.length === 1) {
               return null;
@@ -142,7 +142,7 @@ export function CarouselTransition({
                 color="white"
                 size="lg"
                 onClick={handlePrev}
-                className="!absolute top-2/4 left-4 -translate-y-2/4"
+                className="!absolute bottom-12 md:bottom-10  left-[35%] md:left-[42%] md:bg-none"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -171,7 +171,7 @@ export function CarouselTransition({
                 color="white"
                 size="lg"
                 onClick={handleNext}
-                className="!absolute top-2/4 !right-4 -translate-y-2/4"
+                className="!absolute bottom-12 md:bottom-10  flex left-[55%] md:left-[55%] justify-center md:bg-none"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -195,15 +195,15 @@ export function CarouselTransition({
             <div
               key={banner._id}
               style={{
-                backgroundImage: `url(${urlFor(banner.bannerImage).url()})`,
+                backgroundImage: `url(${urlFor(banner.bannerImage)?.url()})`,
                 color: banner?.textColor,
               }}
               className="h-full w-full relative bg-cover bg-top md:bg-center bg-no-repeat"
             >
-              <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 text-center max-w-[40rem] flex flex-col gap-3">
+              <div className="absolute top-1/2 md:left-1/2 -translate-y-1/2 md:-translate-x-1/2 md:text-center px-3 md:max-w-[40rem] flex flex-col gap-6">
                 {/* <div className="text-xl md:text-3xl lg:text-4xl">Ready to</div> */}
-                <div className="">
-                  <div className="text-3xl md:text-6xl lg:text-8xl text-center">
+                <div className="-mt-5 md:mt-0">
+                  <div className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl md:text-center">
                     {banner?.title}
                   </div>
                   <div className="text-lg font-light">{banner?.subTitle}</div>
