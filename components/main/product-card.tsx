@@ -113,29 +113,29 @@ const ProductCard: React.FC<ProductProps> = ({ index, product }) => {
         <div
           className={cn(
             "opacity-100 duration-700 absolute top-0 bottom-0 right-0 left-0",
-            product.gallery.length > 0 && "group-hover:opacity-0"
+            product.gallery.length > 1 && "group-hover:opacity-0"
           )}
         >
           <Image
             className="object-cover w-full h-full "
             width={819}
             height={1024}
-            src={activeImageUrl || urlFor(product?.gallery[0]?.imageUrl).url()}
+            src={activeImageUrl || product?.gallery[0]?.imageUrl?.asset?.url}
             alt="image"
           />
         </div>
-        {product.gallery.length > 0 && (
+        {product.gallery.length > 1 && (
           <div
             className={cn(
               "opacity-0 duration-700 absolute top-0 bottom-0 right-0 left-0",
-              product.gallery.length > 0 && "group-hover:opacity-100"
+              product.gallery.length > 1 && "group-hover:opacity-100"
             )}
           >
             <Image
               className="object-cover w-full h-full"
               width={819}
               height={1024}
-              src={urlFor(product?.gallery[1]?.imageUrl)?.url()}
+              src={product?.gallery[1]?.imageUrl?.asset?.url}
               alt="image"
             />
           </div>

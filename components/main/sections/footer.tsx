@@ -15,8 +15,8 @@ const Footer = async () => {
   return (
     <div
       style={{
-        backgroundImage: `url('/j-logo-bg-removed-2.png')`,
-        backgroundBlendMode: "multiply",
+        // backgroundImage: `url('/j-logo-bg-removed-2.png')`,
+        // backgroundBlendMode: "multiply",
       }}
       className="bg-cover bg-center bg-no-repeat bg-fixed py-[60px] md:px-10 px-[16px] w-full min-h-[40vh] border-t-2 border-t-[#E5E5E5] bg-primary"
     >
