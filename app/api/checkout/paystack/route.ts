@@ -5,6 +5,9 @@ import axios from "axios";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
+
+export const dynamic = "force-dynamic";
+
 export async function POST(req: Request) {
   const {
     productIds,

@@ -1,6 +1,8 @@
 import { getCategories } from "@/actions/getCategories";
 import { NextRequest, NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(req: NextRequest) {
   try {
     const sizes = await getCategories();

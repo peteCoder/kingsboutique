@@ -3,6 +3,10 @@ import { sanityClient } from "@/lib/client";
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
+
+export const dynamic = "force-dynamic";
+
+
 export const GET = async (res: NextRequest) => {
   return NextResponse.json({ message: "Working o" }, { status: 200 });
 };

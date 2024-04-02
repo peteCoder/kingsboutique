@@ -3,6 +3,8 @@ import axios from "axios";
 import crypto from "crypto";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 const corsHeader = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",

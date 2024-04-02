@@ -3,6 +3,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { sanityClient } from "@/lib/client";
 
+
+
+export const dynamic = "force-dynamic";
+
+
 export async function POST(req: NextRequest) {
   const data: OrderUserSchemaResult = await req.json();
   const session = await getServerSession();

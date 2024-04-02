@@ -1,6 +1,13 @@
 import { sanityClient } from "@/lib/client";
 import { NextRequest, NextResponse } from "next/server";
 
+
+
+
+export const dynamic = "force-dynamic";
+
+
+
 export async function GET(req: NextRequest) {
   try {
     // Here we get our URL (req.url) in a readable browser url format like
