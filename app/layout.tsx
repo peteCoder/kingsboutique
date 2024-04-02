@@ -10,6 +10,8 @@ import { ThemeProvider } from "@/components/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
+export const revalidate = 1000; // revalidate the data at most every hour
+
 export const metadata: Metadata = {
   title: "King's Boutique Fashion and Accessories",
   description: "Best Fashion and Accessories store",

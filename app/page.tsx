@@ -5,6 +5,9 @@ import Navbar from "@/components/main/sections/navbar";
 import Specials from "@/components/main/sections/specials";
 import Trending from "@/components/main/sections/trending";
 
+
+export const revalidate = 1000 // revalidate the data at most every hour
+
 export default function Home() {
   return (
     <main>

@@ -16,8 +16,12 @@ const AllProductsBasedOnCategory = ({ categoryId }: { categoryId: string }) => {
       if (!hasMounted) return; // Avoid running on server side prerendering
       try {
         setIsLoading(true);
-        const response = await axios.get(`/api/category/${categoryId}`);
-        const categoryProducts = response.data;
+        // const response = await axios.get(`/api/category/${categoryId}`);
+        // const categoryProducts = response.data;
+
+        const response = await fetch(`/api/category/${categoryId}`, { cache: "no-store" });
+        const categoryProducts = await response.json()
+
         console.log("categoryProducts: ", categoryProducts);
         setProducts(categoryProducts);
       } catch (error) {

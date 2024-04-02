@@ -1,6 +1,7 @@
 import { sanityClient } from "@/lib/client";
+import { cache } from "react";
 
-export const getCategories = async () => {
+export const getCategories = cache(async () => {
   const query = `*[_type == 'category']{
     _id,
     _updatedAt,
@@ -17,4 +18,4 @@ export const getCategories = async () => {
 
   const result = await sanityClient.fetch(query);
   return result;
-};
+});

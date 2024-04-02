@@ -55,7 +55,7 @@ const ProductCard: React.FC<ProductProps> = ({ index, product }) => {
 
   const productHasBeenAddedToFavouritesAlready = (productId: string) => {
     const productAlreadyInFavourite = productsInFavourites.filter(
-      (product) => product._id === productId
+      (product) => product?._id === productId
     );
     if (productAlreadyInFavourite.length > 0) {
       return true;
@@ -78,7 +78,7 @@ const ProductCard: React.FC<ProductProps> = ({ index, product }) => {
     <div
       className="text-center p-2 sm:p-0"
       onClick={() =>
-        product.qty_available > 0 && router.push(`/product/${product._id}`)
+        product.qty_available > 0 && router.push(`/product/${product?._id}`)
       }
     >
       <div className="relative group duration-700 min-h-[300px] md:min-h-[350px] bg-[#f1f5f9] overflow-hidden">
@@ -94,15 +94,15 @@ const ProductCard: React.FC<ProductProps> = ({ index, product }) => {
           <div
             onClick={(e) => {
               e.stopPropagation();
-              if (!productHasBeenAddedToFavouritesAlready(product._id)) {
+              if (!productHasBeenAddedToFavouritesAlready(product?._id)) {
                 favourites.addItemToFavourites(product);
               } else {
-                favourites.removeItemFromFavourites(product._id);
+                favourites.removeItemFromFavourites(product?._id);
               }
             }}
             className={cn(
               `bg-white hover:bg-primary hover:text-white cursor-pointer duration-700 text-black w-10 h-10 rounded-full m-1 flex items-center justify-center`,
-              productHasBeenAddedToFavouritesAlready(product._id) &&
+              productHasBeenAddedToFavouritesAlready(product?._id) &&
                 "bg-primary text-white"
             )}
             id="favourite"
@@ -113,7 +113,7 @@ const ProductCard: React.FC<ProductProps> = ({ index, product }) => {
         <div
           className={cn(
             "opacity-100 duration-700 absolute top-0 bottom-0 right-0 left-0",
-            product.gallery.length > 1 && "group-hover:opacity-0"
+            product?.gallery?.length > 1 && "group-hover:opacity-0"
           )}
         >
           <Image
@@ -124,11 +124,11 @@ const ProductCard: React.FC<ProductProps> = ({ index, product }) => {
             alt="image"
           />
         </div>
-        {product.gallery.length > 1 && (
+        {product?.gallery?.length > 1 && (
           <div
             className={cn(
               "opacity-0 duration-700 absolute top-0 bottom-0 right-0 left-0",
-              product.gallery.length > 1 && "group-hover:opacity-100"
+              product?.gallery?.length > 1 && "group-hover:opacity-100"
             )}
           >
             <Image
@@ -218,15 +218,15 @@ const ProductCard: React.FC<ProductProps> = ({ index, product }) => {
             <div className="flex items-center gap-1 flex-wrap">
               {product?.colours?.map((colour) => (
                 <div
-                  key={colour._id}
-                  style={{ backgroundColor: `${colour.code}` }}
+                  key={colour?._id}
+                  style={{ backgroundColor: `${colour?.code}` }}
                   onClick={(e) => {
                     e.stopPropagation();
-                    setActiveColour(colour._id);
+                    setActiveColour(colour?._id);
                   }}
                   className={cn(
                     "h-8 w-8 rounded-full",
-                    colour._id === activeColour &&
+                    colour?._id === activeColour &&
                       "outline-4 outline outline-black"
                   )}
                 ></div>

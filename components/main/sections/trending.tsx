@@ -17,7 +17,7 @@ const Trending = async () => {
         <Heading title={"trending"} subTitle={"top view in this week"} />
       </div>
       {categories.slice(0, 3).map((category) => (
-        <div key={category._id}>
+        <div key={category?._id}>
           <h2 className="text-xl font-bold my-6">{category?.name}</h2>
           <AllProductsBasedOnCategory categoryId={category?._id} />
         </div>
