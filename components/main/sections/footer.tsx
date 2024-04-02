@@ -14,10 +14,12 @@ const Footer = async () => {
 
   return (
     <div
-      style={{
-        // backgroundImage: `url('/j-logo-bg-removed-2.png')`,
-        // backgroundBlendMode: "multiply",
-      }}
+      style={
+        {
+          // backgroundImage: `url('/j-logo-bg-removed-2.png')`,
+          // backgroundBlendMode: "multiply",
+        }
+      }
       className="bg-cover bg-center bg-no-repeat bg-fixed py-[60px] md:px-10 px-[16px] w-full min-h-[40vh] border-t-2 border-t-[#E5E5E5] bg-primary"
     >
       <div className="max-w-[1145px] mx-auto flex justify-center items-center">
@@ -38,7 +40,7 @@ const Footer = async () => {
             <div className="space-y-8">
               <h2 className="text-white text-[18px] font-[700]">Categories</h2>
               <div className="text-white text-[16px] bold-[300] flex flex-col space-y-2">
-                {categories.map((category) => (
+                {categories.slice(0, 6).map((category) => (
                   <Link
                     key={category._id}
                     className="hover:text-white transition-all duration-300"
