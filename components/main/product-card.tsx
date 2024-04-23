@@ -120,7 +120,15 @@ const ProductCard: React.FC<ProductProps> = ({ index, product }) => {
             className="object-cover w-full h-full "
             width={819}
             height={1024}
-            src={activeImageUrl || product?.gallery[0]?.imageUrl?.asset?.url}
+            // Here we can change the image to a thumbnail image
+            // if the image link is not given
+            src={
+              activeImageUrl
+                ? activeImageUrl
+                : product?.gallery?.length > 0
+                ? product?.gallery[0]?.imageUrl?.asset?.url
+                : ""
+            }
             alt="image"
           />
         </div>

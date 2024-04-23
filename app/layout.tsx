@@ -6,16 +6,18 @@ import SessionProvider from "../providers/sessionProvider";
 import { getServerSession } from "next-auth";
 import ToastProvider from "@/providers/ToastProvider";
 
-import { ThemeProvider } from "@/components/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const revalidate = 1000; // revalidate the data at most every hour
 
 export const metadata: Metadata = {
   title: "King's Boutique Fashion and Accessories",
   description: "Best Fashion and Accessories store",
 };
+
+
+
+export const revalidate = 3600 // revalidate the data at most every hour
 
 export default async function RootLayout({
   children,
