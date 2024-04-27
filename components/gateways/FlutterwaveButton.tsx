@@ -8,7 +8,7 @@ import axios from "axios";
 import BeatLoader from "react-spinners/BeatLoader";
 import { useParams } from "next/navigation";
 
-const PaystackButton = () => {
+const FlutterwaveButton = () => {
   const params = useParams();
   const [isLoading, setIsLoading] = useState(false);
   const cart = useCart();
@@ -43,18 +43,18 @@ const PaystackButton = () => {
 
     try {
       setIsLoading(true);
-      const response = await axios.post(`/api/checkout/paystack`, data);
+      const response = await axios.post(`/api/checkout/flutterwave`, data);
 
       // Here we retrieve a JSON object that has the success attribute
       // We then check if or not the status is true or false
       // If true we should redirect the user to the payment gateway URL
       const retrievedData = response.data;
 
-      console.log(retrievedData);
+      console.log("RETRIEVED DATA", retrievedData);
 
       // Check if the response was successful or not
       if (retrievedData.status === true) {
-        location.href = retrievedData.data.authorization_url;
+        location.href = retrievedData.authorization_url;
         setIsLoading(false);
       }
     } catch (error) {
@@ -67,7 +67,6 @@ const PaystackButton = () => {
 
   return (
     <>
-      
       <Button
         type="button"
         disabled={isLoading}
@@ -79,10 +78,10 @@ const PaystackButton = () => {
           <BeatLoader size={12} color="#000" />
         ) : (
           <Image
-            className="h-6 md:h-8 w-auto"
+            className="h-12 md:h-16 w-auto"
             width={3852}
             height={679}
-            src={"/payments/paystack.png"}
+            src={"/payments/flutterwave.svg"}
             alt="paystack"
           />
         )}
@@ -91,4 +90,4 @@ const PaystackButton = () => {
   );
 };
 
-export default PaystackButton;
+export default FlutterwaveButton;

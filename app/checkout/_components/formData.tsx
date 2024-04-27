@@ -30,6 +30,7 @@ import { toast } from "react-hot-toast";
 import { UserShippingDataForCheckoutForm } from "@/types";
 import { useUserDetails } from "@/hooks/useUserData";
 import PaystackButton from "@/components/gateways/PaystackButton";
+import FlutterwaveButton from "@/components/gateways/FlutterwaveButton";
 
 const formSchema = z.object({
   firstName: z.string(),
@@ -320,7 +321,12 @@ const FormData = ({
                 </Button>
               </>
             ) : (
-              <PaystackButton />
+              <>
+                {/* Payment Gateways Buttons are here */}
+                <h2 className="text-lg font-bold">Pay with:</h2>
+                {/* <PaystackButton /> */}
+                <FlutterwaveButton />
+              </>
             )}
           </form>
         </Form>

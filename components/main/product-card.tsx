@@ -243,48 +243,49 @@ const ProductCard: React.FC<ProductProps> = ({ index, product }) => {
           )}
 
           {/* Button to add to cart */}
+          <>
+            {product.qty_available <= 0 ? (
+              <div className="flex justify-center items-center opacity-0 group-hover:opacity-100 duration-700 ">
+                <Button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                  className="uppercase flex gap-1 items-center opacity-20"
+                >
+                  <HiOutlineShoppingBag size={18} />
+                  <span>Sold out</span>
+                </Button>
+              </div>
+            ) : (
+              <div className="flex justify-center items-center opacity-0 group-hover:opacity-100 duration-700 ">
+                <Button
+                  onClick={(e) => {
+                    e.stopPropagation();
 
-          {product.qty_available <= 0 ? (
-            <div className="flex justify-center items-center opacity-0 group-hover:opacity-100 duration-700 ">
-              <Button
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}
-                className="uppercase flex gap-1 items-center opacity-20"
-              >
-                <HiOutlineShoppingBag size={18} />
-                <span>Sold out</span>
-              </Button>
-            </div>
-          ) : (
-            <div className="flex justify-center items-center opacity-0 group-hover:opacity-100 duration-700 ">
-              <Button
-                onClick={(e) => {
-                  e.stopPropagation();
-
-                  if (numberItemsAlreadyInCart >= data?.qty_available) {
-                    toast.success(
-                      "Number of item is more than the available quantity"
-                    );
-                    return;
-                  } else {
-                    cart.addItemToCart(data, {
-                      sizeId: activeSize,
-                      colourId: activeColour,
-                    });
-                  }
-                }}
-                className={cn(
-                  `uppercase flex gap-1 items-center`,
-                  numberItemsAlreadyInCart >= data?.qty_available &&
-                    "opacity-50"
-                )}
-              >
-                <HiOutlineShoppingBag size={18} />
-                <span>Add to cart</span>
-              </Button>
-            </div>
-          )}
+                    if (numberItemsAlreadyInCart >= data?.qty_available) {
+                      toast.success(
+                        "Number of item is more than the available quantity"
+                      );
+                      return;
+                    } else {
+                      cart.addItemToCart(data, {
+                        sizeId: activeSize,
+                        colourId: activeColour,
+                      });
+                    }
+                  }}
+                  className={cn(
+                    `uppercase flex gap-1 items-center`,
+                    numberItemsAlreadyInCart >= data?.qty_available &&
+                      "opacity-50"
+                  )}
+                >
+                  <HiOutlineShoppingBag size={18} />
+                  <span>Add to cart</span>
+                </Button>
+              </div>
+            )}
+          </>
         </div>
       </div>
     </div>
