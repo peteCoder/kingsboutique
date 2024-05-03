@@ -28,12 +28,12 @@ const ProductDetails = async ({
   return (
     <main>
       <Navbar />
-      <div className="p-4">
-        <div className="flex gap flex-col md:flex-row gap-3">
-          <div className="w-full md:w-1/2 lg:w-2/3">
+      <div className="p-2 sm:container">
+        <div className="flex gap flex-col md:flex-row gap-3 mb-10">
+          <div className="w-full md:w-1/2">
             <DetailPageGallery product={product} />
           </div>
-          <div className="w-full md:w-1/2 lg:w-1/3">
+          <div className="w-full md:w-1/2">
             <DetailPageInfo data={product} />
           </div>
         </div>
@@ -41,11 +41,11 @@ const ProductDetails = async ({
         {/* Related Products */}
         {filterOutCurrentProduct.length > 0 && (
           <div className="mt-5">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl">
-              Related Products
+            <h2 className="text-xl md:text-2xl mt-40 mb-5 font-extrabold">
+              Find Related Products
             </h2>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 3xl:grid-cols-5 gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:grid-cols-5 gap-2">
               {filterOutCurrentProduct?.map((product, i) => (
                 <ProductCard key={product._id} index={i} product={product} />
               ))}
@@ -53,7 +53,6 @@ const ProductDetails = async ({
           </div>
         )}
       </div>
-
     </main>
   );
 };

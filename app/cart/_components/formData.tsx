@@ -30,7 +30,10 @@ const CartFormData = () => {
   };
 
   useEffect(() => {
-    if (searchParams.get("success") === "true") {
+    if (
+      searchParams.get("success") === "true" ||
+      searchParams.get("status") === "completed"
+    ) {
       cart.resetCart();
     }
   }, [cart, searchParams]);

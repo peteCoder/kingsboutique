@@ -23,23 +23,9 @@ const DetailPageGallery = ({
   return (
     <ThemeProvider>
       <div className="flex gap-2 relative justify-center items-center">
-        <div className="h-[550px] hidden sm:block sm:basis-1/4">
-          {/* Smaller Images */}
-          {/* {product?.gallery?.map((product, index) => (
-            <div
-              key={product?._id}
-              onClick={() => handleThumbnailClick(index)}
-              style={{
-                backgroundImage: `url(${urlFor(product?.imageUrl)})`,
-              }}
-              className={`h-16 w-16 cursor-pointer bg-cover bg-center bg-no-repeat ${
-                index === customIndex ? "border-2 border-blue-500" : ""
-              }`}
-            ></div>
-          ))} */}
-        </div>
+        {/* <div className="h-[550px] hidden sm:block sm:basis-1/4"></div> */}
         <Carousel
-          className="sm:basis-3/4 h-[550px] text-[#9d9d9d] rounded-2xl relative"
+          className="h-[550px] text-[#9d9d9d] rounded-2xl relative"
           navigation={({ setActiveIndex, activeIndex, length }) => {
             // return (
             //   <div className="flex gap-2 absolute left-0 z-[10]">

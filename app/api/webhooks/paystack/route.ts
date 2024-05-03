@@ -95,7 +95,7 @@ export async function POST(req: Request) {
         };
 
         if (cartItems.length > 0) {
-          // Change the product quantity_availability
+          // Change the product quantity available
           const changeProductAvailability = await Promise.all(
             cartItems.map(async (item: any) => {
               // Get the particular product

@@ -153,29 +153,34 @@ const ProductCard: React.FC<ProductProps> = ({ index, product }) => {
       {/* Details to transform onhover */}
       <div className="relative">
         {/* Continue from here */}
-        <div className="bg-white  text-center flex flex-col items-center gap-4 py-5 group hover:-translate-y-20 duration-700">
+        <div className="bg-white hover:bg-opacity-70 bg-opacity-100 mb-4 text-left border flex flex-col p-2 gap-4 py-5 group hover:-translate-y-20 duration-700">
           {/* w-[250px] md:w-[280px] mx-auto */}
           {/* Add Ratings here */}
           {product?.ratings && (
-            <div className="ratings flex items-center gap-1">
+            <div className="rating flex items-center gap-1">
               <>
                 {Array.from({ length: product?.ratings }).map((_, i) => (
-                  <IoStar color={"#FFD700"} key={i} size={15} />
+                  <IoStar className="text-[1.2rem]" color={"#FFD700"} key={i} />
                 ))}
               </>
             </div>
           )}
           <div className="space-y-1">
-            <div className="text-[18px] text-[#191919] font-bold">
-              {product?.name}
-            </div>
-            <div className="text-[19px] text-[#191919]">
+            <div className="text-[19px] text-[#424141] font-bold">
               {formatCurrency(product?.price)}
             </div>
+            <div className="text-[16px] text-[#191919] font-bold text-primary">
+              {product?.name}
+            </div>
+            {product?.description && (
+              <div className="text-[14px] text-[#191919] font-light ">
+                {product?.description?.slice(0, 25)}..
+              </div>
+            )}
           </div>
 
           {/* Smaller Images */}
-          <div className="flex items-center gap-3">
+          {/* <div className="flex items-center gap-3">
             {product?.gallery?.slice(0, 2)?.map((product) => (
               <div
                 onClick={(e) => {
@@ -198,9 +203,9 @@ const ProductCard: React.FC<ProductProps> = ({ index, product }) => {
                 />
               </div>
             ))}
-          </div>
+          </div> */}
           {/* Sizes */}
-          <div className="flex items-center gap-1">
+          {/* <div className="flex items-center gap-1">
             {product?.sizes?.length > 0 && (
               <>
                 {product?.sizes?.map((size) => (
@@ -220,30 +225,32 @@ const ProductCard: React.FC<ProductProps> = ({ index, product }) => {
                 ))}
               </>
             )}
-          </div>
+          </div> */}
           {/* Faric Texture */}
-          {product?.colours?.length > 0 && (
-            <div className="flex items-center gap-1 flex-wrap">
-              {product?.colours?.map((colour) => (
-                <div
-                  key={colour?._id}
-                  style={{ backgroundColor: `${colour?.code}` }}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setActiveColour(colour?._id);
-                  }}
-                  className={cn(
-                    "h-8 w-8 rounded-full",
-                    colour?._id === activeColour &&
-                      "outline-4 outline outline-black"
-                  )}
-                ></div>
-              ))}
-            </div>
-          )}
+          {/* <>
+            {product?.colours?.length > 0 && (
+              <div className="flex items-center gap-1 flex-wrap">
+                {product?.colours?.map((colour) => (
+                  <div
+                    key={colour?._id}
+                    style={{ backgroundColor: `${colour?.code}` }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setActiveColour(colour?._id);
+                    }}
+                    className={cn(
+                      "h-8 w-8 rounded-full",
+                      colour?._id === activeColour &&
+                        "outline-4 outline outline-black"
+                    )}
+                  ></div>
+                ))}
+              </div>
+            )}
+          </> */}
 
           {/* Button to add to cart */}
-          <>
+          {/* <>
             {product.qty_available <= 0 ? (
               <div className="flex justify-center items-center opacity-0 group-hover:opacity-100 duration-700 ">
                 <Button
@@ -285,7 +292,7 @@ const ProductCard: React.FC<ProductProps> = ({ index, product }) => {
                 </Button>
               </div>
             )}
-          </>
+          </> */}
         </div>
       </div>
     </div>

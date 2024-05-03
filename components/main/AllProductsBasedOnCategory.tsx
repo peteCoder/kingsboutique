@@ -19,8 +19,10 @@ const AllProductsBasedOnCategory = ({ categoryId }: { categoryId: string }) => {
         // const response = await axios.get(`/api/category/${categoryId}`);
         // const categoryProducts = response.data;
 
-        const response = await fetch(`/api/category/${categoryId}`, { cache: "no-store" });
-        const categoryProducts = await response.json()
+        const response = await fetch(`/api/category/${categoryId}`, {
+          cache: "no-store",
+        });
+        const categoryProducts = await response.json();
 
         console.log("categoryProducts: ", categoryProducts);
         setProducts(categoryProducts);
@@ -39,13 +41,13 @@ const AllProductsBasedOnCategory = ({ categoryId }: { categoryId: string }) => {
   }, []);
 
   if (!hasMounted) {
-    return <LoadProductList numberOfRenderedProducts={4} />;
+    return <LoadProductList numberOfRenderedProducts={5} />;
   }
 
   return (
     <>
       {isLoading ? (
-        <LoadProductList numberOfRenderedProducts={4} />
+        <LoadProductList numberOfRenderedProducts={5} />
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 3xl:grid-cols-5 gap-2">
           {products?.slice(0, 4)?.map((product, i) => (

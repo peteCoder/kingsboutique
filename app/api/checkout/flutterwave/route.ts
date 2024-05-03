@@ -1,4 +1,8 @@
 import { NextResponse } from "next/server";
+import { sanityClient } from "@/lib/client";
+import { ProductSanitySchemaResult } from "@/types";
+import { CartItems, OrderUserSchemaResult } from "@/types";
+import { getServerSession } from "next-auth";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 
@@ -25,70 +29,162 @@ export async function POST(
       customer: { email, phoneNumber, address, name, country, city, orderNote },
     } = await req.json();
 
-    // const {
-    //   productIds,
-    //   amount,
-    //   hasPaid,
-    //   redirectUrl: redirect_url,
-    //   customer: { email, phoneNumber: phonenumber, address, name },
-    // } = await req.json();
-
+    // Static variables
     const tx_ref = uuidv4().split("-").join("");
     const customer_id = uuidv4().split("-").join("");
-
-    const nameOfBusiness = "Store";
+    const nameOfBusiness = "Kings Boutique and Fashion";
     const currency = "NGN";
     const businessLogo =
       "https://res.cloudinary.com/daf9tr3lf/image/upload/v1691106844/qxgu2bbtma4i76x55ea4.png";
 
-    // const allProducts = await db.product.findMany({
-    //   where: {
-    //     id: {
-    //       in: productIds,
-    //     },
-    //   },
-    // });
-    // console.log(allProducts);
+    const session = await getServerSession();
 
-    const response = await axios.post(
-      "https://api.flutterwave.com/v3/payments",
-      {
-        tx_ref,
-        amount: "50",
-        currency,
-        redirect_url,
-        // meta: {
-        //   mac_id: "mac-id-here",
-        //   customer_id: address,
-        // },
-        customer: {
-          email,
-          phonenumber: phoneNumber,
-          name,
-        },
-        customizations: {
-          // Business's name
-          title: nameOfBusiness,
-          // Business's logo
-          logo: businessLogo,
-        },
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.FLUTTERWAVE_SECRET_KEY}`,
-        },
+    const userEmail = session?.user?.email;
+
+    const activeUser = (
+      await sanityClient.fetch(`*[_type == 'account' && email == '${email}']{
+      _id
+    }`)
+    )[0];
+
+    // Get all the products in cart
+    const getProductsByIds = async (productIds: Array<string>) => {
+      const query = `*[_type == 'product' && _id in $ids]`;
+      const params = { ids: productIds };
+      const result = await sanityClient.fetch(query, params);
+      return result;
+    };
+
+    const productsOrdered = await getProductsByIds(productIds);
+
+    if (activeUser && userEmail) {
+      const createShipping = await sanityClient.create({
+        _type: "shipping",
+        email: email,
+        customerName: name,
+        address: address,
+        phone: phoneNumber,
+        city: city,
+        country: country,
+        orderNote: orderNote,
+      });
+
+      if (productsOrdered) {
+        // Create OrderItems
+        const createdOrderItems = await Promise.all(
+          cartItems.map(async (item: any) => {
+            const document = await sanityClient.create({
+              _type: "ordereditem",
+              name: item.name,
+              orderedProduct: { _type: "reference", _ref: item._id },
+              quantity: item.qty,
+              unitPrice: item.price,
+              subtotal: item.totalPrice,
+              size: item.sizeId
+                ? { _type: "reference", _ref: item.sizeId }
+                : undefined,
+              colour: item.colourId
+                ? { _type: "reference", _ref: item.colourId }
+                : undefined,
+            });
+            return document;
+          })
+        );
+
+        const totalAmount = cartItems.reduce(
+          (sum: number, item: any) => sum + item.totalPrice,
+          0
+        );
+
+        // Create Order
+
+        const createOrder = await sanityClient.create({
+          _type: "order",
+          ordereditems: createdOrderItems.map((item) => ({
+            _key: item._id,
+            _ref: item._id,
+          })),
+          customerName: `${name}`,
+          user: { _ref: activeUser._id },
+          totalAmount,
+          orderDate: new Date(),
+          shippingDetails: { _ref: createShipping._id },
+          paymentStatus: "Pending",
+          orderStatus: "Processing",
+        });
+
+        if (createOrder) {
+          // try {
+
+          // } catch (error) {
+
+          // }
+          const response = await axios.post(
+            "https://api.flutterwave.com/v3/payments",
+            {
+              tx_ref,
+              amount: "50",
+              currency,
+              redirect_url,
+              meta: {
+                products_order_id: createOrder._id,
+                customer_id: activeUser._id,
+                // Getting all the product ids for items in cart
+                // To be used in the webhook
+                productIds: JSON.stringify(
+                  cartItems.map((item: ProductSanitySchemaResult) => item._id)
+                ),
+              },
+              customer: {
+                email,
+                phonenumber: phoneNumber,
+                // Since we do not have meta data coming in in our webhook
+                // We would need to update the products so how
+                // So we are sending in the cartItems data as a serialized array
+                // in the name parameter
+                name: `${name}`,
+              },
+              customizations: {
+                // Business's name
+                title: nameOfBusiness,
+                // Business's logo
+                logo: businessLogo,
+              },
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${process.env.FLUTTERWAVE_SECRET_KEY}`,
+              },
+            }
+          );
+
+          const data = await response.data;
+
+          return NextResponse.json(
+            { authorization_url: data.data.link, productIds, status: true },
+            { headers: corsHeader }
+          );
+        }
+      } else {
+        return NextResponse.json(
+          {
+            message: "There must be products in user cart.",
+          },
+          { status: 400 }
+        );
       }
-    );
-
-    const data = await response.data;
-
-    // console.log(data);
-
-    return NextResponse.json(
-      { authorization_url: data.data.link, productIds, status: true },
-      { headers: corsHeader }
-    );
+    } else {
+      return NextResponse.json(
+        { message: "You must be authenticated." },
+        { status: 400 }
+      );
+    }
   } catch (error) {
-    console.log(error);
+    return NextResponse.json(
+      { message: "Something wrong happened" },
+      { status: 500 }
+    );
   }
+
+  return NextResponse.json({ message: "Working" });
 }

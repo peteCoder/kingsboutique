@@ -8,8 +8,10 @@ interface HeadingProps {
 const Heading = ({ title, subTitle }: HeadingProps) => {
   return (
     <div className="uppercase text-center my-8">
-      <h1 className="text-xl md:text-2xl">{title}</h1>
-      <h2 className="text-lg md:text-xl">{subTitle}</h2>
+      <h1 className="text-xl md:text-2xl text-primary font-extrabold">
+        {title}
+      </h1>
+      <h2 className="text-sm md:text-sm">{subTitle}</h2>
     </div>
   );
 };

@@ -7,6 +7,17 @@ import { Button } from "../ui/button";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { GrFavorite } from "react-icons/gr";
 
+// Select Component
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 import {
   Accordion,
   AccordionContent,
@@ -27,6 +38,18 @@ const DetailPageInfo = ({ data }: { data: ProductSanitySchemaResult }) => {
   const cart = useCart();
 
   const favourites = useFavourites();
+
+  const [activeSize, setActiveSize] = useState<string>("");
+  const [activeColour, setActiveColour] = useState<string>("");
+
+  const onChangeSize = (value: string) => {
+    console.log(value);
+    setActiveSize(value);
+  };
+  const onChangeColour = (value: string) => {
+    console.log(value);
+    setActiveColour(value);
+  };
   const productsInFavourites = favourites.displayFavouritesData();
 
   const productHasBeenAddedToFavouritesAlready = (productId: string) => {
@@ -81,7 +104,10 @@ const DetailPageInfo = ({ data }: { data: ProductSanitySchemaResult }) => {
                 if (numberItemsAlreadyInCart >= data?.qty_available) {
                   return;
                 } else {
-                  cart.addItemToCart(data, { sizeId: "", colourId: "" });
+                  cart.addItemToCart(data, {
+                    sizeId: activeSize,
+                    colourId: activeColour,
+                  });
                 }
               }}
             >
@@ -91,7 +117,12 @@ const DetailPageInfo = ({ data }: { data: ProductSanitySchemaResult }) => {
         )}
         {!numberItemsAlreadyInCart ? (
           <Button
-            onClick={() => cart.addItemToCart(data, {sizeId: "", colourId: ""})}
+            onClick={() =>
+              cart.addItemToCart(data, {
+                sizeId: activeSize,
+                colourId: activeColour,
+              })
+            }
             className="uppercase flex gap-1 items-center w-full min-h-[56px] flex-1"
           >
             <HiOutlineShoppingBag size={18} />
@@ -105,6 +136,57 @@ const DetailPageInfo = ({ data }: { data: ProductSanitySchemaResult }) => {
             <Link href={"/checkout"}>Checkout</Link>
           </Button>
         )}
+      </div>
+
+      <div className="flex gap-3 flex-col sm:flex-row">
+        {/* Sizes */}
+        <div className="">
+          {data?.sizes?.length > 0 && (
+            <>
+              <div className="text-gray-500 text-sm mb-2">Sizes</div>
+              <Select onValueChange={onChangeSize} defaultValue="">
+                <SelectTrigger className="md:w-[180px] w-full">
+                  <SelectValue placeholder="Select a size" />
+                </SelectTrigger>
+                <SelectContent className=" z-[1000000]">
+                  <SelectGroup>
+                    <SelectLabel>Sizes</SelectLabel>
+                    {data?.sizes.map((size) => (
+                      <div key={size._id} className="">
+                        <SelectItem value={size._id}>{size.name}</SelectItem>
+                      </div>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </>
+          )}
+        </div>
+        {/* Colours */}
+        <div className="">
+          {data?.colours?.length > 0 && (
+            <>
+              <div className="text-gray-500 text-sm mb-2">Colours</div>
+              <Select onValueChange={onChangeColour} defaultValue="">
+                <SelectTrigger className="md:w-[180px] w-full">
+                  <SelectValue placeholder="Select a colour" />
+                </SelectTrigger>
+                <SelectContent className=" z-[1000000]">
+                  <SelectGroup>
+                    <SelectLabel>Colours</SelectLabel>
+                    {data?.colours.map((colour) => (
+                      <div key={colour._id} className="">
+                        <SelectItem value={colour._id}>
+                          {colour.name}
+                        </SelectItem>
+                      </div>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </>
+          )}
+        </div>
       </div>
 
       <div className="flex-1">

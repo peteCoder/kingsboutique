@@ -20,7 +20,7 @@ const Footer = async () => {
           // backgroundBlendMode: "multiply",
         }
       }
-      className="bg-cover bg-center bg-no-repeat bg-fixed py-[60px] md:px-10 px-[16px] w-full min-h-[40vh] border-t-2 border-t-[#E5E5E5] bg-primary"
+      className="bg-cover bg-center bg-no-repeat bg-fixed py-[60px] md:px-10 px-[16px] w-full min-h-[40vh] border-t-2 border-t-[#E5E5E5] bg-primary mt-7"
     >
       <div className="max-w-[1145px] mx-auto flex justify-center items-center">
         <div className="w-full flex flex-col lg:flex-row gap-8">

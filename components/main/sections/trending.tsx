@@ -7,7 +7,6 @@ import { getCategories } from "@/actions/getCategories";
 import { getProductsBasedOnCategory } from "@/actions/getProductsBasedOnCategory";
 import AllProductsBasedOnCategory from "../AllProductsBasedOnCategory";
 
-
 const Trending = async () => {
   const categories: CategorySanitySchemaResult[] = await getCategories();
 
@@ -18,7 +17,9 @@ const Trending = async () => {
       </div>
       {categories.slice(0, 3).map((category) => (
         <div key={category?._id}>
-          <h2 className="text-xl font-bold my-6">{category?.name}</h2>
+          <h2 className="text-xl font-bold my-6 text-[#3b3b3b]">
+            {category?.name}
+          </h2>
           <AllProductsBasedOnCategory categoryId={category?._id} />
         </div>
       ))}
