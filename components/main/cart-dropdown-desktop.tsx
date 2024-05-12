@@ -1,27 +1,28 @@
 "use client";
-import { BaggageClaim, ShoppingCart, Trash2Icon } from "lucide-react";
-import React, { useEffect, useState } from "react";
 
-import {
-  Menubar,
-  MenubarContent,
-  MenubarMenu,
-  MenubarSeparator,
-  MenubarTrigger,
-} from "@/components/ui/menubar";
 import { useCart } from "@/hooks/useCart";
-import { urlFor } from "@/lib/client";
-import { formatCurrency } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import React, { useEffect, useState } from "react";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { FaBars, FaBinoculars } from "react-icons/fa";
+import { ShoppingCart, Trash2Icon } from "lucide-react";
+import { Button } from "../ui/button";
 import Link from "next/link";
+import { formatCurrency } from "@/lib/utils";
+import { MenubarSeparator } from "../ui/menubar";
+import { urlFor } from "@/lib/client";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 
-const CartDropdown = () => {
+const CartDropdownForDesktop = () => {
   const [pageHasMounted, setPageHasMounted] = useState(false);
 
   const cart = useCart();
-
-  // console.log(cartItems);
 
   useEffect(() => {
     setPageHasMounted(true);
@@ -31,18 +32,19 @@ const CartDropdown = () => {
     return null;
   }
   return (
-    <>
-      <Menubar className="border-none mr-3">
-        <MenubarMenu>
-          <MenubarTrigger className="border-none">
-            <div className="nav-links relative">
-              <ShoppingCart size={20} />
-              <div className="absolute text-[9px] text-white -top-3 -right-4 text-sm bg-primary rounded-full h-6 w-6 flex justify-center items-center">
-                {cart.numberOfItemsInCart()}
-              </div>
+    <div>
+      <Sheet>
+        <SheetTrigger>
+          <div className="nav-links relative">
+            <ShoppingCart size={20} />
+            <div className="absolute text-[9px] text-white -top-3 -right-4 text-sm bg-primary rounded-full h-6 w-6 flex justify-center items-center">
+              {cart.numberOfItemsInCart()}
             </div>
-          </MenubarTrigger>
-          <MenubarContent className="sm:mr-3 min-h-[20vh] max-w-[400px] flex justify-center items-center">
+          </div>
+        </SheetTrigger>
+        <SheetContent className="p-0 w-full">
+          <h2 className="text-2xl mt-3 mb-3 font-extrabold mx-2">Cart</h2>
+          <div className="mt-10">
             {!(cart.cartItems.length > 0) ? (
               <div className="h-full w-full flex justify-center items-center">
                 <div className="flex items-center justify-center flex-col-reverse text-gray-400 h-full w-full gap-3">
@@ -57,17 +59,24 @@ const CartDropdown = () => {
                   {cart.cartItems.slice(0, 3).map((item) => (
                     <div
                       key={item._id}
-                      className="grid grid-cols-3 gap-7 justify-around items-center"
+                      className="grid grid-cols-3 gap-5 md:gap-7 justify-around items-center mb-3"
                     >
-                      <div
-                        style={{
-                          backgroundImage: `url(${urlFor(item?.imageUrl)})`,
-                        }}
-                        className="bg-center bg-no-repeat bg-cover h-20 w-20 rounded-2xl"
-                      ></div>
+                      <div className="">
+                        <div
+                          style={{
+                            backgroundImage: `url(${urlFor(item?.imageUrl)})`,
+                          }}
+                          className="bg-center bg-no-repeat bg-cover h-20 w-20 rounded-2xl"
+                        ></div>
+                        <div className="text-[10px] text-gray-700 block sm:hidden">
+                          {item?.name}
+                        </div>
+                      </div>
 
                       <div className="">
-                        <div className="text-sm">{item?.name}</div>
+                        <div className="text-sm hidden sm:block">
+                          {item?.name}
+                        </div>
                         <div className="text-sm text-gray-700">
                           {item?.qty} <span>&#215;</span>{" "}
                           {formatCurrency(item?.price)}
@@ -88,14 +97,11 @@ const CartDropdown = () => {
                   <MenubarSeparator />
                   {cart.cartItems.length > 0 && (
                     <div className="px-4 py-2 mb-2">
-                      <div className="grid grid-cols-3 justify-between uppercase mb-4">
+                      <div className="flex justify-between uppercase mb-4">
                         <span>subtotal:</span>
-                        <span></span>
-                        <span className="flex justify-end">
-                          {formatCurrency(cart.absoluteTotal())}
-                        </span>
+                        <span>{formatCurrency(cart.absoluteTotal())}</span>
                       </div>
-                      <Button asChild className="w-full">
+                      <Button asChild className="w-full py-3">
                         <Link href={"/checkout"} className="text-[17px]">
                           Proceed to checkout
                         </Link>
@@ -114,11 +120,11 @@ const CartDropdown = () => {
                 </div>
               </>
             )}
-          </MenubarContent>
-        </MenubarMenu>
-      </Menubar>
-    </>
+          </div>
+        </SheetContent>
+      </Sheet>
+    </div>
   );
 };
 
-export default CartDropdown;
+export default CartDropdownForDesktop;

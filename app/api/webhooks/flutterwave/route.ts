@@ -26,8 +26,13 @@ export async function POST(req: Request) {
       { status: 401, headers: corsHeader }
     );
   }
+
+  console.log("SECRET: ", secret);
+  console.log("SIGNATURE: ", signature);
+
   const payload = await req.json();
   // Checking the events comming in to know what action to take
+  console.log("PAYLOAD: ", payload);
 
   const getProduct = async (id: string) => {
     const product = await sanityClient.fetch(
@@ -108,7 +113,9 @@ export async function POST(req: Request) {
     console.log("PAYMENT OR TRANSACTION EXISTS");
   } else {
     // Else, do not modify the order payment status -- Do nothing
-    console.log("PAYMENT OR TRANSACTION DOES NOT EXIST");
+    console.log(
+      "PAYMENT OR TRANSACTION DOES NOT EXIST -- PAYLOAD NOT COMING IN"
+    );
   }
 
   return NextResponse.json(

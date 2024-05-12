@@ -1,12 +1,6 @@
-import Navbar from "@/components/main/sections/navbar";
-import React from "react";
-
-const ProductListPage = () => {
-  return (
-    <main>
-      <Navbar />
-    </main>
-  );
+import { redirect } from "next/navigation";
+const Products = () => {
+  return redirect("/shop");
 };
 
-export default ProductListPage;
+export default Products;

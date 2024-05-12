@@ -4,13 +4,10 @@ import { getCategories } from "@/actions/getCategories";
 import { redirect } from "next/navigation";
 import { CategorySanitySchemaResult } from "@/types";
 import Image from "next/image";
+import CategoryLink from "@/components/categoryLink";
 
 const Footer = async () => {
   const categories: CategorySanitySchemaResult[] = await getCategories();
-
-  const goToCategory = () => {
-    redirect(`/shop`);
-  };
 
   return (
     <div
@@ -41,13 +38,7 @@ const Footer = async () => {
               <h2 className="text-white text-[18px] font-[700]">Categories</h2>
               <div className="text-white text-[16px] bold-[300] flex flex-col space-y-2">
                 {categories.slice(0, 6).map((category) => (
-                  <Link
-                    key={category._id}
-                    className="hover:text-white transition-all duration-300"
-                    href="/shop"
-                  >
-                    {category.name}
-                  </Link>
+                  <CategoryLink key={category._id} category={category} />
                 ))}
               </div>
             </div>
@@ -89,7 +80,7 @@ const Footer = async () => {
                   className="hover:text-white transition-all duration-300"
                   href="/"
                 >
-                  support@kingsboutiue.com
+                  support@kingsboutique.store
                 </Link>
                 <Link
                   className="hover:text-white transition-all duration-300"

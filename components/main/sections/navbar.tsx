@@ -1,6 +1,5 @@
 "use client";
 
-
 import Link from "next/link";
 import React from "react";
 import { Button } from "../../ui/button";
@@ -11,6 +10,7 @@ import { useSession } from "next-auth/react";
 import ProfileLoginDialog from "../profile-login-dialog";
 import { GrFavorite } from "react-icons/gr";
 import { useRouter } from "next/navigation";
+import CartDropdownForDesktop from "../cart-dropdown-desktop";
 
 const Navbar = () => {
   // Get the user data from the session upon login
@@ -26,13 +26,6 @@ const Navbar = () => {
           <div className="md:flex md:items-center py-4 px-4">
             {/* Logo */}
             <div className="w-[127.34px] hidden md:block">
-              {/* <Image
-                className="w-[123.34px] h-[76.98px]"
-                src={"/j-logo-bg-removed-2.png"}
-                alt="logo"
-                width={791}
-                height={489}
-              /> */}
               <span className="text-primary font-bold text-3xl mt-5">KB&F</span>
             </div>
             {/* Nav Items */}
@@ -58,7 +51,6 @@ const Navbar = () => {
               {/* For Mobile screens */}
             </nav>
 
-            
             {/* Nav Icons */}
             <div className="flex items-center text-[14px] justify-between md:gap-2">
               <div className="block md:hidden nav-links">
@@ -75,8 +67,13 @@ const Navbar = () => {
                 </Button>
               )}
               <ProfileLoginDialog />
-
-              <CartDropdown />
+              {/* This should be hidden for smaller screen device */}
+              <div className="hidden md:block">
+                <CartDropdown />
+              </div>
+              <div className="block md:hidden">
+                <CartDropdownForDesktop />
+              </div>
             </div>
           </div>
         </div>

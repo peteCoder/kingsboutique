@@ -123,7 +123,7 @@ export async function POST(
             "https://api.flutterwave.com/v3/payments",
             {
               tx_ref,
-              amount: "50",
+              amount: amount,
               currency,
               redirect_url,
               meta: {
