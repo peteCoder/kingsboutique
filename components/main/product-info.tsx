@@ -37,10 +37,19 @@ const ProductInfo = ({ data }: { data: ProductSanitySchemaResult }) => {
   const onChangeSize = (value: string) => {
     console.log(value);
     setActiveSize(value);
+    cart.addSizeAndColour(data, {
+      sizeId: value,
+      colourId: activeColour,
+    });
   };
   const onChangeColour = (value: string) => {
     console.log(value);
     setActiveColour(value);
+
+    cart.addSizeAndColour(data, {
+      sizeId: activeSize,
+      colourId: value,
+    });
   };
 
   console.log("PRODUCT SIZES: ", data?.sizes);

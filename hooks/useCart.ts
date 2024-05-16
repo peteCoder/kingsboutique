@@ -42,6 +42,12 @@ interface CartStore {
   ) => void;
   removeItemFromCart: (_id: string) => void;
   resetCart: () => void;
+  addSizeAndColour: (
+    data: ProductSanitySchemaResult,
+    otherProperties:
+      | { colourId: string | undefined; sizeId: string | undefined }
+      | undefined
+  ) => void;
   incrementProductInCart: (_id: string) => void;
   deleteItemFromCart: (_id: string) => void;
   numberOfItemsInCart: () => number;
@@ -105,6 +111,40 @@ export const useCart = create(
           // console.log("Item was added to cart successfully.");
           toast.success("Item was added to cart successfully.");
         }
+      },
+
+      addSizeAndColour: (data, otherProperties) => {
+        const cart = get().cartItems;
+        //   Check if data _id already exists in exisingData
+        //   If it does, increase the number of items
+        //   If not number of items should be 1
+
+        //   Check by filtering data
+        const existingProductData = cart.find((item) => item._id === data._id);
+
+        if (existingProductData) {
+          const itemToConsider = {
+            ...existingProductData,
+            qty: existingProductData.qty,
+            totalPrice: (existingProductData.qty) * data?.price,
+            imageUrl: data?.gallery[0]?.imageUrl,
+            name: data?.name,
+            sizeId: otherProperties?.sizeId,
+            colourId: otherProperties?.colourId,
+            _key: existingProductData._key,
+          };
+          const otherProductDataInList = cart.filter(
+            (item) => item._id !== data._id
+          );
+          // Check how you can best sort this array of items
+          const items = [itemToConsider, ...otherProductDataInList];
+
+          set({ cartItems: items });
+
+          // Replace console.log with toast provider
+          console.log("Item colour was changed successfully!");
+        }
+
       },
       incrementProductInCart: (_id) => {
         const cart = get().cartItems;

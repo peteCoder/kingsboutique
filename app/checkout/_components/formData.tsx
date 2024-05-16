@@ -97,33 +97,7 @@ const FormData = ({
       setHasLoadedPaymentGateways(true);
     }, 3000);
 
-    // const shippingData = values;
-    // const orderItems = cart.getAllOrderItems();
-    // const userData = {
-    //   name: session?.user?.name,
-    //   image: session?.user?.image,
-    //   email: session?.user?.email,
-    // };
-
-    // const allData = {
-    //   userData,
-    //   orderItems,
-    //   shippingData,
-    // };
-
-    // try {
-    //   const response = await axios.post("/api/checkout", allData);
-    //   const data = response.data;
-    //   if (response.status === 200) {
-    //     console.log("Data was successfully received.");
-    //   } else {
-    //     console.log("Something went wrong");
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
-
-    // console.log(allData);
+    
   }
 
   useEffect(() => {
@@ -158,7 +132,7 @@ const FormData = ({
                     <FormControl>
                       <Input
                         className="placeholder:font-light bg-gray-100 focus:bg-white"
-                        placeholder="shadcn"
+                        placeholder="James"
                         required
                         {...field}
                       />
@@ -178,7 +152,7 @@ const FormData = ({
                     <FormControl>
                       <Input
                         className="placeholder:font-light bg-gray-100 focus:bg-white"
-                        placeholder="shadcn"
+                        placeholder="Doe"
                         required
                         {...field}
                       />
