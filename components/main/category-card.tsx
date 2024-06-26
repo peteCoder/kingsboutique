@@ -32,25 +32,25 @@ const CategoryCard: React.FC<CategoryProps> = ({
 
   return (
     <div
+      data-aos="fade-up"
+      data-aos-once={true}
+      onClick={() =>
+        goToCategory({
+          _id: featuredCategory._id,
+          name: featuredCategory.name,
+        })
+      }
       style={{
         backgroundImage: `url(${urlFor(featuredCategory?.bannerImage)?.url()})`,
       }}
       className={cn(
-        "min-h-[340px] bg-center bg-no-repeat bg-cover rounded-2xl flex items-center justify-center bg-[#f1f5f9]",
+        "min-h-[340px] bg-center bg-no-repeat bg-cover rounded-2xl flex items-end justify-center bg-[#f1f5f9] dark:bg-muted p-5 cursor-pointer group",
         index === 1 && "md:row-span-2 bg-top",
         index === 3 && "bg-left",
         index === 5 && "md:col-span-2"
       )}
     >
-      <Button
-        onClick={() =>
-          goToCategory({
-            _id: featuredCategory._id,
-            name: featuredCategory.name,
-          })
-        }
-        className="bg-white/60 text-black hover:text-white min-w-[120px] min-h-[50px] uppercase text-lg"
-      >
+      <Button className="bg-primary text-white hover:text-white min-w-[120px] w-full min-h-[50px] uppercase text-lg">
         {name}
       </Button>
     </div>

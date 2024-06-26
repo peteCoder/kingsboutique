@@ -4,7 +4,11 @@ import React from "react";
 
 const GithubButton = () => {
   return (
-    <Button onClick={() => signIn("github")} variant={"outline"}>
+    <Button
+      onClick={() => signIn("github")}
+      variant={"outline"}
+      className="py-5 dark:bg-white"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 50 50"

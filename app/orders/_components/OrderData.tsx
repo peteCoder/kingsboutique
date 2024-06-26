@@ -43,7 +43,7 @@ const OrderData = ({ orders }: { orders: any }) => {
                       <div className="flex justify-between">
                         <Link
                           href={`/product/${item?.orderedProduct?._id}`}
-                          className="text-lg md:text-2xl font-semibold text-black hover:text-primary"
+                          className="text-lg md:text-2xl font-semibold text-black hover:text-primary dark:text-white"
                         >
                           {item?.name}
                         </Link>

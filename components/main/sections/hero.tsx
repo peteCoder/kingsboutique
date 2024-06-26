@@ -3,7 +3,7 @@ import { CarouselTransition } from "../hero-carousel";
 import { getHeroBanners } from "@/actions/getHeroBanner";
 import { HeroBannerSchemaResult } from "@/types";
 
-const Hero = async () => {
+const    Hero = async () => {
   const heroBanner: HeroBannerSchemaResult[] = await getHeroBanners();
 
   // console.log(heroBanner);

@@ -18,7 +18,6 @@ import GithubButton from "@/app/cart/_components/buttons/GithubButton";
 import { UserProfileDropdown } from "../user-profile-dropdown";
 import { useParams } from "next/navigation";
 
-
 const ProfileLoginDialog = () => {
   // Get the user data from the session upon login
   const { data: session } = useSession();
@@ -40,10 +39,12 @@ const ProfileLoginDialog = () => {
                 <HiOutlineUser size={20} />
               </div>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-md px-2">
+            <DialogContent className="sm:max-w-md px-6">
               <DialogHeader>
-                <DialogTitle className="text-2xl">Login</DialogTitle>
-                <DialogDescription>
+                <DialogTitle className="text-2xl md:text-3xl">
+                  Login
+                </DialogTitle>
+                <DialogDescription className="dark:text-white">
                   Please login with any of these auth providers.
                 </DialogDescription>
               </DialogHeader>

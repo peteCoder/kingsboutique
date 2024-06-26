@@ -58,7 +58,7 @@ const ProductsList = () => {
   }, []);
 
   if (!hasMounted) {
-    return <LoadProductList />;
+    return <LoadProductList numberOfRenderedProducts={8} />;
   }
 
   return (
@@ -72,7 +72,7 @@ const ProductsList = () => {
             onClick={() => filteredData.removeAllFilter()}
             className="text-[16px] md:text-xl text-primary p-3 cursor-pointer flex items-center gap-2"
           >
-            {(categoryId || sizeId) && (
+            {(categoryId || sizeId || colourId) && (
               <Button>
                 <FaFilter color="#fff" size={20} /> clear
               </Button>
@@ -80,7 +80,7 @@ const ProductsList = () => {
           </div>
         </div>
         {loadProducts ? (
-          <LoadProductList />
+          <LoadProductList numberOfRenderedProducts={8} />
         ) : (
           <div className="">
             {products.length > 0 ? (

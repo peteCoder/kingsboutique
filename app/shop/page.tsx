@@ -24,19 +24,19 @@ const Shop = () => {
           <div
             onClick={() => setFilterSideOpen(false)}
             className={cn(
-              "overlay lg:hidden z-[3000] bg-white w-full h-screen fixed top-0 left-0 opacity-50 backdrop-blur-md duration-300",
+              "overlay lg:hidden z-[3000] bg-white dark:bg-muted w-full h-screen fixed top-0 left-0 opacity-50 backdrop-blur-md duration-300",
               filterSideOpen ? "visible" : "invisible"
             )}
           ></div>
           <div
             className={cn(
-              "fixed top-0 left-0 w-[85%] sm:w-[300px] block lg:hidden bg-white h-screen z-[4000] shadow-md -translate-x-[100%] duration-700",
+              "fixed top-0 left-0 w-[85%] sm:w-[300px] block lg:hidden bg-white dark:bg-muted h-screen z-[4000] shadow-md -translate-x-[100%] duration-700",
               filterSideOpen ? "translate-x-0" : "-translate-x-[100%]"
             )}
           >
             <div
               onClick={() => setFilterSideOpen(false)}
-              className="border-b py-4  md:px-2 flex items-center justify-between text-gray-800 px-3 font-bold"
+              className="border-b py-4  md:px-2 flex items-center justify-between text-gray-800 dark:text-white px-3 font-bold"
             >
               <span>Close</span>
               <span className="text-xl cursor-pointer">x</span>

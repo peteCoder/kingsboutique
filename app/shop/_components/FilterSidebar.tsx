@@ -90,7 +90,7 @@ const FilterSidebar = () => {
 
   return (
     <div className="py-2 overflow-auto flex flex-col my-5 px-2">
-      <div className="">
+      <div className="sticky top-0 left-0 pt-5 mt-5">
         {loadCategories || loadSizes || loadColours ? (
           <LoadFilter />
         ) : (
@@ -138,8 +138,9 @@ const FilterSidebar = () => {
                     {sizes.map((size: any) => (
                       <Button
                         className={cn(
-                          "bg-white text-black hover:text-white px-3 h-9 w-9 flex items-center justify-center hover:bg-primary",
-                          size?._id === sizeId && "bg-primary text-white"
+                          "bg-white dark:bg-transparent dark:text-white border  dark:border-white text-black hover:text-white px-3 h-9 w-9 flex items-center justify-center hover:bg-primary",
+                          size?._id === sizeId &&
+                            "bg-primary text-white dark:bg-white dark:text-black"
                         )}
                         onClick={(e) => {
                           selectSize({
@@ -173,7 +174,7 @@ const FilterSidebar = () => {
                         className={cn(
                           "hover:text-white h-5 w-5 rounded-full mt-4 mb-4 flex items-center justify-center hover:opacity-70 outline outline-1 outline-gray-400",
                           colour?._id === colourId &&
-                            "outline-black outline outline-5 text-white"
+                            "outline-black dark:outline-white outline outline-5 text-white"
                         )}
                         onClick={(e) => {
                           selectColour({

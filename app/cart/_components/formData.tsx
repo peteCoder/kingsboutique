@@ -21,7 +21,6 @@ const CartFormData = () => {
     setLoadingCheckout(true);
     if (session?.user?.name) {
       setTimeout(() => {
-        setLoadingCheckout(false);
         router.push("/checkout");
       }, 4000);
     } else {

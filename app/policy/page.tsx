@@ -13,7 +13,7 @@ const PrivacyPolicyPage = () => {
           backgroundImage: `url('/j-logo-bg-removed-2.png')`,
           backgroundBlendMode: "multiply",
         }}
-        className="min-h-screen bg-left bg-no-repeat bg-fixed w-full bg-primary px-2 py-10 md:py-0"
+        className="min-h-screen bg-left bg-no-repeat bg-fixed w-full bg-primary dark:bg-muted px-2 py-10 md:py-0"
       >
         <div className="flex justify-center items-center flex-col">
           <div className="w-full flex flex-col justify-start pt-16 items-center relative">
@@ -68,8 +68,8 @@ const PrivacyPolicyPage = () => {
                   and improving our services. We may also use your information
                   to send you promotional emails and updates, but you can
                   opt-out at any time. If you have any questions or concerns
-                  about our Privacy Policy, please contact us at [Contact
-                  Email].
+                  about our Privacy Policy, please contact us at
+                  Kingboutique1000@gmail.com.
                 </p>
                 <p>
                   2.2 KingsBoutique employs industry-standard security measures
@@ -85,7 +85,7 @@ const PrivacyPolicyPage = () => {
               </h2>
               <p>
                 3.1 KingsBoutique utilizes secure payment gateways, including
-                but not limited to Paystack and Flutterwave, to process
+                but not limited to Flutterwave, to process
                 transactions. By making a purchase through our website, you
                 agree to abide by the terms and conditions of the selected
                 payment gateway.
@@ -149,7 +149,7 @@ const PrivacyPolicyPage = () => {
               </h2>
               <p>
                 8.1 These Terms of Service are governed by and construed in
-                accordance with the laws of [Your Jurisdiction].
+                accordance with the laws of Nigeria.
               </p>
 
               <h2 className="text-xl font-semibold mt-6 mb-2">
@@ -157,7 +157,7 @@ const PrivacyPolicyPage = () => {
               </h2>
               <p>
                 9.1 If you have any questions or concerns about these terms,
-                please contact us at [Contact Email].
+                please contact us at Kingboutique1000@gmail.com.
               </p>
 
               <p>

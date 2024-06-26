@@ -68,16 +68,16 @@ const CartDropdownForDesktop = () => {
                           }}
                           className="bg-center bg-no-repeat bg-cover h-20 w-20 rounded-2xl"
                         ></div>
-                        <div className="text-[10px] text-gray-700 block sm:hidden">
+                        <div className="text-[10px] text-gray-700 dark:text-white block sm:hidden">
                           {item?.name}
                         </div>
                       </div>
 
-                      <div className="">
+                      <div className="dark:text-white text-gray-700">
                         <div className="text-sm hidden sm:block">
                           {item?.name}
                         </div>
-                        <div className="text-sm text-gray-700">
+                        <div className="text-sm ">
                           {item?.qty} <span>&#215;</span>{" "}
                           {formatCurrency(item?.price)}
                         </div>

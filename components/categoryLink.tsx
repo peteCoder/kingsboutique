@@ -26,7 +26,7 @@ const CategoryLink = ({
   return (
     <div
       key={category._id}
-      className="hover:text-white transition-all duration-300 cursor-pointer"
+      className="hover:text-primary transition-all duration-300 cursor-pointer"
       onClick={goToCategory}
     >
       {category.name}

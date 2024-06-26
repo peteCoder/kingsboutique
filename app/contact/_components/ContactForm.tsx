@@ -66,7 +66,7 @@ const ContactForm = () => {
         <input
           type="text"
           placeholder="Your Name"
-          className="w-full h-full outline-none text-[15px] px-[20px] placeholder:text-[rgba(10,20,47,1)]"
+          className="w-full h-full outline-none text-[15px] px-[20px] bg-white dark:text-black"
           {...register("name")}
         />
       </div>
@@ -75,7 +75,7 @@ const ContactForm = () => {
         <input
           type="text"
           placeholder="Your Email"
-          className="w-full h-full outline-none text-[15px] px-[20px] placeholder:text-gray"
+          className="w-full h-full outline-none text-[15px] px-[20px] placeholder:text-gray bg-white dark:text-black"
           {...register("email")}
         />
       </div>
@@ -84,7 +84,7 @@ const ContactForm = () => {
         <input
           type="text"
           placeholder="Subject"
-          className="w-full h-full outline-none text-[15px] px-[20px]"
+          className="w-full h-full outline-none text-[15px] px-[20px] bg-white dark:text-black"
           {...register("subject")}
         />
       </div>
@@ -93,7 +93,7 @@ const ContactForm = () => {
       <div className="border-[#5e5d5d] border rounded-[5px] outline-none overflow-hidden">
         <textarea
           placeholder="Message"
-          className="w-full h-full outline-none text-[15px] px-[20px] py-[10px]"
+          className="w-full h-full outline-none text-[15px] px-[20px] py-[10px] bg-white dark:text-black"
           id=""
           cols={30}
           rows={10}
@@ -105,7 +105,7 @@ const ContactForm = () => {
       <div className="flex flex-row items-center"></div>
 
       <div>
-        <Button className="h-16 text-[19px] w-full inline-block bg-primary text-white rounded-[10px]">
+        <Button className="h-16 text-[19px] w-full inline-block bg-primary dark:bg-muted text-white rounded-[10px]">
           {isLoading ? <BeatLoader size={15} color="#ffffff" /> : <>Send</>}
         </Button>
       </div>

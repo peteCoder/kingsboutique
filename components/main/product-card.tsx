@@ -18,6 +18,9 @@ import { useCart } from "@/hooks/useCart";
 import { useFavourites } from "@/hooks/useFavourites";
 import { toast } from "react-hot-toast";
 
+// import ScrollAnimation from "react-animate-on-scroll";
+// import "animate.css/animate.compat.css";
+
 // Type
 interface ProductProps {
   index: number;
@@ -76,12 +79,14 @@ const ProductCard: React.FC<ProductProps> = ({ index, product }) => {
 
   return (
     <div
+      data-aos="fade-up"
+      data-aos-once={true}
       className="text-center p-2 sm:p-0"
       onClick={() =>
         product.qty_available > 0 && router.push(`/product/${product?._id}`)
       }
     >
-      <div className="relative group duration-700 min-h-[300px] md:min-h-[350px] bg-[#f1f5f9] overflow-hidden">
+      <div className="relative group duration-700 min-h-[300px] md:min-h-[350px] bg-muted rounded-t-md overflow-hidden">
         <div className="absolute top-0 right-0 flex flex-col space-y-2 z-10 group-hover:opacity-100 opacity-0 translate-x-[100%] group-hover:translate-x-0 duration-700 mr-3 mt-2">
           <div
             className="bg-white hover:bg-primary hover:text-white cursor-pointer duration-700 text-black w-10 h-10 rounded-full m-1 flex items-center justify-center"
@@ -153,7 +158,7 @@ const ProductCard: React.FC<ProductProps> = ({ index, product }) => {
       {/* Details to transform onhover */}
       <div className="relative">
         {/* Continue from here */}
-        <div className="bg-white hover:bg-opacity-70 bg-opacity-100 mb-4 text-left border flex flex-col p-2 gap-4 py-5 group hover:-translate-y-20 duration-700">
+        <div className="bg-white dark:bg-muted bg-opacity-100 mb-4 text-left border flex flex-col p-2 gap-4 py-5 group duration-700">
           {/* w-[250px] md:w-[280px] mx-auto */}
           {/* Add Ratings here */}
           {product?.ratings && (
@@ -166,133 +171,18 @@ const ProductCard: React.FC<ProductProps> = ({ index, product }) => {
             </div>
           )}
           <div className="space-y-1">
-            <div className="text-[19px] text-[#424141] font-bold">
+            <div className="text-[19px] text-[#424141] dark:text-white font-bold">
               {formatCurrency(product?.price)}
             </div>
-            <div className="text-[16px] text-[#191919] font-bold text-primary">
+            <div className="text-[16px] font-bold text-primary">
               {product?.name}
             </div>
             {product?.description && (
-              <div className="text-[14px] text-[#191919] font-light ">
+              <div className="text-[14px] text-[#191919] dark:text-white font-light ">
                 {product?.description?.slice(0, 25)}..
               </div>
             )}
           </div>
-
-          {/* Smaller Images */}
-          {/* <div className="flex items-center gap-3">
-            {product?.gallery?.slice(0, 2)?.map((product) => (
-              <div
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setactiveImageUrl(urlFor(product?.imageUrl)?.url());
-                }}
-                key={product._id}
-                className={cn(
-                  "h-10 w-auto rounded-xl overflow-hidden  md:h-[50px] md:w-auto bg-[#f1f5f9]",
-                  urlFor(product?.imageUrl)?.url() === activeImageUrl &&
-                    "border-2 border-primary"
-                )}
-              >
-                <Image
-                  className="w-full h-full object-cover"
-                  width={100}
-                  height={100}
-                  src={urlFor(product?.imageUrl)?.url()}
-                  alt="product-image"
-                />
-              </div>
-            ))}
-          </div> */}
-          {/* Sizes */}
-          {/* <div className="flex items-center gap-1">
-            {product?.sizes?.length > 0 && (
-              <>
-                {product?.sizes?.map((size) => (
-                  <Button
-                    className={cn(
-                      "bg-gray-500/20 text-black hover:text-white px-3 py-4 h-0",
-                      size?._id === activeSize && "bg-primary text-white"
-                    )}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setActiveSize(size?._id);
-                    }}
-                    key={size?._id}
-                  >
-                    {size?.code}
-                  </Button>
-                ))}
-              </>
-            )}
-          </div> */}
-          {/* Faric Texture */}
-          {/* <>
-            {product?.colours?.length > 0 && (
-              <div className="flex items-center gap-1 flex-wrap">
-                {product?.colours?.map((colour) => (
-                  <div
-                    key={colour?._id}
-                    style={{ backgroundColor: `${colour?.code}` }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setActiveColour(colour?._id);
-                    }}
-                    className={cn(
-                      "h-8 w-8 rounded-full",
-                      colour?._id === activeColour &&
-                        "outline-4 outline outline-black"
-                    )}
-                  ></div>
-                ))}
-              </div>
-            )}
-          </> */}
-
-          {/* Button to add to cart */}
-          {/* <>
-            {product.qty_available <= 0 ? (
-              <div className="flex justify-center items-center opacity-0 group-hover:opacity-100 duration-700 ">
-                <Button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                  }}
-                  className="uppercase flex gap-1 items-center opacity-20"
-                >
-                  <HiOutlineShoppingBag size={18} />
-                  <span>Sold out</span>
-                </Button>
-              </div>
-            ) : (
-              <div className="flex justify-center items-center opacity-0 group-hover:opacity-100 duration-700 ">
-                <Button
-                  onClick={(e) => {
-                    e.stopPropagation();
-
-                    if (numberItemsAlreadyInCart >= data?.qty_available) {
-                      toast.success(
-                        "Number of item is more than the available quantity"
-                      );
-                      return;
-                    } else {
-                      cart.addItemToCart(data, {
-                        sizeId: activeSize,
-                        colourId: activeColour,
-                      });
-                    }
-                  }}
-                  className={cn(
-                    `uppercase flex gap-1 items-center`,
-                    numberItemsAlreadyInCart >= data?.qty_available &&
-                      "opacity-50"
-                  )}
-                >
-                  <HiOutlineShoppingBag size={18} />
-                  <span>Add to cart</span>
-                </Button>
-              </div>
-            )}
-          </> */}
         </div>
       </div>
     </div>

@@ -131,8 +131,8 @@ const FormData = ({
                     <FormLabel>First Name</FormLabel>
                     <FormControl>
                       <Input
-                        className="placeholder:font-light bg-gray-100 focus:bg-white"
-                        placeholder="James"
+                        className="placeholder:font-light"
+                        placeholder="John"
                         required
                         {...field}
                       />
@@ -151,7 +151,7 @@ const FormData = ({
                     <FormLabel>Last Name</FormLabel>
                     <FormControl>
                       <Input
-                        className="placeholder:font-light bg-gray-100 focus:bg-white"
+                        className="placeholder:font-light "
                         placeholder="Doe"
                         required
                         {...field}
@@ -172,7 +172,7 @@ const FormData = ({
                   <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input
-                      className="placeholder:font-light bg-gray-100"
+                      className="placeholder:font-light"
                       placeholder="email@gmail.com"
                       {...field}
                       required
@@ -192,7 +192,7 @@ const FormData = ({
                   <FormLabel>Phone</FormLabel>
                   <FormControl>
                     <Input
-                      className="placeholder:font-light bg-gray-100"
+                      className="placeholder:font-light "
                       placeholder="09073828343"
                       {...field}
                       required
@@ -212,7 +212,7 @@ const FormData = ({
                   <FormLabel>Address</FormLabel>
                   <FormControl>
                     <Input
-                      className="placeholder:font-light bg-gray-100 focus:bg-white"
+                      className="placeholder:font-light"
                       placeholder="Type your address here"
                       required
                       {...field}
@@ -231,7 +231,7 @@ const FormData = ({
                   <FormLabel>Country</FormLabel>
                   <FormControl>
                     <Input
-                      className="placeholder:font-light bg-gray-100 focus:bg-white"
+                      className="placeholder:font-light "
                       placeholder="Nigeria"
                       required
                       {...field}
@@ -250,7 +250,7 @@ const FormData = ({
                   <FormLabel>City</FormLabel>
                   <FormControl>
                     <Input
-                      className="placeholder:font-light bg-gray-100 focus:bg-white"
+                      className="placeholder:font-light "
                       placeholder="Benin"
                       required
                       {...field}
@@ -270,7 +270,7 @@ const FormData = ({
                   <FormLabel>Order Note</FormLabel>
                   <FormControl>
                     <Textarea
-                      className="placeholder:font-light bg-gray-100 focus:bg-white"
+                      className="placeholder:font-light "
                       placeholder="Type your order note."
                       {...field}
                     />

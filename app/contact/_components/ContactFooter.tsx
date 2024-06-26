@@ -13,38 +13,33 @@ function ContactFooter() {
         {/* Copy Right */}
         <div>
           <span className="text-[#ffffff] text-[14px]">
-            © 2023 KingsBoutique. All rights reserved.{" "}
+            © 2023 Kings Boutique. All rights reserved.{" "}
           </span>
         </div>
         {/* Socials */}
         <div className="flex items-center space-x-4">
           <a
             className="flex justify-center items-center w-[50px] h-[50px] rounded-full bg-[#ffffff]"
-            href="https://www.facebook.com"
+            href="https://www.facebook.com/profile.php?id=100035665735925"
           >
-            <Image width={33} height={33}
-              className="w-[8.93px] h-[14.39px]"
-              src="/images/facebook.png"
+            <Image
+              width={33}
+              height={33}
+              // className="w-[13.93px] h-[19.39px]"
+              className="w-[28px] h-[28px]"
+              src="/images/facebook.svg"
               alt=""
             />
           </a>
           <a
             className="flex justify-center items-center w-[50px] h-[50px] rounded-full bg-[#ffffff]"
-            href="https://www.instagram.com"
+            href="https://wa.me/c/2348039591896"
           >
-            <Image width={33} height={33}
-              className="w-[13px] h-[13px]"
-              src="/images/instagram.png"
-              alt=""
-            />
-          </a>
-          <a
-            className="flex justify-center items-center w-[50px] h-[50px] rounded-full bg-[#ffffff]"
-            href="https://www.twitter.com"
-          >
-            <Image width={33} height={33}
-              className="w-[14.29px] h-[11.69px]"
-              src="/images/twitter.png"
+            <Image
+              width={33}
+              height={33}
+              className="w-[30px] h-[30px]"
+              src="/images/whatsapp.svg"
               alt=""
             />
           </a>

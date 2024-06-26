@@ -5,14 +5,7 @@ import React, { useState } from "react";
 
 import { FaBars } from "react-icons/fa";
 
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Link from "next/link";
 
 import Image from "next/image";
@@ -53,17 +46,30 @@ const MobileMenu = () => {
               <div className="flex items-center justify-center flex-wrap gap-4">
                 <a
                   className="flex justify-center items-center w-[50px] h-[50px] rounded-full bg-[#ffffff]"
-                  href="https://www.facebook.com"
+                  href="https://www.facebook.com/profile.php?id=100035665735925"
                 >
                   <Image
                     width={33}
                     height={33}
-                    className="w-[8.93px] h-[14.39px]"
-                    src="/images/facebook.png"
+                    // className="w-[13.93px] h-[19.39px]"
+                    className="w-[28px] h-[28px]"
+                    src="/images/facebook.svg"
                     alt=""
                   />
                 </a>
                 <a
+                  className="flex justify-center items-center w-[50px] h-[50px] rounded-full bg-[#ffffff]"
+                  href="https://wa.me/c/2348039591896"
+                >
+                  <Image
+                    width={33}
+                    height={33}
+                    className="w-[30px] h-[30px]"
+                    src="/images/whatsapp.svg"
+                    alt=""
+                  />
+                </a>
+                {/* <a
                   className="flex justify-center items-center w-[50px] h-[50px] rounded-full bg-[#ffffff]"
                   href="https://www.instagram.com"
                 >
@@ -86,7 +92,7 @@ const MobileMenu = () => {
                     src="/images/twitter.png"
                     alt=""
                   />
-                </a>
+                </a> */}
               </div>
             </div>
           </nav>

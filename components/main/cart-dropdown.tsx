@@ -67,8 +67,10 @@ const CartDropdown = () => {
                       ></div>
 
                       <div className="">
-                        <div className="text-sm">{item?.name}</div>
-                        <div className="text-sm text-gray-700">
+                        <div className="text-sm dark:text-white">
+                          {item?.name}
+                        </div>
+                        <div className="text-sm text-gray-700 dark:text-white">
                           {item?.qty} <span>&#215;</span>{" "}
                           {formatCurrency(item?.price)}
                         </div>

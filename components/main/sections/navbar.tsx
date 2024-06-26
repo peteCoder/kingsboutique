@@ -11,6 +11,7 @@ import ProfileLoginDialog from "../profile-login-dialog";
 import { GrFavorite } from "react-icons/gr";
 import { useRouter } from "next/navigation";
 import CartDropdownForDesktop from "../cart-dropdown-desktop";
+import { ThemeModeToggle } from "@/components/theme-dropdown";
 
 const Navbar = () => {
   // Get the user data from the session upon login
@@ -20,8 +21,9 @@ const Navbar = () => {
 
   return (
     <header className="">
+      {/* #0COA09 */}
       {/* For Desktop screens */}
-      <div className="border-b top-0 left-0 fixed right-0 bg-white z-[20]">
+      <div className="border-b top-0 left-0 fixed right-0 bg-white dark:bg-[#0C0A09] z-[20]">
         <div className="md:container mx-auto">
           <div className="md:flex md:items-center py-4 px-4">
             {/* Logo */}
@@ -68,6 +70,7 @@ const Navbar = () => {
               )}
               <ProfileLoginDialog />
               {/* This should be hidden for smaller screen device */}
+              <ThemeModeToggle />
               <div className="hidden md:block">
                 <CartDropdown />
               </div>
@@ -80,14 +83,6 @@ const Navbar = () => {
       </div>
       <div className="mt-[70px]"></div>
       <div className="w-full h-10 mt-4 flex justify-center items-center  md:hidden">
-        {/* <Image
-          className="w-[123.34px] h-[76.98px]"
-          src={"/j-logo-bg-removed-2.png"}
-          alt="logo"
-          width={791}
-          height={489}
-        /> */}
-
         <span className="text-primary font-bold text-3xl mt-5">KB&F</span>
       </div>
     </header>

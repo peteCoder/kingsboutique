@@ -48,14 +48,19 @@ const CartData = () => {
               <div className="absolute z-10 right-0 top-0">
                 <IconButton
                   onClick={() => cart.deleteItemFromCart(item._id)}
-                  Icon={<Trash2Icon size={15} color={"black"} />}
+                  Icon={
+                    <Trash2Icon
+                      size={15}
+                      className="text-black dark:group-hover:text-white"
+                    />
+                  }
                 />
               </div>
               <div className="relative pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
                 <div className="flex justify-between">
                   <Link
                     href={`/product/${item?._id}`}
-                    className="text-lg md:text-2xl font-semibold text-black hover:text-primary"
+                    className="text-lg md:text-2xl font-semibold text-black dark:text-white hover:text-primary"
                   >
                     {item?.name}
                   </Link>
@@ -83,11 +88,10 @@ const CartData = () => {
                   <button
                     className="h-full p-3"
                     onClick={() => {
-
                       if (item?.qty >= item?.qty_available) {
                         return;
                       }
-                      cart.incrementProductInCart(item?._id)
+                      cart.incrementProductInCart(item?._id);
                     }}
                   >
                     <Plus size={15} />
@@ -101,14 +105,14 @@ const CartData = () => {
       <div className="flex flex-col sm:flex-row gap-7 justify-between my-10 text-primary uppercase text-sm font-[500]">
         <Link
           href="/shop"
-          className="hover:text-gray-900 cursor-pointer flex items-center flex-wrap gap-1"
+          className="hover:text-gray-900 dark:hover:text-primary dark:hover:underline cursor-pointer flex items-center flex-wrap gap-1"
         >
           <HiOutlineShoppingBag size={20} />
           <span>Continue Shopping</span>{" "}
         </Link>
         <div
           onClick={() => cart.resetCart()}
-          className="hover:text-gray-900 cursor-pointer flex items-center flex-wrap gap-1"
+          className="hover:text-gray-900 dark:hover:text-primary dark:hover:underline cursor-pointer flex items-center flex-wrap gap-1"
         >
           <Trash2Icon size={20} /> <span> Clear Shopping Cart</span>{" "}
         </div>

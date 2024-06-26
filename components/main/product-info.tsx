@@ -123,7 +123,7 @@ const ProductInfo = ({ data }: { data: ProductSanitySchemaResult }) => {
       </div>
 
       <div className="flex sm:items-center gap-2 flex-col sm:flex-row my-8">
-        {numberItemsAlreadyInCart && (
+        {numberItemsAlreadyInCart !== 0 && (
           <div className="flex items-center bg-gray-400/20 md:max-w-[170px] justify-between w-full rounded-md">
             <button
               className="h-full p-3"
