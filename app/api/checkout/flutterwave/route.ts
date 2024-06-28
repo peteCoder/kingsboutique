@@ -35,7 +35,7 @@ export async function POST(
     const nameOfBusiness = "Kings Boutique and Fashion";
     const currency = "NGN";
     const businessLogo =
-      "https://res.cloudinary.com/daf9tr3lf/image/upload/v1691106844/qxgu2bbtma4i76x55ea4.png";
+      "https://res.cloudinary.com/dulduri72/image/upload/b_rgb:333B4C/v1719569900/JUDITHLOGO_iaigcw.png";
 
     const session = await getServerSession();
 
