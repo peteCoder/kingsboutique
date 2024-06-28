@@ -175,6 +175,7 @@ export async function POST(
       );
     }
   } catch (error) {
+    console.log(error);
     return NextResponse.json(
       { message: "Something wrong happened" },
       { status: 500, headers: corsHeader }
