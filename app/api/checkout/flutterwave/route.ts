@@ -114,51 +114,59 @@ export async function POST(
         });
 
         if (createOrder) {
-          const response = await axios.post(
-            "https://api.flutterwave.com/v3/payments",
-            {
-              tx_ref,
-              amount: amount,
-              currency,
-              redirect_url,
-              meta: {
-                products_order_id: createOrder._id,
-                customer_id: activeUser._id,
-                // Getting all the product ids for items in cart
-                // To be used in the webhook
-                productIds: JSON.stringify(
-                  cartItems.map((item: ProductSanitySchemaResult) => item._id)
-                ),
+          try {
+            const response = await axios.post(
+              "https://api.flutterwave.com/v3/payments",
+              {
+                tx_ref,
+                amount: amount,
+                currency,
+                redirect_url,
+                meta: {
+                  products_order_id: createOrder._id,
+                  customer_id: activeUser._id,
+                  // Getting all the product ids for items in cart
+                  // To be used in the webhook
+                  productIds: JSON.stringify(
+                    cartItems.map((item: ProductSanitySchemaResult) => item._id)
+                  ),
+                },
+                customer: {
+                  email,
+                  phonenumber: phoneNumber,
+                  // Since we do not have meta data coming in in our webhook
+                  // We would need to update the products so how
+                  // So we are sending in the cartItems data as a serialized array
+                  // in the name parameter
+                  name: `${name}`,
+                },
+                customizations: {
+                  // Business's name
+                  title: nameOfBusiness,
+                  // Business's logo
+                  logo: businessLogo,
+                },
               },
-              customer: {
-                email,
-                phonenumber: phoneNumber,
-                // Since we do not have meta data coming in in our webhook
-                // We would need to update the products so how
-                // So we are sending in the cartItems data as a serialized array
-                // in the name parameter
-                name: `${name}`,
-              },
-              customizations: {
-                // Business's name
-                title: nameOfBusiness,
-                // Business's logo
-                logo: businessLogo,
-              },
-            },
-            {
-              headers: {
-                Authorization: `Bearer ${process.env.FLUTTERWAVE_SECRET_KEY}`,
-              },
-            }
-          );
+              {
+                headers: {
+                  Authorization: `Bearer ${process.env.FLUTTERWAVE_SECRET_KEY}`,
+                },
+              }
+            );
 
-          const data = await response.data;
+            const data = await response.data;
 
-          return NextResponse.json(
-            { authorization_url: data.data.link, productIds, status: true },
-            { headers: corsHeader }
-          );
+            return NextResponse.json(
+              { authorization_url: data.data.link, productIds, status: true },
+              { headers: corsHeader }
+            );
+          } catch (error) {
+            console.log(error);
+            return NextResponse.json(
+              { error: "From flutterwave" },
+              { headers: corsHeader, status: 500 }
+            );
+          }
         }
       } else {
         return NextResponse.json(
