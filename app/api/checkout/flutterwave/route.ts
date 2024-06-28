@@ -164,7 +164,7 @@ export async function POST(
             console.log(error);
             return NextResponse.json(
               {
-                error: `From flutterwave ${error.message}, ${JSON.stringify(
+                error: `From flutterwave ${error}, ${JSON.stringify(
                   error
                 )}`,
               },
