@@ -114,11 +114,6 @@ export async function POST(
         });
 
         if (createOrder) {
-          // try {
-
-          // } catch (error) {
-
-          // }
           const response = await axios.post(
             "https://api.flutterwave.com/v3/payments",
             {
@@ -170,21 +165,25 @@ export async function POST(
           {
             message: "There must be products in user cart.",
           },
-          { status: 400 }
+          { status: 400, headers: corsHeader }
         );
       }
     } else {
       return NextResponse.json(
         { message: "You must be authenticated." },
-        { status: 400 }
+        { status: 400, headers: corsHeader }
       );
     }
   } catch (error) {
     return NextResponse.json(
       { message: "Something wrong happened" },
-      { status: 500 }
+      { status: 500, headers: corsHeader }
     );
   }
 
+  return NextResponse.json({ message: "Working", headers: corsHeader });
+}
+
+export async function GET(req: Request) {
   return NextResponse.json({ message: "Working" });
 }
