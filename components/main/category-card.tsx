@@ -3,7 +3,6 @@
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import React from "react";
-import Link from "next/link";
 import { CategorySanitySchemaResult } from "@/types";
 import { urlFor } from "@/lib/client";
 import { useFilter } from "@/hooks/useFilter";
@@ -44,7 +43,7 @@ const CategoryCard: React.FC<CategoryProps> = ({
         backgroundImage: `url(${urlFor(featuredCategory?.bannerImage)?.url()})`,
       }}
       className={cn(
-        "min-h-[340px] bg-center bg-no-repeat bg-cover rounded-2xl flex items-end justify-center bg-[#f1f5f9] dark:bg-muted p-5 cursor-pointer group",
+        "min-h-[340px] bg-center bg-no-repeat overflow-hidden bg-cover rounded-2xl flex items-end justify-center bg-[#f1f5f9] dark:bg-muted p-5 cursor-pointer group",
         index === 1 && "md:row-span-2 bg-top",
         index === 3 && "bg-left",
         index === 5 && "md:col-span-2"

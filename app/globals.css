@@ -5,9 +5,23 @@
 
 
 
+body.no_scroll {
+  overflow-y: hidden;
+}
 
+::-webkit-scrollbar {
+  width: 5px;
+}
 
+::-webkit-scrollbar-thumb {
+  background-color: #2563eb;
+  border-radius: 4px;
+}
 
+::-webkit-scrollbar-track {
+  background: #fafafa;
+  border-radius: 4px;
+}
 
 @layer base {
   :root {

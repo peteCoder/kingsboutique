@@ -9,15 +9,36 @@ import CartDropdown from "../cart-dropdown";
 import { useSession } from "next-auth/react";
 import ProfileLoginDialog from "../profile-login-dialog";
 import { GrFavorite } from "react-icons/gr";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import CartDropdownForDesktop from "../cart-dropdown-desktop";
 import { ThemeModeToggle } from "@/components/theme-dropdown";
+import { cn } from "@/lib/utils";
+
+
+
+const navLinks = [
+  {
+    label: "Home",
+    href: "/"
+  },
+  {
+    label: "Shop",
+    href: "/shop"
+  },
+  {
+    label: "Contact Us",
+    href: "/contact"
+  },
+
+]
 
 const Navbar = () => {
   // Get the user data from the session upon login
   const { data: session } = useSession();
 
   const router = useRouter();
+  const pathname = usePathname();
+
 
   return (
     <header className="">
@@ -34,21 +55,13 @@ const Navbar = () => {
             <nav className="flex-1">
               {/* For Desktop screens */}
               <ul className="hidden md:flex items-center md:space-x-4">
-                <li>
-                  <Link href={"/"} className="nav-links">
-                    Home
+                {navLinks.map((link) => (
+                  <li>
+                  <Link href={link.href} className={cn("nav-links", pathname === link.href && "text-primary")}>
+                    {link.label}
                   </Link>
                 </li>
-                <li>
-                  <Link href={"/shop"} className="nav-links">
-                    Shop
-                  </Link>
-                </li>
-                <li>
-                  <Link href={"/contact"} className="nav-links">
-                    Contact us
-                  </Link>
-                </li>
+                ))}
               </ul>
               {/* For Mobile screens */}
             </nav>

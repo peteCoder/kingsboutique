@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
     // `/api/product?search=foo&country=bar&product_name=foo&orderOfItems=price%20asc`
     const searchURL = new URL(req.url);
 
-    console.log(searchURL.href);
+    // console.log(searchURL.href);
 
     const { searchParams } = searchURL;
 
@@ -25,13 +25,11 @@ export async function GET(req: NextRequest) {
     const categoryId = searchParams.get("categoryId");
     const sizeId = searchParams.get("sizeId");
     const colourId = searchParams.get("colourId");
-    // const categoryName = searchParams.get("categoryName");
-    // const orderOfItems = searchParams.get("orderOfItems");
-    // const priceRange = searchParams.get("priceRange");
+    const searchTerm = searchParams.get("searchTerm");
 
-    console.log("categoryId", typeof categoryId);
+    // console.log("categoryId", typeof categoryId);
 
-    const query = `*[_type == 'product' && category->_id match $categoryId  && is_featured == true]{
+    const query = `*[_type == 'product' && category->_id match $categoryId && (name match $searchTerm || description match $searchTerm) && is_featured == true]{
       _id,
       _updatedAt,
       _createdAt,
@@ -74,6 +72,7 @@ export async function GET(req: NextRequest) {
     }`;
     const products = await sanityClient.fetch(query, {
       categoryId: `${categoryId}*`,
+      searchTerm: `${searchTerm}*`,
     });
 
     // If sizeId is provided, filter the products by sizeId
@@ -105,7 +104,6 @@ export async function GET(req: NextRequest) {
           product?.colours?.some((colour: any) => colour._id === colourId)
         );
       console.log("There is both size and color");
-      // console.log("Filtered Products: ", filteredProducts);
       return NextResponse.json(filteredProducts, { status: 200 });
     }
 

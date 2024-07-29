@@ -12,7 +12,8 @@ import { sanityClient } from "@/lib/client";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import LoadFilter from "./LoadFilter";
-import { Button } from "@material-tailwind/react";
+// import { Button } from "@material-tailwind/react";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useFilter } from "@/hooks/useFilter";
 
@@ -89,8 +90,8 @@ const FilterSidebar = () => {
   }, []);
 
   return (
-    <div className="py-2 overflow-auto flex flex-col my-5 px-2">
-      <div className="sticky top-0 left-0 pt-5 mt-5">
+    <div className="overflow-y-auto flex flex-col ">
+      <div className="sticky top-0 left-0 lg:pt-1 lg:mt-1">
         {loadCategories || loadSizes || loadColours ? (
           <LoadFilter />
         ) : (
@@ -113,7 +114,7 @@ const FilterSidebar = () => {
                           })
                         }
                         className={cn(
-                          "capitalize cursor-pointer",
+                          "cursor-pointer uppercase",
                           categoryId === category._id && "text-primary"
                         )}
                         key={category._id}

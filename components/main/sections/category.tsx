@@ -10,7 +10,7 @@ const Feature = async () => {
   return (
     <section className="w-full my-10 sm:container px-2">
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-        {categories.slice(0, 5).map((category, i) => (
+        {categories.slice(0, 6).map((category, i) => (
           <CategoryCard
             key={category._id}
             name={category.name}

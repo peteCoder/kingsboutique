@@ -9,8 +9,30 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Link from "next/link";
 
 import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
+
+const navLinks = [
+  {
+    label: "Home",
+    href: "/"
+  },
+  {
+    label: "Shop",
+    href: "/shop"
+  },
+  {
+    label: "Contact",
+    href: "/contact"
+  },
+
+]
 
 const MobileMenu = () => {
+
+  const pathname = usePathname();
+
+
   return (
     <div>
       <Sheet>
@@ -24,22 +46,15 @@ const MobileMenu = () => {
             </span>
             {/* For Desktop screens */}
             <ul className="p-4 text-white flex flex-col gap-8 justify-center h-full">
-              <li className="!text-left">
-                <Link href={"/"} className="text-2xl md:text-3xl">
-                  Home
-                </Link>
-              </li>
-              <li className="!text-left">
-                <Link href={"/shop"} className="text-2xl md:text-3xl">
-                  Shop
-                </Link>
-              </li>
 
-              <li className="!text-left">
-                <Link href={"/contact"} className="text-2xl md:text-3xl">
-                  Contact
-                </Link>
-              </li>
+              {navLinks.map((link) => (
+                <li className="!text-left">
+                  <Link href={link.href} className={cn("text-2xl md:text-3xl", pathname === link.href && "text-white underline")}>
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+              
             </ul>
             {/* For Mobile screens */}
             <div className="absolute bottom-2 left-0 right-0">

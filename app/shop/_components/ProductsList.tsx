@@ -11,6 +11,7 @@ import { CiFilter } from "react-icons/ci";
 import { FaFilter } from "react-icons/fa";
 import { FaRegQuestionCircle } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
+import { useSearch, useSearchPlaceholder } from "@/hooks/useSearch";
 
 const ProductsList = () => {
   const [hasMounted, setHasMounted] = useState(false);
@@ -18,11 +19,16 @@ const ProductsList = () => {
   const [loadProducts, setLoadProduct] = useState(true);
 
   const filteredData = useFilter();
+  const searching = useSearch();
+  const searchingPlaceholder = useSearchPlaceholder();
 
   const categoryName = filteredData?.filteredData?.category?.name;
   const categoryId = filteredData?.filteredData?.category?._id;
   const sizeId = filteredData?.filteredData?.size?._id;
   const colourId = filteredData?.filteredData?.colour?._id;
+  const searchTerm = searching?.search?.searcTerm;
+
+  
 
   useEffect(() => {
     const getProducts = async () => {
@@ -32,6 +38,7 @@ const ProductsList = () => {
           categoryId,
           sizeId,
           colourId,
+          searchTerm,
         },
       });
       try {
@@ -49,9 +56,9 @@ const ProductsList = () => {
     };
 
     getProducts();
-  }, [categoryId, sizeId, colourId]);
+  }, [categoryId, sizeId, colourId, searchTerm]);
 
-  console.log("Products: ", products);
+  // console.log("Products: ", products);
 
   useEffect(() => {
     setHasMounted(true);
@@ -69,10 +76,14 @@ const ProductsList = () => {
             {categoryName}
           </h2>
           <div
-            onClick={() => filteredData.removeAllFilter()}
+            onClick={() => { 
+              filteredData.removeAllFilter();
+              searching.removeSearchTerm();
+              searchingPlaceholder.removeSearchTerm();
+            }}
             className="text-[16px] md:text-xl text-primary p-3 cursor-pointer flex items-center gap-2"
           >
-            {(categoryId || sizeId || colourId) && (
+            {(categoryId || sizeId || colourId || searchTerm) && (
               <Button>
                 <FaFilter color="#fff" size={20} /> clear
               </Button>
@@ -84,7 +95,7 @@ const ProductsList = () => {
         ) : (
           <div className="">
             {products.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:grid-cols-5 gap-2">
+              <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5 gap-2">
                 {products?.map((product: any, i: number) => (
                   <ProductCard key={product._id} index={i} product={product} />
                 ))}
