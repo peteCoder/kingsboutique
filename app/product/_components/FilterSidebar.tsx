@@ -1,5 +1,4 @@
 "use client";
-
 import { getCategories } from "@/actions/getCategories";
 import { getSizes } from "@/actions/getSizes";
 import {
@@ -12,9 +11,9 @@ import { sanityClient } from "@/lib/client";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import LoadFilter from "./LoadFilter";
-import { Button } from "@material-tailwind/react";
 import { cn } from "@/lib/utils";
 import { useFilter } from "@/hooks/useFilter";
+import { Button } from "@/components/ui/button";
 
 const FilterSidebar = () => {
   const [categories, setCategories] = useState([]);
