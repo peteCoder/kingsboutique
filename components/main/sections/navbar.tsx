@@ -56,7 +56,7 @@ const Navbar = () => {
               {/* For Desktop screens */}
               <ul className="hidden md:flex items-center md:space-x-4">
                 {navLinks.map((link) => (
-                  <li>
+                  <li key={link.label}>
                   <Link href={link.href} className={cn("nav-links", pathname === link.href && "text-primary")}>
                     {link.label}
                   </Link>

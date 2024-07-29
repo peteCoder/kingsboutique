@@ -57,7 +57,7 @@ const AllProductsBasedOnCategory = ({ categoryId }: { categoryId: string }) => {
       ) : (
         
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 3xl:grid-cols-5 gap-2">
-            {products?.slice(0, 4)?.map((product, i) => (
+            {products?.slice(0, 5)?.map((product, i) => (
               <ProductCard key={product?._id} index={i} product={product} />
             ))}
           </div>

@@ -48,7 +48,7 @@ const MobileMenu = () => {
             <ul className="p-4 text-white flex flex-col gap-8 justify-center h-full">
 
               {navLinks.map((link) => (
-                <li className="!text-left">
+                <li className="!text-left" key={link.label}>
                   <Link href={link.href} className={cn("text-2xl md:text-3xl", pathname === link.href && "text-white underline")}>
                     {link.label}
                   </Link>

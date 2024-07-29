@@ -30,7 +30,7 @@ const SearchBarComponent = ({
     debounce((value) => {
       searching.setSearchTerm(value);
     }, 4000),
-    []
+    [searching]
   );
 
   const handleShopGlobalSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
