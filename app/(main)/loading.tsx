@@ -8,7 +8,7 @@ export default function Loading() {
       <Skeleton className="w-full h-[70px] rounded-none" />
       <div className="container mt-5">
         <Skeleton className="w-full h-[50vh] mb-4" />
-        <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
           {Array.from({ length: 6 }).map((item, index) => (
             <Skeleton
               key={index}
@@ -26,10 +26,10 @@ export default function Loading() {
           <Skeleton className=" h-10 w-36" />
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 3xl:grid-cols-5 gap-2 mt-10">
-          {Array.from({ length: 10 }).map((item, index) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:grid-cols-5 gap-2 mt-10">
+          {Array.from({ length: 8}).map((item, index) => (
             <div key={index} className="text-center p-2 sm:p-0">
-              <Skeleton className="relative group duration-700 min-h-[300px] md:min-h-[350px] overflow-hidden"></Skeleton>
+              <Skeleton className="relative group duration-700 overflow-hidden min-h-[300px] md:min-h-[350px] lg:min-h-[450px] "></Skeleton>
             </div>
           ))}
         </div>

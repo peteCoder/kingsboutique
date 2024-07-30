@@ -161,10 +161,18 @@ const ProductCard: React.FC<ProductProps> = ({ index, product }) => {
         <div className="bg-white dark:bg-muted bg-opacity-100 mb-4 text-left border flex flex-col p-2 gap-4 py-5 group duration-700">
           {/* w-[250px] md:w-[280px] mx-auto */}
           {/* Add Ratings here */}
-          {product?.ratings && (
+          {product?.ratings ? (
             <div className="rating flex items-center gap-1">
               <>
-                {Array.from({ length: product?.ratings }).map((_, i) => (
+                {Array.from({ length: product?.ratings > 5 ? 5 : product?.ratings }).map((_, i) => (
+                  <IoStar className="text-[1.2rem]" color={"#FFD700"} key={i} />
+                ))}
+              </>
+            </div>
+          ) : (
+            <div className="rating flex items-center gap-1">
+              <>
+                {Array.from({ length: 5 }).map((_, i) => (
                   <IoStar className="text-[1.2rem]" color={"#FFD700"} key={i} />
                 ))}
               </>
@@ -174,14 +182,15 @@ const ProductCard: React.FC<ProductProps> = ({ index, product }) => {
             <div className="text-[19px] text-[#424141] dark:text-white font-bold">
               {formatCurrency(product?.price)}
             </div>
-            <div className="text-[16px] font-bold text-primary">
-              {product?.name}
+            <div className="text-[15px] font-bold text-primary uppercase">
+              {product?.name.slice(0, 16)}
+              {product?.name.length > 16 && "..."}
             </div>
-            {product?.description && (
+            {/* {product?.description && (
               <div className="text-[14px] text-[#191919] dark:text-white font-light ">
                 {product?.description?.slice(0, 25)}..
               </div>
-            )}
+            )} */}
           </div>
         </div>
       </div>

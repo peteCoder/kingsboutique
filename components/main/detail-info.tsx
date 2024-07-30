@@ -148,7 +148,7 @@ const DetailPageInfo = ({ data }: { data: ProductSanitySchemaResult }) => {
 
       <div className="flex gap-3 flex-col sm:flex-row">
         {/* Sizes */}
-        <div className="">
+        <div className="sm:w-[50%] w-full">
           {data?.sizes?.length > 0 && (
             <>
               <div className="text-gray-500 text-sm mb-2">Sizes</div>
@@ -199,7 +199,7 @@ const DetailPageInfo = ({ data }: { data: ProductSanitySchemaResult }) => {
 
       <div className="flex-1">
         <Button
-          className="text uppercase hover:no-underline flex items-center gap-1"
+          className="text uppercase hover:no-underline flex items-center gap-1 border"
           variant={"link"}
           onClick={(e) => {
             e.stopPropagation();

@@ -28,7 +28,7 @@ const ProductDetails = async ({
   return (
     <main>
       <Navbar />
-      <div className="p-2 sm:container">
+      <div className="p-2 md:container mt-5">
         <div className="flex gap flex-col md:flex-row gap-3 mb-10">
           <div className="w-full md:w-1/2">
             <DetailPageGallery product={product} />
@@ -41,7 +41,7 @@ const ProductDetails = async ({
         {/* Related Products */}
         {filterOutCurrentProduct.length > 0 && (
           <div className="mt-5">
-            <h2 className="text-xl md:text-2xl mt-40 mb-5 font-extrabold">
+            <h2 className="text-xl md:text-2xl mt-4 mb-5 font-extrabold">
               Find Related Products
             </h2>
 
@@ -53,6 +53,7 @@ const ProductDetails = async ({
           </div>
         )}
       </div>
+      <Footer />
     </main>
   );
 };

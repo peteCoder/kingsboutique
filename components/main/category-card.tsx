@@ -49,7 +49,7 @@ const CategoryCard: React.FC<CategoryProps> = ({
         index === 5 && "md:col-span-2"
       )}
     >
-      <Button className="bg-primary text-white hover:text-white min-w-[120px] w-full min-h-[50px] uppercase text-lg">
+      <Button className="bg-primary text-white hover:text-white min-w-[120px] w-full min-h-[50px] uppercase xl:text-lg">
         {name}
       </Button>
     </div>

@@ -11,7 +11,7 @@ const Trending = async () => {
   const categories: CategorySanitySchemaResult[] = await getCategories();
 
   return (
-    <section className="px-2 sm:container">
+    <section className="px-3 md:container">
       <div className="">
         <Heading title={"trending"} subTitle={"top view in this week"} />
       </div>

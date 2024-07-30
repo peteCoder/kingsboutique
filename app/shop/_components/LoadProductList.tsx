@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import React from "react";
 
 const LoadProductList = ({
-  numberOfRenderedProducts = 10,
+  numberOfRenderedProducts = 8,
 }: {
   numberOfRenderedProducts?: number;
 }) => {
