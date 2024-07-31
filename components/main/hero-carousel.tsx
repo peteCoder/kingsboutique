@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import Autoplay from "embla-carousel-autoplay";
 import React from "react";
 import { useFilter } from "@/hooks/useFilter";
+import { urlFor } from "@/lib/client";
 
 export function CarouselTransition({
   heroBanner,
@@ -23,8 +24,10 @@ export function CarouselTransition({
   const filteredData = useFilter();
   const router = useRouter();
 
-  const goToCategory = (category: { _id: string; name: string }) => {
-    filteredData.addCategory(category);
+  const goToCategory = (category?: { _id: string; name: string}, isDummy?: boolean) => {
+    if (!isDummy && category) {
+      filteredData.addCategory(category);
+    }
     router.push("/shop");
   };
 
@@ -32,25 +35,44 @@ export function CarouselTransition({
     Autoplay({ delay: 2000, stopOnInteraction: true })
   )
 
-  const renderCarouselItem = (backgroundImage: string) => (
+  const RenderCarouselItem = ({
+    backgroundImage, 
+    description, 
+    heading,
+    subHeading,
+    color="black",
+    categoryId,
+    categoryName,
+    isDummy
+  }:{
+    backgroundImage: string;
+    subHeading: string;
+    heading: string;
+    description: string;
+    color?: string;
+    categoryName: string;
+    categoryId: string;
+    isDummy: boolean
+
+  }) => (
     <CarouselItem>
-      <Card className="bg-center bg-transparent border-none h-full w-full">
+      <Card style={{color}} className=" bg-transparent border-none h-full w-full">
         <CardContent
-          className="flex aspect-square items-center w-full justify-center p-0 bg-no-repeat bg-cover h-full"
+          className="flex aspect-square items-center w-full justify-center p-2 bg-center bg-no-repeat bg-cover h-full relative"
           style={{ backgroundImage: `url(${backgroundImage})` }}
         >
-          <div className="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 text-black md:text-center max-w-[40rem] flex flex-col gap-3 z-10">
-            <div className="text-xl md:text-2xl lg:text-3xl">Ready to</div>
+          <div className="absolute top-1/2 md:left-1/2 transform -translate-y-1/2 md:-translate-x-1/2  md:text-center max-w-[40rem] flex flex-col gap-3 z-10">
+            <div className="text-xl md:text-2xl lg:text-3xl">{subHeading}</div>
             <div className="">
               <div className="text-2xl md:text-5xl lg:text-7xl md:text-center">
-                Experience the Perfect Fit
+                {heading}
               </div>
               <div className="text-lg font-light">
-                We deliver the best of varieties
+                {description}
               </div>
             </div>
             <div className="">
-              <Button onClick={() => router.push("/shop")} className="md:min-w-[10rem] md:min-h-[3rem]">
+              <Button onClick={() => goToCategory({_id: categoryId, name: categoryName}, isDummy )} className="md:min-w-[10rem] md:min-h-[3rem]">
                 Shop Now
               </Button>
             </div>
@@ -62,7 +84,7 @@ export function CarouselTransition({
 
   return (
     <div className="w-full" data-aos="fade-up" data-aos-once={true}>
-      {heroBanner.length > 0 ? (
+      {!(heroBanner.length > 0) ? (
         <Carousel
           className=""
           plugins={[plugin.current]}
@@ -70,8 +92,26 @@ export function CarouselTransition({
           onMouseLeave={plugin.current.reset}
         >
           <CarouselContent className="h-[40vh] md:h-[50vh] lg:h-[70vh]">
-            {renderCarouselItem('/home-slide-01.jpeg')}
-            {renderCarouselItem('/home-slide-02.jpeg')}
+            <RenderCarouselItem 
+              backgroundImage='/home-slide-01.jpeg' 
+              description="We deliver the best of varieties" 
+              heading="Experience the Perfect Fit" 
+              subHeading="Ready to" 
+              color={"white"}
+              categoryId=""
+              categoryName=""
+              isDummy={true}
+            />
+            <RenderCarouselItem 
+              backgroundImage='/home-slide-02.jpeg' 
+              description="We deliver the best of varieties" 
+              heading="Experience the Perfect Fit"
+              subHeading="Ready to" 
+              color={"black"}
+              categoryId=""
+              categoryName=""
+              isDummy={true}
+            />
           </CarouselContent>
           <CarouselPrevious className="left-0 top-1/2 -translate-y-1/2" />
           <CarouselNext className="right-0 top-1/2 -translate-y-1/2" />
@@ -79,7 +119,19 @@ export function CarouselTransition({
       ) : (
         <Carousel>
           <CarouselContent className="h-[40vh] md:h-[50vh] lg:h-[70vh]">
-            
+          {heroBanner.map((banner) => (
+            <RenderCarouselItem 
+              backgroundImage={`${urlFor(banner?.bannerImage)?.url()}`}
+              color={banner.textColor}
+              description=""
+              heading={banner?.title}
+              subHeading={banner?.subTitle}
+              categoryId={banner?.category._id}
+              categoryName={banner?.category.name}
+              isDummy={false}
+
+            />
+          ))}
           </CarouselContent>
           <CarouselPrevious className="left-0 top-1/2 -translate-y-1/2" />
           <CarouselNext className="right-0 top-1/2 -translate-y-1/2" />
