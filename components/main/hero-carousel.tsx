@@ -124,6 +124,7 @@ export function CarouselTransition({
               backgroundImage={`${urlFor(banner?.bannerImage)?.url()}`}
               color={banner.textColor}
               description=""
+              key={banner._id}
               heading={banner?.title}
               subHeading={banner?.subTitle}
               categoryId={banner?.category._id}
