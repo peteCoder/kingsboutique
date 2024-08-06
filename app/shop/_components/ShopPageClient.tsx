@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 
 import { TbFilters } from "react-icons/tb";
 import { Input } from "@/components/ui/input";
-import { X } from "lucide-react";
+import { Search, X } from "lucide-react";
 import { useSearch, useSearchPlaceholder } from "@/hooks/useSearch";
 import debounce from "lodash/debounce";
 
@@ -36,29 +36,42 @@ const SearchBarComponent = ({
   const handleShopGlobalSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     searchingPlaceholder.setSearchTerm(value);
-    debouncedSearch(value);
+    // Used debounce to wait for input entry to be complete
+    // debouncedSearch(value);
   };
+
+  const handleClickSearch = () => {
+    searching.setSearchTerm(searchPlaceholderTerm);
+  }
   return (
     <>
       <div className="flex md:items-center gap-3 flex-col md:flex-row justify-center  mx-auto">
-        <div className="flex item-center md:flex-row-reverse flex-row w-full">
+        <div className="flex item-center flex-row w-full">
+          <Button
+              variant={"link"}
+              onClick={() => setFilterSideOpen((prev) => !prev)}
+              className="flex items-center lg:hidden bg-border border  min-w-10 sm:min-w-16 rounded-r-2xl rounded-none px-7 text-primary text-[18px] !p-0"
+          >
+            <TbFilters size={28} className="" />
+          </Button>
           <div className="relative w-full">
+            
             {searchPlaceholderTerm && (
               <X onClick={() => {
                 searching.removeSearchTerm();
                 searchingPlaceholder.removeSearchTerm();
-              }} className="h-5 w-5 text-black dark:text-white absolute right-1 md:right-2 top-1/2 -translate-y-1/2 " />
+              }} className="h-4 w-4 text-black dark:text-white absolute right-1 md:right-2 top-1/2 -translate-y-1/2 " />
             )}
             <Input onChange={handleShopGlobalSearch} value={searchPlaceholderTerm} placeholder="Search..." className="focus-visible:ring-0 focus-visible:ring-offset-0 rounded-none focus-within:outline-none focus:outline-none w-full" />
           </div>
+
           <Button
-            variant={"link"}
-            onClick={() => setFilterSideOpen((prev) => !prev)}
-            className="flex items-center lg:hidden bg-border border  min-w-10 sm:min-w-16 rounded-r-2xl rounded-none px-7 text-primary text-[18px] !p-0"
+              onClick={() => handleClickSearch()}
+              className="flex items-center lg:hidden border  min-w-10 sm:min-w-16 rounded-r-2xl rounded-none px-7 text-[18px] !p-0"
           >
-            <TbFilters size={28} className="" />
-            
+            <Search size={20} className="" />
           </Button>
+          
         </div>
         
 
@@ -121,7 +134,7 @@ const ShopPageClient = () => {
             </div>
           </div>
           <div className="col-span-4 lg:col-span-3 pt-10">
-            <div className="flex md:items-center gap-3 flex-col md:flex-row justify-center container  mx-auto lg:hidden">
+            <div className="flex md:items-center gap-3 flex-col md:flex-row justify-center px-3  mx-auto lg:hidden">
               <SearchBarComponent setFilterSideOpen={setFilterSideOpen} />
             </div>
             <ProductsList />

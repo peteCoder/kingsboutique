@@ -74,7 +74,7 @@ const ProductsList = () => {
             {categoryName}
           </h2>
           <div
-            onClick={() => { 
+            onClick={() => {
               filteredData.removeAllFilter();
               searching.removeSearchTerm();
               searchingPlaceholder.removeSearchTerm();
