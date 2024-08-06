@@ -41,12 +41,12 @@ const ProductDetails = async ({
         {/* Related Products */}
         {filterOutCurrentProduct.length > 0 && (
           <div className="mt-5">
-            <h2 className="text-xl md:text-2xl mt-4 mb-5 font-extrabold">
+            <h2 className="text-[1rem] sm:text-xl md:text-2xl mt-4 mb-5 font-extrabold">
               Find Related Products
             </h2>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:grid-cols-5 gap-2">
-              {filterOutCurrentProduct?.map((product, i) => (
+            <div className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5 sm:gap-2">
+              {filterOutCurrentProduct?.slice(0, 8)?.map((product, i) => (
                 <ProductCard key={product._id} index={i} product={product} />
               ))}
             </div>

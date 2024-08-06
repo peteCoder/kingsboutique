@@ -81,19 +81,19 @@ const ProductCard: React.FC<ProductProps> = ({ index, product }) => {
     <div
       data-aos="fade-up"
       data-aos-once={true}
-      className="text-center p-2 sm:p-0"
+      className="text-center p-1 sm:p-0"
       onClick={() =>
         product.qty_available > 0 && router.push(`/product/${product?._id}`)
       }
     >
-      <div className="relative group duration-700 min-h-[300px] md:min-h-[350px] bg-muted rounded-t-md overflow-hidden">
-        <div className="absolute top-0 right-0 flex flex-col space-y-2 z-10 group-hover:opacity-100 opacity-0 translate-x-[100%] group-hover:translate-x-0 duration-700 mr-3 mt-2">
+      <div className="relative group duration-700 min-h-[100px] sm:min-h-[200px] md:min-h-[350px] bg-muted rounded-t-md overflow-hidden">
+        <div className="absolute top-0 right-0 flex flex-col md:space-y-2 z-10 group-hover:opacity-100 opacity-0 translate-x-[100%] group-hover:translate-x-0 duration-700 md:mr-3 mt-2">
           <div
-            className="bg-white hover:bg-primary hover:text-white cursor-pointer duration-700 text-black w-10 h-10 rounded-full m-1 flex items-center justify-center"
+            className="bg-white hover:bg-primary hover:text-white cursor-pointer duration-700 text-black w-7 h-7 md:w-10 md:h-10 rounded-full m-1 flex items-center justify-center"
             id="quickView"
             onClick={showPopupModalForProduct}
           >
-            <IoEyeOutline size={18} />
+            <IoEyeOutline className="w-[13px] h-[13px] md:w-[18px] md:h-[18px]" />
           </div>
 
           <div
@@ -106,13 +106,13 @@ const ProductCard: React.FC<ProductProps> = ({ index, product }) => {
               }
             }}
             className={cn(
-              `bg-white hover:bg-primary hover:text-white cursor-pointer duration-700 text-black w-10 h-10 rounded-full m-1 flex items-center justify-center`,
+              `bg-white hover:bg-primary hover:text-white cursor-pointer duration-700 text-black w-7 h-7 md:w-10 md:h-10 rounded-full m-1 flex items-center justify-center`,
               productHasBeenAddedToFavouritesAlready(product?._id) &&
                 "bg-primary text-white"
             )}
             id="favourite"
           >
-            <GrFavorite size={18} />
+            <GrFavorite className="w-[13px] h-[13px] md:w-[18px] md:h-[18px]"  />
           </div>
         </div>
         <div
@@ -152,20 +152,20 @@ const ProductCard: React.FC<ProductProps> = ({ index, product }) => {
               alt="image"
             />
           </div>
-          // #2563EB
         )}
       </div>
       {/* Details to transform onhover */}
       <div className="relative">
         {/* Continue from here */}
-        <div className="bg-white dark:bg-muted bg-opacity-100 mb-4 text-left border flex flex-col p-2 gap-4 py-5 group duration-700">
+        <div className="bg-white dark:bg-muted bg-opacity-100 rounded-b-md mb-4 text-left border flex flex-col p-1 md:p-2 py-3 md:py-5 gap-2 md:gap-4 group duration-700">
           {/* w-[250px] md:w-[280px] mx-auto */}
           {/* Add Ratings here */}
+          {/* Ratings stars */}
           {product?.ratings ? (
             <div className="rating flex items-center gap-1">
               <>
                 {Array.from({ length: product?.ratings > 5 ? 5 : product?.ratings }).map((_, i) => (
-                  <IoStar className="text-[1.2rem]" color={"#FFD700"} key={i} />
+                  <IoStar className="text-[.7rem]" color={"#FFD700"} key={i} />
                 ))}
               </>
             </div>
@@ -173,24 +173,23 @@ const ProductCard: React.FC<ProductProps> = ({ index, product }) => {
             <div className="rating flex items-center gap-1">
               <>
                 {Array.from({ length: 5 }).map((_, i) => (
-                  <IoStar className="text-[1.2rem]" color={"#FFD700"} key={i} />
+                  <IoStar className="text-[.7rem]" color={"#FFD700"} key={i} />
                 ))}
               </>
             </div>
           )}
+          
           <div className="space-y-1">
-            <div className="text-[19px] text-[#424141] dark:text-white font-bold">
+            {/* Price */}
+            <div className="text-[10px] sm:text-[13px] md:text-[19px] text-[#424141] dark:text-white font-bold">
               {formatCurrency(product?.price)}
             </div>
-            <div className="text-[15px] font-bold text-primary uppercase">
-              {product?.name.slice(0, 16)}
-              {product?.name.length > 16 && "..."}
+            {/* Product Name */}
+            <div className="text-[10px] sm:text-[12px] md:text-[15px] font-bold text-primary uppercase">
+              {product?.name.slice(0, 10)}
+              {product?.name.length > 10 && "..."}
             </div>
-            {/* {product?.description && (
-              <div className="text-[14px] text-[#191919] dark:text-white font-light ">
-                {product?.description?.slice(0, 25)}..
-              </div>
-            )} */}
+            
           </div>
         </div>
       </div>

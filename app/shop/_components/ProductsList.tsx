@@ -58,8 +58,6 @@ const ProductsList = () => {
     getProducts();
   }, [categoryId, sizeId, colourId, searchTerm]);
 
-  // console.log("Products: ", products);
-
   useEffect(() => {
     setHasMounted(true);
   }, []);
@@ -69,10 +67,10 @@ const ProductsList = () => {
   }
 
   return (
-    <div className="px-3 py-5">
+    <div className="md:px-3 py-5">
       <>
         <div className="flex items-center justify-between">
-          <h2 className="font-extrabold text-2xl p-3 uppercase">
+          <h2 className="font-extrabold text-xl md:text-2xl p-3 uppercase">
             {categoryName}
           </h2>
           <div
@@ -81,13 +79,13 @@ const ProductsList = () => {
               searching.removeSearchTerm();
               searchingPlaceholder.removeSearchTerm();
             }}
-            className="text-[16px] md:text-xl text-primary p-3 cursor-pointer flex items-center gap-2"
+            className="md:text-[16px] md:text-xl text-primary p-3 cursor-pointer flex items-center gap-2"
           >
             {(categoryId || sizeId || colourId || searchTerm) && (
-              <Button>
-                <FaFilter color="#fff" size={20} /> clear
+              <Button className="px-2 py-1">
+                <FaFilter color="#fff" size={20} className="h-[10px] w-[10px] md:h-[20px] md:w-[20px]" /> clear
               </Button>
-            )}
+            )} 
           </div>
         </div>
         {loadProducts ? (
@@ -95,7 +93,7 @@ const ProductsList = () => {
         ) : (
           <div className="">
             {products.length > 0 ? (
-              <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5 gap-2">
+              <div className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5 sm:gap-2">
                 {products?.map((product: any, i: number) => (
                   <ProductCard key={product._id} index={i} product={product} />
                 ))}

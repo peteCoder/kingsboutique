@@ -63,7 +63,7 @@ const ProductInfo = ({ data }: { data: ProductSanitySchemaResult }) => {
         </div>
         {data?.ratings > 0 && (
           <div className="flex items-center gap-2 my-5">
-            {Array.from({ length: data.ratings }).map((_, i) => (
+            {Array.from({ length: data?.ratings > 5 ? 5 : data?.ratings }).map((_, i) => (
               <IoStar color={"#FFD700"} key={i} size={14} />
             ))}
           </div>

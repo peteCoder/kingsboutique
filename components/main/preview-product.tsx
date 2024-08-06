@@ -4,8 +4,6 @@ import usePreviewModal from "@/hooks/usePreviewModal";
 import Modal from "@/components/main/modal";
 import Gallery from "./gallery";
 import ProductInfo from "./product-info";
-// import Gallery from "@/components/Gallery";
-// import Info from "@/components/Info";
 
 const ProductPreviewModal = () => {
   const previewModal = usePreviewModal();

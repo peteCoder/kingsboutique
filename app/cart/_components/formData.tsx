@@ -74,7 +74,7 @@ const CartFormData = () => {
 
             <div className="flex flex-col mt-5 mb-5 space-y-3">
               <GoogleButton />
-              <GithubButton />
+              {/* <GithubButton /> */}
             </div>
           </div>
         </>

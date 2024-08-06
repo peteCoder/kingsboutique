@@ -55,12 +55,30 @@ const AllProductsBasedOnCategory = ({ categoryId }: { categoryId: string }) => {
       {isLoading ? (
         <LoadProductList numberOfRenderedProducts={5} />
       ) : (
-        
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:grid-cols-5 gap-2">
-            {products?.slice(0, 5)?.map((product, i) => (
+        <>
+          {/* Display in smaller screen */}
+          <div className="xl:hidden grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5 sm:gap-2">
+            {products?.slice(0, 6)?.map((product, i) => (
               <ProductCard key={product?._id} index={i} product={product} />
             ))}
           </div>
+
+          {/* Display in larger screen */}
+          <div className="hidden xl:grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5 sm:gap-2">
+            {products?.slice(0, 8)?.map((product, i) => (
+              <ProductCard key={product?._id} index={i} product={product} />
+            ))}
+          </div>
+
+        </>
+
+        
+        
+          // <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:grid-cols-5 gap-2">
+          //   {products?.slice(0, 5)?.map((product, i) => (
+          //     <ProductCard key={product?._id} index={i} product={product} />
+          //   ))}
+          // </div>
       )}
     </>
   );
