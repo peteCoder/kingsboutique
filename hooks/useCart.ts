@@ -3,8 +3,6 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { v4 as uuidv4 } from "uuid";
 
-import { toast } from "react-hot-toast";
-
 interface CartItems {
   _id: string;
   qty: number;
@@ -89,7 +87,6 @@ export const useCart = create(
           set({ cartItems: items });
 
           // Replace console.log with toast provider
-          console.log("Item was incremented in cart successfully");
         } else {
           const itemToConsider: CartItems = {
             _id: data._id,
@@ -106,10 +103,6 @@ export const useCart = create(
 
           const items = [...get().cartItems, itemToConsider];
           set({ cartItems: items });
-
-          // Replace console.log with toast provider
-          // console.log("Item was added to cart successfully.");
-          toast.success("Item was added to cart successfully.");
         }
       },
 
@@ -140,9 +133,6 @@ export const useCart = create(
           const items = [itemToConsider, ...otherProductDataInList];
 
           set({ cartItems: items });
-
-          // Replace console.log with toast provider
-          console.log("Item colour was changed successfully!");
         }
 
       },
@@ -199,10 +189,6 @@ export const useCart = create(
         } else {
           return;
         }
-
-        console.log("Item was removed from cart successfully.");
-
-        return toast.success("Item was removed from cart successfully.");
       },
       deleteItemFromCart: (_id) => {
         const items = get().cartItems.filter((item) => item._id !== _id);
@@ -212,7 +198,6 @@ export const useCart = create(
         set({ cartItems: [] });
 
         console.log("Cart is empty");
-        toast.success("Cart is empty.");
       },
 
       numberOfItemsInCart: () => {

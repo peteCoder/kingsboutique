@@ -27,6 +27,7 @@ import {
 import { useCart } from "@/hooks/useCart";
 import Link from "next/link";
 import { useFavourites } from "@/hooks/useFavourites";
+import { formatCurrency } from "@/lib/utils";
 
 const DetailPageInfo = ({ data }: { data: ProductSanitySchemaResult }) => {
   const [hasMounted, setHasMounted] = useState(false);
@@ -41,6 +42,7 @@ const DetailPageInfo = ({ data }: { data: ProductSanitySchemaResult }) => {
 
   const [activeSize, setActiveSize] = useState<string>("");
   const [activeColour, setActiveColour] = useState<string>("");
+
 
   const onChangeSize = (value: string) => {
     console.log(value);
@@ -79,14 +81,18 @@ const DetailPageInfo = ({ data }: { data: ProductSanitySchemaResult }) => {
     return null;
   }
 
+
   return (
     <div className="space-y-3 px-3 py-4">
+      <div className="text-primary text-2xl font-bold">
+          {formatCurrency(data?.price)}
+        </div>
       <div className="">
         {data?.qty_available &&
           "Available: " + data?.qty_available + "  in Stock"}
       </div>
 
-      <div className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl ">
+      <div className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold">
         {data.name}
       </div>
       <div className="flex item-center gap-1 mt-2">
@@ -94,7 +100,6 @@ const DetailPageInfo = ({ data }: { data: ProductSanitySchemaResult }) => {
           <IoStar key={i} color={"#FFD700"} size={14} />
         ))}
       </div>
-      {/* <div className="text-[.85rem] text-gray-800">{data?.description}</div> */}
 
       <div className="flex sm:items-center gap-2 flex-col sm:flex-row my-10">
         {numberItemsAlreadyInCart && (
@@ -222,12 +227,16 @@ const DetailPageInfo = ({ data }: { data: ProductSanitySchemaResult }) => {
         </Button>
       </div>
 
-      <Accordion type="single" collapsible className="w-full">
-        <AccordionItem value="item-1">
-          <AccordionTrigger className="uppercase">Description</AccordionTrigger>
-          <AccordionContent>{data?.description}</AccordionContent>
-        </AccordionItem>
-      </Accordion>
+      {data?.description && (
+        <Accordion type="single" collapsible className="w-full">
+          <AccordionItem value="item-1">
+            <AccordionTrigger className="uppercase">Description</AccordionTrigger>
+            <AccordionContent>{data?.description}</AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      )}
+
+      
     </div>
   );
 };

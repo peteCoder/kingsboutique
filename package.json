@@ -22,6 +22,7 @@
     "@radix-ui/react-select": "^2.0.0",
     "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-toast": "^1.2.1",
     "@sanity/client": "^6.21.1",
     "@sanity/image-url": "^1.0.2",
     "@sanity/util": "^3.52.2",

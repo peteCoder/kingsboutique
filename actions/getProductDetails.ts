@@ -1,7 +1,7 @@
 import { sanityClient } from "@/lib/client";
-import { SanityClient } from "@sanity/client";
+import { cache } from "react";
 
-export const getProductDetails = async (productId: string) => {
+export const getProductDetails = cache(async (productId: string) => {
   const query = `*[_type == 'product' && _id == '${productId}']{
     _id,
     _updatedAt,
@@ -14,6 +14,11 @@ export const getProductDetails = async (productId: string) => {
     description,
     ratings,
     sizes[]->{
+        _id,
+        name,
+        code
+    },
+    colours[]->{
         _id,
         name,
         code
@@ -42,4 +47,4 @@ export const getProductDetails = async (productId: string) => {
 
   const result = await sanityClient.fetch(query);
   return result;
-};
+});

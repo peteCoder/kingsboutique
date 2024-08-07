@@ -1,6 +1,7 @@
 import { sanityClient } from "@/lib/client";
+import { cache } from "react";
 
-export const getSizes = async () => {
+export const getSizes = cache(async () => {
   const query = `*[_type == 'size']{
     _id,
     name,
@@ -11,4 +12,4 @@ export const getSizes = async () => {
 
   const result = await sanityClient.fetch(query);
   return result;
-};
+});

@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Search, X } from "lucide-react";
 import { useSearch, useSearchPlaceholder } from "@/hooks/useSearch";
 import debounce from "lodash/debounce";
+import { useFilter } from "@/hooks/useFilter";
 
 
 
@@ -23,6 +24,7 @@ const SearchBarComponent = ({
 
   const searching = useSearch();
   const searchingPlaceholder = useSearchPlaceholder();
+  const filter = useFilter();
 
   const searchPlaceholderTerm = searchingPlaceholder.search.searcTerm;
 
@@ -41,6 +43,7 @@ const SearchBarComponent = ({
   };
 
   const handleClickSearch = () => {
+    filter.removeAllFilter();
     searching.setSearchTerm(searchPlaceholderTerm);
   }
   return (
@@ -73,8 +76,6 @@ const SearchBarComponent = ({
           </Button>
           
         </div>
-        
-
       </div>
     </>
   )

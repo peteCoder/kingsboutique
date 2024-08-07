@@ -1,7 +1,8 @@
 import { sanityClient } from "@/lib/client";
 import { CartItems, ProductSanitySchemaResult } from "@/types";
+import { cache } from 'react'
 
-export const getCartData = async (cartItems: CartItems[]) => {
+export const getCartData = cache(async (cartItems: CartItems[]) => {
   const cartItemIds = cartItems.map((cartData) => cartData._id);
   const query = `*[_type == 'product' && _id in '${cartItemIds}']{
     _id,
@@ -52,4 +53,4 @@ export const getCartData = async (cartItems: CartItems[]) => {
   }));
 
   return dataToRenderForCart;
-};
+});

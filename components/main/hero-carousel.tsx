@@ -134,8 +134,13 @@ export function CarouselTransition({
             />
           ))}
           </CarouselContent>
-          <CarouselPrevious className="left-0 top-1/2 -translate-y-1/2" />
-          <CarouselNext className="right-0 top-1/2 -translate-y-1/2" />
+          {heroBanner?.length > 1 && (
+            <>
+              <CarouselPrevious className="left-0 top-1/2 -translate-y-1/2" />
+              <CarouselNext className="right-0 top-1/2 -translate-y-1/2" />
+            </>
+          )}
+          
         </Carousel>
       )}
     </div>

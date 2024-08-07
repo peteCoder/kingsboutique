@@ -1,7 +1,7 @@
 import { sanityClient } from "@/lib/client";
-import { SanityClient } from "@sanity/client";
+import { cache } from "react";
 
-export const getSpecialOffers = async () => {
+export const getSpecialOffers = cache(async () => {
   const query = `*[_type == 'special_offer']{
         _id,
         _createdAt,
@@ -22,4 +22,4 @@ export const getSpecialOffers = async () => {
 
   const result = await sanityClient.fetch(query);
   return result;
-};
+});

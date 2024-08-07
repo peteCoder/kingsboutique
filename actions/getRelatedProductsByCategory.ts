@@ -1,6 +1,7 @@
 import { sanityClient } from "@/lib/client";
+import { cache } from "react";
 
-export const getRelatedProductsByCategory = async (categoryId: string) => {
+export const getRelatedProductsByCategory = cache(async (categoryId: string) => {
   const query = `*[_type == 'product' && category->_id == '${categoryId}'  && is_featured == true]{
         _id,
         _updatedAt,
@@ -40,4 +41,4 @@ export const getRelatedProductsByCategory = async (categoryId: string) => {
 
   const result = await sanityClient.fetch(query);
   return result;
-};
+});

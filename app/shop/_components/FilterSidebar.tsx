@@ -173,7 +173,7 @@ const FilterSidebar = () => {
                           backgroundColor: `${colour?.code}`,
                         }}
                         className={cn(
-                          "hover:text-white h-5 w-5 rounded-full mt-4 mb-4 flex items-center justify-center hover:opacity-70 outline outline-1 outline-gray-400",
+                          "hover:text-white h-5 w-5 rounded-full my-1 flex items-center justify-center hover:opacity-70 outline outline-1 outline-gray-400",
                           colour?._id === colourId &&
                             "outline-black dark:outline-white outline outline-5 text-white"
                         )}

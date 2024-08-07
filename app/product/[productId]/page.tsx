@@ -23,8 +23,6 @@ const ProductDetails = async ({
     (productsToFilter) => product._id !== productsToFilter._id
   );
 
-  // console.log(filterOutCurrentProduct);
-
   return (
     <main>
       <Navbar />
@@ -45,7 +43,7 @@ const ProductDetails = async ({
               Find Related Products
             </h2>
 
-            <div className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5 sm:gap-2">
+            <div className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5 gap-1">
               {filterOutCurrentProduct?.slice(0, 8)?.map((product, i) => (
                 <ProductCard key={product._id} index={i} product={product} />
               ))}

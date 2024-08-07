@@ -1,7 +1,8 @@
 import { sanityClient } from "@/lib/client";
 import { getServerSession } from "next-auth";
+import { cache } from "react";
 
-export const getOrders = async () => {
+export const getOrders = cache(async () => {
   const session = await getServerSession();
 
   const users = await sanityClient.fetch(
@@ -62,4 +63,4 @@ export const getOrders = async () => {
   });
 
   return currentUserOrders;
-};
+});

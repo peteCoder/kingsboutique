@@ -1,9 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { getCategories } from "@/actions/getCategories";
-import { redirect } from "next/navigation";
 import { CategorySanitySchemaResult } from "@/types";
-import Image from "next/image";
 import CategoryLink from "@/components/categoryLink";
 
 const Footer = async () => {
@@ -11,12 +9,6 @@ const Footer = async () => {
 
   return (
     <div
-      style={
-        {
-          // backgroundImage: `url('/j-logo-bg-removed-2.png')`,
-          // backgroundBlendMode: "multiply",
-        }
-      }
       className="bg-cover bg-center bg-no-repeat bg-fixed py-[60px] md:px-10 px-[16px] w-full min-h-[40vh] bg-muted dark:bg-muted mt-7"
     >
       <div className="max-w-[1145px] mx-auto flex justify-center items-center">
@@ -27,7 +19,7 @@ const Footer = async () => {
               <h2 className="text-black dark:text-white text-[18px] font-[700]">
                 About us
               </h2>
-              <p className="max-w-[255px] pt-3 font-[300] text-[12px] md:text-[16px]  text-black dark:text-white">
+              <p className="max-w-[255px] pt-3 font-[300] text-[15px] md:text-[16px]  text-black dark:text-white">
                 We offer the best sales in regards to accessories.
               </p>
             </div>
@@ -39,7 +31,7 @@ const Footer = async () => {
               <h2 className="text-black dark:text-white text-[18px] font-bold">
                 Categories
               </h2>
-              <div className="text-black dark:text-white text-[12px] md:text-[16px]  bold-[300] flex flex-col space-y-2">
+              <div className="text-black uppercase dark:text-white text-[15px] md:text-[16px]  bold-[300] flex flex-col space-y-2">
                 {categories.slice(0, 6).map((category) => (
                   <CategoryLink key={category._id} category={category} />
                 ))}
@@ -50,7 +42,7 @@ const Footer = async () => {
               <h2 className="text-black dark:text-white text-[18px] font-bold">
                 Quick Links
               </h2>
-              <div className="text-black dark:text-white text-[12px] md:text-[16px]  bold-[300] flex flex-col space-y-2">
+              <div className="text-black dark:text-white text-[15px] md:text-[16px]  bold-[300] flex flex-col space-y-2">
                 <Link
                   className="hover:text-black dark:text-white transition-all duration-300"
                   href="/"
@@ -82,7 +74,7 @@ const Footer = async () => {
               <h2 className="text-black dark:text-white text-[18px] font-bold">
                 Connect Us
               </h2>
-              <div className="text-black dark:text-white text-[12px] md:text-[16px]  bold-[300] flex flex-col space-y-6">
+              <div className="text-black dark:text-white text-[15px] md:text-[16px]  bold-[300] flex flex-col space-y-6">
                 
                 
 
@@ -121,7 +113,7 @@ const Footer = async () => {
         </div>
       </div>
 
-      <div className="text-center mt-[5rem] md:mt-[4rem] text-black dark:text-white font-[300] text-[12px] md:text-[16px] ">
+      <div className="text-center mt-[5rem] md:mt-[4rem] text-black dark:text-white font-[300] text-[15px] md:text-[16px] ">
         <p>Copyright 2023 • All rights reserved • KB&F</p>
       </div>
     </div>

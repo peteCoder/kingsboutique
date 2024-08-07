@@ -11,6 +11,10 @@ import { useCart } from "@/hooks/useCart";
 import Link from "next/link";
 import usePreviewModal from "@/hooks/usePreviewModal";
 
+import { useToast } from "@/components/ui/use-toast"
+
+
+
 // Select Component
 import {
   Select,
@@ -30,6 +34,8 @@ const ProductInfo = ({ data }: { data: ProductSanitySchemaResult }) => {
 
   const cart = useCart();
   const previewModal = usePreviewModal();
+
+  const { toast } = useToast()
 
   const [activeSize, setActiveSize] = useState<string>("");
   const [activeColour, setActiveColour] = useState<string>("");
@@ -127,7 +133,12 @@ const ProductInfo = ({ data }: { data: ProductSanitySchemaResult }) => {
           <div className="flex items-center bg-gray-400/20 md:max-w-[170px] justify-between w-full rounded-md">
             <button
               className="h-full p-3"
-              onClick={() => cart.removeItemFromCart(data._id)}
+              onClick={() => {
+                cart.removeItemFromCart(data._id);
+                toast({
+                  title: "Product was removed from cart.",
+                })
+              }}
             >
               <Minus size={15} />
             </button>
@@ -142,6 +153,9 @@ const ProductInfo = ({ data }: { data: ProductSanitySchemaResult }) => {
                     sizeId: activeSize,
                     colourId: activeColour,
                   });
+                  toast({
+                    title: "Increased the number of item in cart.",
+                  })
                 }
               }}
             >
@@ -152,11 +166,15 @@ const ProductInfo = ({ data }: { data: ProductSanitySchemaResult }) => {
 
         {!numberItemsAlreadyInCart ? (
           <Button
-            onClick={() =>
-              cart.addItemToCart(data, {
-                sizeId: activeSize,
-                colourId: activeColour,
-              })
+            onClick={() =>{
+                cart.addItemToCart(data, {
+                  sizeId: activeSize,
+                  colourId: activeColour,
+                });
+                toast({
+                  title: "Product added to cart",
+                })
+              }
             }
             className="uppercase flex gap-1 items-center w-full min-h-[56px] flex-1 disabled:opacity-40"
             disabled={numberItemsAlreadyInCart >= data?.qty_available}

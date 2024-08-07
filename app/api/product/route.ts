@@ -1,12 +1,7 @@
 import { sanityClient } from "@/lib/client";
 import { NextRequest, NextResponse } from "next/server";
 
-
-
-
 export const dynamic = "force-dynamic";
-
-
 
 export async function GET(req: NextRequest) {
   try {
@@ -91,7 +86,6 @@ export async function GET(req: NextRequest) {
         product?.colours?.some((colour: any) => colour._id === colourId)
       );
       console.log("There is only color");
-      // console.log("Filtered Products: ", filteredProducts);
       return NextResponse.json(filteredProducts, { status: 200 });
     }
 

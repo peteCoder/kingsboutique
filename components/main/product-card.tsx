@@ -16,10 +16,6 @@ import usePreviewModal from "@/hooks/usePreviewModal";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/hooks/useCart";
 import { useFavourites } from "@/hooks/useFavourites";
-import { toast } from "react-hot-toast";
-
-// import ScrollAnimation from "react-animate-on-scroll";
-// import "animate.css/animate.compat.css";
 
 // Type
 interface ProductProps {
@@ -86,7 +82,7 @@ const ProductCard: React.FC<ProductProps> = ({ index, product }) => {
         product.qty_available > 0 && router.push(`/product/${product?._id}`)
       }
     >
-      <div className="relative group duration-700 min-h-[100px] sm:min-h-[200px] md:min-h-[350px] bg-muted rounded-t-md overflow-hidden">
+      <div className="relative group duration-700 min-h-[250px] md:min-h-[350px] bg-muted rounded-t-md overflow-hidden">
         <div className="absolute top-0 right-0 flex flex-col md:space-y-2 z-10 group-hover:opacity-100 opacity-0 translate-x-[100%] group-hover:translate-x-0 duration-700 md:mr-3 mt-2">
           <div
             className="bg-white hover:bg-primary hover:text-white cursor-pointer duration-700 text-black w-7 h-7 md:w-10 md:h-10 rounded-full m-1 flex items-center justify-center"
@@ -157,7 +153,7 @@ const ProductCard: React.FC<ProductProps> = ({ index, product }) => {
       {/* Details to transform onhover */}
       <div className="relative">
         {/* Continue from here */}
-        <div className="bg-white dark:bg-muted bg-opacity-100 rounded-b-md mb-4 text-left border flex flex-col p-1 md:p-2 py-3 md:py-5 gap-2 md:gap-4 group duration-700">
+        <div className="bg-white dark:bg-muted bg-opacity-100 rounded-b-md text-left border flex flex-col p-1 md:p-2 py-3 md:py-5 gap-2 md:gap-4 group duration-700">
           {/* w-[250px] md:w-[280px] mx-auto */}
           {/* Add Ratings here */}
           {/* Ratings stars */}
@@ -181,11 +177,11 @@ const ProductCard: React.FC<ProductProps> = ({ index, product }) => {
           
           <div className="space-y-1">
             {/* Price */}
-            <div className="text-[10px] sm:text-[13px] md:text-[19px] text-[#424141] dark:text-white font-bold">
+            <div className="text-[15px] md:text-[19px] text-[#424141] dark:text-white font-bold">
               {formatCurrency(product?.price)}
             </div>
             {/* Product Name */}
-            <div className="text-[10px] sm:text-[12px] md:text-[15px] font-bold text-primary uppercase">
+            <div className="text-[15px] md:text-[15px] font-bold text-primary uppercase">
               {product?.name.slice(0, 10)}
               {product?.name.length > 10 && "..."}
             </div>
