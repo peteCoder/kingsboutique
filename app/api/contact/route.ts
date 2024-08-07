@@ -3,6 +3,14 @@ import { sanityClient } from "@/lib/client";
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
+// import path from "path";
+// import fs from "fs";
+
+import path from "path";
+import fs from "fs"
+
+
+
 export const dynamic = "force-dynamic";
 
 export const GET = async (res: NextRequest) => {
@@ -29,7 +37,7 @@ export async function POST(req: NextRequest) {
   const transporter = nodemailer.createTransport({
     port: 465,
     host: "smtp.gmail.com",
-    service: process.env.SMTP_EMAIL_PROVIDER,
+    // service: process.env.SMTP_EMAIL_PROVIDER,
     auth: {
       user: process.env.SMTP_EMAIL_USER,
       pass: process.env.SMPT_EMAIL_PASSWORD,
@@ -50,6 +58,11 @@ export async function POST(req: NextRequest) {
     });
   });
 
+
+  // Read image file to attach
+  const logoPath = path.join(process.cwd(), 'email_images/kingslogo.jpg');
+  const logo = fs.readFileSync(logoPath);
+
   // Mail Options
   const mailOptions = {
     from: {
@@ -57,8 +70,16 @@ export async function POST(req: NextRequest) {
       address: email,
     },
     to: process.env.SMTP_EMAIL_RECEPIENT,
-    subject: `Message from KingsBoutique.com`,
+    subject: `Message from Kingsboutiques.com`,
     html: `${formatEmailMessage(userData)}`,
+    attachments: [
+      {
+        filename: 'logo.png',
+        content: logo,
+        cid: 'logo' // same CID as in the HTML content
+      }
+    ]
+    
   };
 
   if (_id) {

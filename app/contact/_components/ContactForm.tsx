@@ -10,10 +10,15 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import BeatLoader from "react-spinners/BeatLoader";
 import axios from "axios";
-import { toast } from "react-hot-toast";
+// import { toast } from "react-hot-toast";
+
+import { useToast } from "@/components/ui/use-toast"
+
 
 const ContactForm = () => {
   const [isLoading, setIsLoading] = useState(false);
+
+  const { toast } = useToast();
 
   const ContactSchema = yup.object({
     name: yup.string().required("Please enter your name."),
@@ -38,14 +43,23 @@ const ContactForm = () => {
       const data = response.data;
       console.log(data);
       if (data.status === 200) {
-        toast.success(data.message);
+        // toast.success(data.message);
+        toast({
+          description: data.message,
+        })
       } else {
-        toast.error(data.message);
+        // toast.error(data.message);
+        toast({
+          description: data.message,
+        })
       }
     } catch (error) {
       setIsLoading(false);
 
-      toast.error("Someething went wrong. Try again.");
+      // toast.error("Someething went wrong. Try again.");
+      toast({
+        description: "Something went wrong. Try again.",
+      })
     } finally {
       setIsLoading(false);
       setValue("email", "");
