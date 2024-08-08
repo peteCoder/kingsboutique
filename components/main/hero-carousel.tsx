@@ -119,16 +119,16 @@ export function CarouselTransition({
       ) : (
         <Carousel>
           <CarouselContent className="h-[40vh] md:h-[50vh] lg:h-[70vh]">
-          {heroBanner.map((banner) => (
+          {heroBanner?.map((banner) => (
             <RenderCarouselItem 
-              backgroundImage={`${urlFor(banner?.bannerImage)?.url()}`}
+              backgroundImage={`${banner?.bannerImage ? urlFor(banner?.bannerImage)?.url() : ""}`}
               color={banner.textColor}
               description=""
               key={banner._id}
               heading={banner?.title}
               subHeading={banner?.subTitle}
-              categoryId={banner?.category._id}
-              categoryName={banner?.category.name}
+              categoryId={banner?.category?._id}
+              categoryName={banner?.category?.name}
               isDummy={false}
 
             />
