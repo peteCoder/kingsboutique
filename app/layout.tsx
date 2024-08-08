@@ -4,7 +4,6 @@ import "./globals.css";
 import ModalProvider from "@/providers/ModalProvider";
 import SessionProvider from "@/providers/sessionProvider";
 import { getServerSession } from "next-auth";
-// import ToastProvider from "@/providers/ToastProvider";
 import { ThemeProvider } from "@/components/theme-provider";
 
 import { Toaster } from "@/components/ui/toaster"
@@ -38,7 +37,6 @@ export default async function RootLayout({
           <SessionProvider session={session}>
             {children}
             <ModalProvider />
-            {/* <ToastProvider /> */}
             <Toaster />
           </SessionProvider>
         </ThemeProvider>

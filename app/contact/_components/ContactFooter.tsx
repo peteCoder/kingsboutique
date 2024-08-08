@@ -6,14 +6,10 @@ function ContactFooter() {
   return (
     <footer className="py-10 w-full">
       <div className="flex flex-col md:flex-row space-y-8 md:space-y-0 justify-between items-center container mx-auto">
-        {/* <Link href="/">
-          <Image width={33} height={33} src="/j-logo-bg-removed-2.png" alt="" />
-        </Link> */}
-
         {/* Copy Right */}
         <div>
           <span className="text-[#ffffff] text-[14px]">
-            © 2023 Kings Boutique. All rights reserved.{" "}
+            © 2023 Kings Boutiques. All rights reserved.{" "}
           </span>
         </div>
         {/* Socials */}

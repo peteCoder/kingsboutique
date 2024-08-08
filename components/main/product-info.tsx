@@ -35,7 +35,7 @@ const ProductInfo = ({ data }: { data: ProductSanitySchemaResult }) => {
   const cart = useCart();
   const previewModal = usePreviewModal();
 
-  const { toast } = useToast()
+  const { toast } = useToast();
 
   const [activeSize, setActiveSize] = useState<string>("");
   const [activeColour, setActiveColour] = useState<string>("");
@@ -58,7 +58,6 @@ const ProductInfo = ({ data }: { data: ProductSanitySchemaResult }) => {
     });
   };
 
-  console.log("PRODUCT SIZES: ", data?.sizes);
   return (
     <div className="space-y-4">
       <div className="">Available: {data?.qty_available}</div>

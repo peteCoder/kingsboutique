@@ -2,18 +2,21 @@ import Navbar from "@/components/main/sections/navbar";
 import React from "react";
 import ContactForm from "./_components/ContactForm";
 import ContactFooter from "./_components/ContactFooter";
+import { getSessionUser } from "@/actions/getSessionUser";
 
-const ContactPage = () => {
+const ContactPage = async () => {
+  const user = await getSessionUser();
+
+  
   return (
     <main>
       <Navbar />
-
       <div
         style={{
           backgroundImage: `url('/j-logo-bg-removed-2.png')`,
           backgroundBlendMode: "multiply",
         }}
-        className=" bg-left bg-no-repeat bg-fixed w-full bg-primary dark:bg-muted px-2 py-10 md:py-0"
+        className="bg-left bg-no-repeat bg-fixed w-full bg-primary dark:bg-muted px-2 py-10 md:py-0"
       >
         <div className="flex justify-center items-center flex-col">
           <div className="w-full flex flex-col justify-start pt-16 items-center relative">
@@ -21,7 +24,7 @@ const ContactPage = () => {
               Contact us
             </div>
             {/* Form */}
-            <ContactForm />
+            <ContactForm user={user} />
           </div>
         </div>
         <ContactFooter />

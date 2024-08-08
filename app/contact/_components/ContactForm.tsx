@@ -1,8 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -10,12 +9,19 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import BeatLoader from "react-spinners/BeatLoader";
 import axios from "axios";
-// import { toast } from "react-hot-toast";
 
 import { useToast } from "@/components/ui/use-toast"
+import { Type } from "lucide-react";
 
 
-const ContactForm = () => {
+type User = {
+  name?: string | null;
+  email?: string | null;
+  image?: string | null;
+} | undefined;
+
+const ContactForm = ({ user }: {user: User}) => {
+
   const [isLoading, setIsLoading] = useState(false);
 
   const { toast } = useToast();
@@ -36,6 +42,14 @@ const ContactForm = () => {
     resolver: yupResolver(ContactSchema),
   });
 
+  useEffect(() => {
+    if (user?.email) {
+      setValue("email", user.email)
+    }
+  }, [])
+
+  
+
   const onSubmit = async (values: yup.InferType<typeof ContactSchema>) => {
     try {
       setIsLoading(true);
@@ -43,26 +57,27 @@ const ContactForm = () => {
       const data = response.data;
       console.log(data);
       if (data.status === 200) {
-        // toast.success(data.message);
         toast({
           description: data.message,
         })
       } else {
-        // toast.error(data.message);
         toast({
           description: data.message,
         })
       }
     } catch (error) {
       setIsLoading(false);
-
-      // toast.error("Someething went wrong. Try again.");
       toast({
         description: "Something went wrong. Try again.",
       })
     } finally {
       setIsLoading(false);
-      setValue("email", "");
+      if (user?.email) {
+        setValue("email", user.email)
+      } else {
+        setValue("email", "");
+      }
+      
       setValue("name", "");
       setValue("message", "");
       setValue("subject", "");
@@ -80,8 +95,9 @@ const ContactForm = () => {
         <input
           type="text"
           placeholder="Your Name"
-          className="w-full h-full outline-none text-[15px] px-[20px] bg-white dark:text-black"
+          className="w-full h-full outline-none text-[15px] px-[20px] bg-white dark:text-black disabled:opacity-70"
           {...register("name")}
+          
         />
       </div>
       <p className="text-red-500 text-sm">{errors.name?.message}</p>
@@ -89,8 +105,9 @@ const ContactForm = () => {
         <input
           type="text"
           placeholder="Your Email"
-          className="w-full h-full outline-none text-[15px] px-[20px] placeholder:text-gray bg-white dark:text-black"
+          className="w-full h-full outline-none text-[15px] px-[20px] placeholder:text-gray bg-white dark:text-black disabled:opacity-70"
           {...register("email")}
+          disabled={user?.email ? true : false}
         />
       </div>
       <p className="text-red-500 text-sm">{errors.email?.message}</p>
@@ -98,7 +115,7 @@ const ContactForm = () => {
         <input
           type="text"
           placeholder="Subject"
-          className="w-full h-full outline-none text-[15px] px-[20px] bg-white dark:text-black"
+          className="w-full h-full outline-none text-[15px] px-[20px] bg-white dark:text-black disabled:opacity-70"
           {...register("subject")}
         />
       </div>
@@ -107,7 +124,7 @@ const ContactForm = () => {
       <div className="border-[#5e5d5d] border rounded-[5px] outline-none overflow-hidden">
         <textarea
           placeholder="Message"
-          className="w-full h-full outline-none text-[15px] px-[20px] py-[10px] bg-white dark:text-black"
+          className="w-full h-full outline-none text-[15px] px-[20px] py-[10px] bg-white dark:text-black disabled:opacity-70"
           id=""
           cols={30}
           rows={10}

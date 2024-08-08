@@ -1,4 +1,4 @@
-import { formatEmailMessage } from "@/email/format/contactUsFormat";
+import { adminFormatEmailMessage, userFormatEmailMessage } from "@/email/format/contactUsFormat";
 import { sanityClient } from "@/lib/client";
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
@@ -60,15 +60,15 @@ export async function POST(req: NextRequest) {
   const logoPath = path.join(process.cwd(), 'email_images/kingslogo.jpg');
   const logo = fs.readFileSync(logoPath);
 
-  // Mail Options
-  const mailOptions = {
+  // Admin Mail Options
+  const adminMailOptions = {
     from: {
       name: `${name}`,
       address: email,
     },
     to: process.env.SMTP_EMAIL_RECEPIENT,
-    subject: `Message from Kingsboutiques.com`,
-    html: `${formatEmailMessage(userData)}`,
+    subject: `Message from customer at kingsboutiques.com`,
+    html: `${adminFormatEmailMessage(userData)}`,
     attachments: [
       {
         filename: 'logo.png',
@@ -79,11 +79,59 @@ export async function POST(req: NextRequest) {
     
   };
 
+  // User Mail Options
+  const userMailOptions: typeof adminMailOptions = {
+    from: {
+      name: `Kings Boutique`,
+      address: process.env.SMTP_EMAIL_RECEPIENT,
+    },
+    to: email,
+    subject: `Message from kingsboutiques.com`,
+    html: `${userFormatEmailMessage(userData)}`,
+    attachments: [
+      {
+        filename: 'logo.png',
+        content: logo,
+        cid: 'logo' // same CID as in the HTML content
+      }
+    ]
+    
+  };
+
+  // type MailTyOptionType = typeof adminMailOptions
+
   if (_id) {
     // Send mail if the
     await new Promise((resolve, reject) => {
-      // send mail
-      transporter.sendMail(mailOptions, (err, info) => {
+      // send mail to admin
+      transporter.sendMail(adminMailOptions, (err, info) => {
+        if (err) {
+          console.error(err);
+          reject(err);
+          return NextResponse.json(
+            {
+              message:
+                "Message was not submitted successful. Please try again.",
+              status: 400,
+            },
+            { status: 400 }
+          );
+        } else {
+          console.log(info);
+          resolve(info);
+          console.log("Email sent: " + info.response);
+          return NextResponse.json(
+            { message: "Message was sent successful.", status: 200 },
+            { status: 200 }
+          );
+        }
+      });
+    });
+
+    // Send mail if the
+    await new Promise((resolve, reject) => {
+      // send mail to admin
+      transporter.sendMail(userMailOptions, (err, info) => {
         if (err) {
           console.error(err);
           reject(err);
@@ -119,7 +167,7 @@ export async function POST(req: NextRequest) {
   return NextResponse.json(
     {
       message:
-        "Your message was successfully received! We will response in due time thank you!",
+        "Your message was successfully received! We will response in due time. Thank you!",
       status: 200,
     },
     { status: 200 }

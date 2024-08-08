@@ -7,6 +7,9 @@ import { Button } from "../ui/button";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { GrFavorite } from "react-icons/gr";
 
+import { useToast } from "@/components/ui/use-toast";
+
+
 // Select Component
 import {
   Select,
@@ -37,6 +40,8 @@ const DetailPageInfo = ({ data }: { data: ProductSanitySchemaResult }) => {
   );
 
   const cart = useCart();
+
+  const { toast } = useToast();
 
   const favourites = useFavourites();
 
@@ -106,7 +111,12 @@ const DetailPageInfo = ({ data }: { data: ProductSanitySchemaResult }) => {
           <div className="flex items-center bg-gray-400/20 md:max-w-[170px] justify-between w-full rounded-md">
             <button
               className="h-full p-3"
-              onClick={() => cart.removeItemFromCart(data._id)}
+              onClick={() => {
+                cart.removeItemFromCart(data._id);
+                toast({
+                  title: "Product was removed from cart.",
+                })
+              }}
             >
               <Minus size={15} />
             </button>
@@ -121,6 +131,9 @@ const DetailPageInfo = ({ data }: { data: ProductSanitySchemaResult }) => {
                     sizeId: activeSize,
                     colourId: activeColour,
                   });
+                  toast({
+                    title: "Increased the number of item in cart.",
+                  });
                 }
               }}
             >
@@ -130,11 +143,16 @@ const DetailPageInfo = ({ data }: { data: ProductSanitySchemaResult }) => {
         )}
         {!numberItemsAlreadyInCart ? (
           <Button
-            onClick={() =>
-              cart.addItemToCart(data, {
-                sizeId: activeSize,
-                colourId: activeColour,
-              })
+            onClick={() => {
+                cart.addItemToCart(data, {
+                  sizeId: activeSize,
+                  colourId: activeColour,
+                });
+                toast({
+                  title: "Product added to cart",
+                })
+              
+              }
             }
             className="uppercase flex gap-1 items-center w-full min-h-[56px] flex-1"
           >
