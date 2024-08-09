@@ -12,7 +12,7 @@ export async function generateSitemaps() {
 }
 
 export default async function sitemap({
-    _id,
+    _id, 
   }: {
     _id: string
   }): Promise<MetadataRoute.Sitemap> {
@@ -20,7 +20,7 @@ export default async function sitemap({
     const products: ProductSanitySchemaResult[] = await getProducts();
 
     return products.map((product) => ({
-      url: `${BASE_URL}/product/${_id}`,
+      url: `${BASE_URL}/product/${product._id}`,
       lastModified: product._createdAt,
     }))
   }
