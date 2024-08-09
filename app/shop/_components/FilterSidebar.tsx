@@ -90,7 +90,7 @@ const FilterSidebar = () => {
   }, []);
 
   return (
-    <div className="overflow-y-auto flex flex-col ">
+    <div className="overflow-y-auto flex flex-col pb-10">
       <div className="sticky top-0 left-0 lg:pt-1 lg:mt-1">
         {loadCategories || loadSizes || loadColours ? (
           <LoadFilter />

@@ -17,13 +17,10 @@ const AllProductsBasedOnCategory = ({ categoryId }: { categoryId: string }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchAlProductsBasedOnCategory = async () => {
+    const fetchAllProductsBasedOnCategory = async () => {
       if (!hasMounted) return; // Avoid running on server side prerendering
       try {
         setIsLoading(true);
-        // const response = await axios.get(`/api/category/${categoryId}`);
-        // const categoryProducts = response.data;
-
         const response = await fetch(`/api/category/${categoryId}`, {
           cache: "no-store",
         });
@@ -38,7 +35,7 @@ const AllProductsBasedOnCategory = ({ categoryId }: { categoryId: string }) => {
       }
     };
 
-    fetchAlProductsBasedOnCategory();
+    fetchAllProductsBasedOnCategory();
   }, [categoryId, hasMounted]);
 
   useEffect(() => {

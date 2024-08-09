@@ -3,6 +3,16 @@ import React from "react";
 import ContactFooter from "../contact/_components/ContactFooter";
 import Footer from "@/components/main/sections/footer";
 
+import type { Metadata } from "next";
+
+export const revalidate = 3600; // revalidate the data at most every hour
+
+
+export const metadata: Metadata = {
+  title: "Policies and Terms",
+  description: "Best Fashion and Accessories store and collections",
+}
+
 const PrivacyPolicyPage = () => {
   return (
     <main>

@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { getProductDetails } from "@/actions/getProductDetails";
 import { getRelatedProductsByCategory } from "@/actions/getRelatedProductsByCategory";
 import DetailPageGallery from "@/components/main/detail-gallery";
@@ -7,11 +8,56 @@ import Footer from "@/components/main/sections/footer";
 import Navbar from "@/components/main/sections/navbar";
 import { ProductSanitySchemaResult } from "@/types";
 
+
+
+// export const metadata: Metadata = {
+//   // title: {
+//   //   absolute: "Home",
+//   // },
+//   title: "Home",
+//   description: "Best Fashion and Accessories store",
+// }
+
+interface Params {
+  params: {
+    productId: string
+  }
+}
+
+export async function generateMetadata({params: { productId }}: Params): Promise<Metadata | undefined>{
+  const productArray: ProductSanitySchemaResult[] = await getProductDetails(productId);
+  const product = productArray[0];
+
+  const productFirstImage = product?.gallery[0]?.imageUrl?.asset?.url;
+
+  if (!product) {
+    return
+  }
+
+  return {
+    title: `${product.name}`,
+    description: `${product.description ? product.description : "We offer the best " + product.name + " for sales."}`,
+    openGraph: {
+      title: `${product.name}`,
+      description: `${product.description ? product.description : "We offer the best " + product.name + " for sales."}`,
+      type: "website",
+      locale:"en_US",
+      url: `${process.env.NEXT_PUBLIC_URL}/product/${product._id}/`,
+      siteName: "Kings Boutiques",
+      images: [
+        {
+          url: productFirstImage ? productFirstImage : "",
+          width: 700,
+          height: 700
+        }
+      ]
+    }
+  }
+}
+
 const ProductDetails = async ({
   params: { productId },
-}: {
-  params: { productId: string };
-}) => {
+}: Params) => {
   const productArray = await getProductDetails(productId);
   const product = productArray[0];
 

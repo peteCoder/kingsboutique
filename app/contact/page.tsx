@@ -4,6 +4,18 @@ import ContactForm from "./_components/ContactForm";
 import ContactFooter from "./_components/ContactFooter";
 import { getSessionUser } from "@/actions/getSessionUser";
 
+
+import type { Metadata } from "next";
+
+export const revalidate = 3600; // revalidate the data at most every hour
+
+
+export const metadata: Metadata = {
+  title: "Contact",
+  description: "Best Fashion and Accessories store and collections",
+}
+
+
 const ContactPage = async () => {
   const user = await getSessionUser();
 

@@ -12,8 +12,19 @@ import { Toaster } from "@/components/ui/toaster"
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "King's Boutique Fashion and Accessories",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_URL!),
+  title: {
+    default: "King's Boutiques Fashion and Accessories",
+    template: "%s | King's Boutiques Fashion and Accessories",
+  },
   description: "Best Fashion and Accessories store",
+  openGraph: {
+    title: "King's Boutiques Fashion and Accessories",
+    description: "Best Fashion and Accessories store",
+    type: "website",
+    url: process.env.NEXT_PUBLIC_URL,
+    siteName: "Kings Boutiques",
+  }
 };
 
 export const revalidate = 3600; // revalidate the data at most every hour

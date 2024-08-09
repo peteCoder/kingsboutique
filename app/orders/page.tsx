@@ -6,6 +6,16 @@ import React from "react";
 import OrderData from "./_components/OrderData";
 import Footer from "@/components/main/sections/footer";
 
+import type { Metadata } from "next";
+
+export const revalidate = 3600; // revalidate the data at most every hour
+
+
+export const metadata: Metadata = {
+  title: "Orders",
+  description: "Best Fashion and Accessories store and collections",
+}
+
 const OrdersPage = async () => {
   const orders = await getOrders();
 

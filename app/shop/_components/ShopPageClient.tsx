@@ -46,6 +46,14 @@ const SearchBarComponent = ({
     filter.removeAllFilter();
     searching.setSearchTerm(searchPlaceholderTerm);
   }
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleClickSearch();
+    }
+  };
+
+
   return (
     <>
       <div className="flex md:items-center gap-3 flex-col md:flex-row justify-center  mx-auto">
@@ -65,12 +73,12 @@ const SearchBarComponent = ({
                 searchingPlaceholder.removeSearchTerm();
               }} className="h-4 w-4 text-black dark:text-white absolute right-1 md:right-2 top-1/2 -translate-y-1/2 " />
             )}
-            <Input onChange={handleShopGlobalSearch} value={searchPlaceholderTerm} placeholder="Search..." className="focus-visible:ring-0 focus-visible:ring-offset-0 rounded-none focus-within:outline-none focus:outline-none w-full" />
+            <Input onKeyDown={handleKeyDown} onChange={handleShopGlobalSearch} value={searchPlaceholderTerm} placeholder="Search..." className="focus-visible:ring-0 focus-visible:ring-offset-0 rounded-none focus-within:outline-none focus:outline-none w-full" />
           </div>
 
           <Button
               onClick={() => handleClickSearch()}
-              className="flex items-center lg:hidden border  min-w-10 sm:min-w-16 rounded-r-2xl rounded-none px-7 text-[18px] !p-0"
+              className="flex items-center border  min-w-10 sm:min-w-16 rounded-r-2xl rounded-none px-7 text-[18px] !p-0"
           >
             <Search size={20} className="" />
           </Button>
@@ -96,7 +104,7 @@ const ShopPageClient = () => {
   return (
     <>
       <Navbar />
-      <div className="xl:container !px-1">
+      <div className="2xl:container !px-2">
         <div className="grid grid-cols-4">
           <div className="hidden lg:block relative ">
             <div className="top-0 left-0 right-0 bottom-0 sticky pt-1 border-r">
@@ -134,7 +142,7 @@ const ShopPageClient = () => {
               <FilterSidebar />
             </div>
           </div>
-          <div className="col-span-4 lg:col-span-3 pt-10">
+          <div className="col-span-4 lg:col-span-3 pt-10 lg:pt-2">
             <div className="flex md:items-center gap-3 flex-col md:flex-row justify-center px-3  mx-auto lg:hidden">
               <SearchBarComponent setFilterSideOpen={setFilterSideOpen} />
             </div>
