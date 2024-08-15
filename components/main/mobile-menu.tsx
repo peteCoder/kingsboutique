@@ -37,7 +37,7 @@ const MobileMenu = () => {
     <div>
       <Sheet>
         <SheetTrigger>
-          <FaBars size={25} />
+          <FaBars size={22} />
         </SheetTrigger>
         <SheetContent className="p-0">
           <nav className="bg-primary w-full h-full">
@@ -84,30 +84,7 @@ const MobileMenu = () => {
                     alt=""
                   />
                 </a>
-                {/* <a
-                  className="flex justify-center items-center w-[50px] h-[50px] rounded-full bg-[#ffffff]"
-                  href="https://www.instagram.com"
-                >
-                  <Image
-                    width={33}
-                    height={33}
-                    className="w-[13px] h-[13px]"
-                    src="/images/instagram.png"
-                    alt=""
-                  />
-                </a>
-                <a
-                  className="flex justify-center items-center w-[50px] h-[50px] rounded-full bg-[#ffffff]"
-                  href="https://www.twitter.com"
-                >
-                  <Image
-                    width={33}
-                    height={33}
-                    className="w-[14.29px] h-[11.69px]"
-                    src="/images/twitter.png"
-                    alt=""
-                  />
-                </a> */}
+                
               </div>
             </div>
           </nav>

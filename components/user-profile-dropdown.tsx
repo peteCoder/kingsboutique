@@ -30,7 +30,7 @@ export function UserProfileDropdown() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Avatar>
+        <Avatar className="h-7 w-7 sm:h-8 sm:w-8 md:h-10 md:w-10" >
           <AvatarImage src={session?.user?.image || ""} />
           <AvatarFallback>P</AvatarFallback>
         </Avatar>

@@ -13,6 +13,8 @@ import { usePathname, useRouter } from "next/navigation";
 import CartDropdownForDesktop from "../cart-dropdown-desktop";
 import { ThemeModeToggle } from "@/components/theme-dropdown";
 import { cn } from "@/lib/utils";
+import { Search } from "lucide-react";
+import { useFilter } from "@/hooks/useFilter";
 
 
 
@@ -26,7 +28,7 @@ const navLinks = [
     href: "/shop"
   },
   {
-    label: "Contact Us",
+    label: "Contact",
     href: "/contact"
   },
 
@@ -39,6 +41,8 @@ const Navbar = () => {
   const router = useRouter();
   const pathname = usePathname();
 
+  const filter = useFilter();
+
 
   return (
     <header className="">
@@ -48,9 +52,12 @@ const Navbar = () => {
         <div className="md:container mx-auto">
           <div className="md:flex md:items-center py-4 px-4">
             {/* Logo */}
-            <div className="w-[127.34px] hidden md:block">
-              <span className="text-primary font-bold text-3xl mt-5">KB&F</span>
-            </div>
+            <Link href={'/'}>
+              <div className="w-[127.34px] hidden md:block">
+                <span className="text-primary font-bold text-3xl mt-5">KB&F</span>
+              </div>
+            </Link>
+            
             {/* Nav Items */}
             <nav className="flex-1">
               {/* For Desktop screens */}
@@ -67,7 +74,7 @@ const Navbar = () => {
             </nav>
 
             {/* Nav Icons */}
-            <div className="flex items-center text-[14px] justify-between md:gap-2">
+            <div className="flex items-center text-[14px] justify-between md:gap-1">
               <div className="block md:hidden nav-links">
                 {/* Here is the mobile menu trigger */}
                 <MobileMenu />
@@ -81,9 +88,20 @@ const Navbar = () => {
                   <GrFavorite size={18} />
                 </Button>
               )}
+              
               <ProfileLoginDialog />
               {/* This should be hidden for smaller screen device */}
               <ThemeModeToggle />
+              <Button
+                  variant={"link"}
+                  className="dark:text-white text-black"
+                  onClick={() => {
+                    filter.removeAllFilter();
+                    router.push("/shop");
+                  }}
+                >
+                <Search size={18} />
+              </Button>
               <div className="hidden md:block">
                 <CartDropdown />
               </div>

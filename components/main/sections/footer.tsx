@@ -93,6 +93,7 @@ const Footer = async () => {
                     className="hover:text-black dark:text-white transition-all duration-300 flex flex-col mt-2"
                   >
                     <p>Benin</p>
+                    <p>Auchi</p>
                     <p>Lagos</p>
                     <p>Abuja</p>
                   </div>
