@@ -7,6 +7,7 @@ import { getServerSession } from "next-auth";
 import { ThemeProvider } from "@/components/theme-provider";
 
 import { Toaster } from "@/components/ui/toaster"
+import SmartsuppScript from "@/components/SmartSuppScriptLiveChat";
  
 
 const inter = Inter({ subsets: ["latin"] });
@@ -51,6 +52,8 @@ export default async function RootLayout({
             <Toaster />
           </SessionProvider>
         </ThemeProvider>
+
+        <SmartsuppScript />
       </body>
     </html>
   );
