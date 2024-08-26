@@ -50,6 +50,18 @@ const OrderSummary = () => {
               </div>
             </div>
           ))}
+
+            <div
+              className="flex items-center justify-between text-sm mt-2"
+            >
+              <div className="flex items-center gap-2">
+                <span className="">Shipping Fee</span>{" "}
+              </div>
+
+              <div className="text-gray-4a font-medium">
+                {formatCurrency(cart.shippingFee)}
+              </div>
+            </div>
         </div>
         <div className="mt-5">
           <Separator />

@@ -10,8 +10,8 @@ import Footer from "@/components/main/sections/footer";
 
 import type { Metadata } from "next";
 
-export const revalidate = 3600; // revalidate the data at most every hour
-
+// revalidate the data at most every hour
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Checkout",
@@ -21,7 +21,6 @@ export const metadata: Metadata = {
 const CheckoutPage = async () => {
   const session = await getServerSession();
   const userEmail = session?.user?.email;
-  // const userEmail = undefined;
 
   const userShippingDataSanity = (
     await sanityClient.fetch(`*[_type == 'account' && email == '${userEmail}']{
@@ -34,8 +33,7 @@ const CheckoutPage = async () => {
     }`)
   )[0];
 
-  const shippingDetails: UserShippingDataForCheckoutForm =
-    userShippingDataSanity?.shippingDetails;
+  const shippingDetails: UserShippingDataForCheckoutForm = userShippingDataSanity?.shippingDetails;
 
   if (!session?.user) {
     return redirect("/cart");
@@ -48,18 +46,22 @@ const CheckoutPage = async () => {
         <h2 className="uppercase text-xl md:text-2xl lg:text-4xl text-center my-4">
           CHECKOUT
         </h2>
-        <div className="flex gap-3 flex-col-reverse lg:flex-row mt-20">
+        <div className="flex gap-3 flex-col lg:flex-row mt-20">
+          
           <div className="basis-[100%] lg:basis-1/2">
             <FormData shippingDetails={shippingDetails} />
           </div>
+
           <div className="basis-[100%] lg:basis-1/2">
             <OrderSummary />
           </div>
+          
         </div>
       </div>
       <Footer />
     </main>
   );
+
 };
 
 export default CheckoutPage;

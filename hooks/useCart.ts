@@ -27,8 +27,7 @@ interface DataForOrderedItemsType {
   subtotal: number;
   colourId: string | undefined;
   sizeId: string | undefined;
-}
-[];
+}[];
 
 interface CartStore {
   cartItems: CartItems[];
@@ -52,12 +51,18 @@ interface CartStore {
   absoluteTotal: () => number;
   getAllOrderItems: () => DataForOrderedItemsType[];
   displayCartData: () => CartItems[];
+  shippingFee: number;
+  setShippingFee: (fee: number) => void;
 }
 
 export const useCart = create(
   persist<CartStore>(
     (set, get) => ({
+      shippingFee: 0,
       cartItems: [],
+      setShippingFee(fee) {
+        set({shippingFee: fee});
+      },
       addItemToCart: (data, otherProperties) => {
         const cart = get().cartItems;
         //   Check if data _id already exists in exisingData
@@ -196,8 +201,6 @@ export const useCart = create(
       },
       resetCart: () => {
         set({ cartItems: [] });
-
-        console.log("Cart is empty");
       },
 
       numberOfItemsInCart: () => {
@@ -207,7 +210,9 @@ export const useCart = create(
 
       absoluteTotal: () => {
         const price = get().cartItems.reduce((a, b) => a + b.totalPrice, 0);
-        return price;
+        const shippingFee = get().shippingFee;
+        const pricePlusShipping = price + shippingFee;
+        return pricePlusShipping;
       },
 
       getAllOrderItems: () => {

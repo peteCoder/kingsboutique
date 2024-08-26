@@ -52,7 +52,6 @@ export default async function RootLayout({
             <Toaster />
           </SessionProvider>
         </ThemeProvider>
-
         <SmartsuppScript />
       </body>
     </html>

@@ -36,7 +36,6 @@ const FlutterwaveButton = () => {
         address: userData.details.address,
         name: `${userData.details.firstName} ${userData.details.lastName}`,
         country: userData.details.country,
-        city: userData.details.city,
         orderNote: userData.details.orderNote,
       },
     };
@@ -75,14 +74,21 @@ const FlutterwaveButton = () => {
         onClick={onCheckout}
       >
         {isLoading ? (
-          <BeatLoader size={12} color="#000" />
+          <>
+            <div className="dark:hidden block">
+              <BeatLoader size={12} color="#000" />
+            </div>
+            <div className="hidden dark:block">
+              <BeatLoader size={12} color="#fff" />
+            </div>
+          </>
         ) : (
           <Image
             className="h-12 md:h-16 w-auto"
             width={3852}
             height={679}
             src={"/payments/flutterwave.svg"}
-            alt="paystack"
+            alt="flutterwave"
           />
         )}
       </Button>

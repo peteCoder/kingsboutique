@@ -1,3 +1,4 @@
+
 import Footer from "@/components/main/sections/footer";
 import Hero from "@/components/main/sections/hero";
 import Navbar from "@/components/main/sections/navbar";
@@ -14,6 +15,8 @@ export const metadata: Metadata = {
 
 
 export default async function Home() {
+
+
   return (
     <main>
       <Navbar />

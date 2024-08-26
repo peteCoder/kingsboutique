@@ -2,13 +2,26 @@
 
 import React, { useEffect, useState } from "react";
 import Heading from "./heading";
-import axios from "axios";
 
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import BeatLoader from "react-spinners/BeatLoader";
+
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 // Form
 import {
@@ -20,17 +33,19 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 import { Textarea } from "@/components/ui/textarea";
 import { useSession } from "next-auth/react";
 import { useCart } from "@/hooks/useCart";
-import { toast } from "react-hot-toast";
 import { UserShippingDataForCheckoutForm } from "@/types";
 import { useUserDetails } from "@/hooks/useUserData";
-import PaystackButton from "@/components/gateways/PaystackButton";
 import FlutterwaveButton from "@/components/gateways/FlutterwaveButton";
+import { getNigerianRegionsAndShippingBasedOnState, getNigerianStates } from "@/actions/getNigerianStates";
+import { cn, formatCurrency } from "@/lib/utils";
+import { Check, ChevronsUpDown } from "lucide-react";
 
 const formSchema = z.object({
   firstName: z.string(),
@@ -38,9 +53,10 @@ const formSchema = z.object({
   email: z.string().email(),
   address: z.string(),
   country: z.string(),
-  city: z.string(),
   phone: z.string(),
   orderNote: z.string(),
+  region: z.string(),
+  state: z.string(),
 });
 
 const FormData = ({
@@ -53,6 +69,8 @@ const FormData = ({
   // Local states
   const [hasMounted, setHasMounted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  // const [shippingFee, setShippingFee] = useState(0);
+  
   const [hasLoadedPaymentGateways, setHasLoadedPaymentGateways] =
     useState(false);
 
@@ -60,14 +78,17 @@ const FormData = ({
   const cart = useCart();
   const userShippingData = useUserDetails();
 
+  const shippingFee = cart.shippingFee;
+
   const userFirstName = userShippingData?.details?.firstName;
   const userLastName = userShippingData?.details?.lastName;
   const userEmail = session?.user?.email;
   const userAddress = userShippingData?.details?.address;
   const userCountry = userShippingData?.details?.country;
-  const userCity = userShippingData?.details?.city;
   const userPhone = userShippingData?.details?.phone;
   const userOrderNote = userShippingData?.details?.orderNote;
+  const userRegion = userShippingData?.details?.region;
+  const userState = userShippingData?.details?.state;
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -77,10 +98,12 @@ const FormData = ({
       lastName: userLastName ? userLastName : "",
       email: userEmail ? userEmail : "",
       address: userAddress ? userAddress : "",
-      country: userCountry ? userCountry : "",
-      city: userCity ? userCity : "",
+      country: userCountry ? userCountry : "Nigeria",
       phone: userPhone ? userPhone : "",
       orderNote: userOrderNote ? userOrderNote : "",
+      region: userRegion ? userRegion : "",
+      state: userState ? userState : "",
+      
     },
   });
 
@@ -90,15 +113,24 @@ const FormData = ({
     // ✅ This will be type-safe and validated.
     setIsLoading(true);
 
-    userShippingData.setUserDetail(values);
+    const data = {...values, shippingFee}
+
+    console.log("data for form: ", cart.displayCartData());
+
+    userShippingData.setUserDetail(data);
 
     setTimeout(() => {
       setIsLoading(false);
       setHasLoadedPaymentGateways(true);
     }, 3000);
-
     
   }
+
+  const NigerianStates = getNigerianStates();
+
+  const activeCountryState = form.watch("state");
+  const regionAndShipping = getNigerianRegionsAndShippingBasedOnState(activeCountryState)
+  const activeRegionWithShipping = regionAndShipping.regions;
 
   useEffect(() => {
     setHasMounted(true);
@@ -116,7 +148,7 @@ const FormData = ({
   return (
     <div className="md:container">
       <div className="relative mb-6">
-        <Heading text="Billing Details" />
+        <Heading text="Order Details" />
       </div>
       {/* Form for checkout order */}
       <div className="">
@@ -151,7 +183,7 @@ const FormData = ({
                     <FormLabel>Last Name</FormLabel>
                     <FormControl>
                       <Input
-                        className="placeholder:font-light "
+                        className="placeholder:font-light"
                         placeholder="Doe"
                         required
                         {...field}
@@ -234,6 +266,7 @@ const FormData = ({
                       className="placeholder:font-light "
                       placeholder="Nigeria"
                       required
+                      disabled={true}
                       {...field}
                     />
                   </FormControl>
@@ -243,30 +276,141 @@ const FormData = ({
               )}
             />
             <FormField
-              control={form.control}
-              name="city"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>City</FormLabel>
+          control={form.control}
+          name="state"
+          render={({ field }) => (
+            <FormItem className="flex flex-col">
+              <FormLabel>State</FormLabel>
+              <Popover>
+                <PopoverTrigger asChild>
                   <FormControl>
-                    <Input
-                      className="placeholder:font-light "
-                      placeholder="Benin"
-                      required
-                      {...field}
-                    />
+                    <Button
+                      variant="outline"
+                      role="combobox"
+                      className={cn(
+                        "w-full justify-between",
+                        !field.value && "text-muted-foreground"
+                      )}
+                    >
+                      {field.value
+                        ? NigerianStates.find(
+                            (state) => state.value === field.value
+                          )?.label
+                        : "Select State"}
+                      <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                    </Button>
                   </FormControl>
-                  <FormDescription>Enter your city</FormDescription>
-                  <FormMessage className="text-xs" />
-                </FormItem>
-              )}
-            />
-
+                </PopoverTrigger>
+                <PopoverContent className="w-full p-0">
+                  <Command>
+                    <CommandInput placeholder="Search state..." />
+                    <CommandList>
+                      <CommandEmpty>No state found.</CommandEmpty>
+                      <CommandGroup>
+                        {NigerianStates.map((state) => (
+                          <CommandItem
+                            value={state.label}
+                            key={state.value}
+                            onSelect={() => {
+                              form.setValue("state", state.value);
+                            }}
+                          >
+                            <Check
+                              className={cn(
+                                "mr-2 h-4 w-4",
+                                state.value === field.value
+                                  ? "opacity-100"
+                                  : "opacity-0"
+                              )}
+                            />
+                            {state.label}
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </CommandList>
+                  </Command>
+                </PopoverContent>
+              </Popover>
+              <FormMessage className="text-xs" />
+            </FormItem>
+          )}
+        />
+          <FormField
+          control={form.control}
+          name="region"
+          render={({ field }) => (
+            <FormItem className="flex flex-col">
+              <FormLabel>Region</FormLabel>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <FormControl>
+                    <Button
+                      variant="outline"
+                      role="combobox"
+                      className={cn(
+                        "w-full justify-between",
+                        !field.value && "text-muted-foreground"
+                      )}
+                    >
+                      {field.value
+                        ? activeRegionWithShipping.find(
+                            (region) => region.value === field.value
+                          )?.label
+                        : "Select region"}
+                      <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                    </Button>
+                  </FormControl>
+                </PopoverTrigger>
+                <PopoverContent className="w-full p-0">
+                  <Command>
+                    <CommandInput placeholder="Search region..." />
+                    <CommandList>
+                      <CommandEmpty>No region found.</CommandEmpty>
+                      <CommandGroup>
+                        {activeRegionWithShipping.map((region) => (
+                          <CommandItem
+                            value={region.value}
+                            key={region.label}
+                            onSelect={() => {
+                              form.setValue("region", region.value);
+                              // setShippingFee(Number(region.fee) || 0);
+                              cart.setShippingFee(Number(region.fee) || 0);
+                            }}
+                          >
+                            <Check
+                              className={cn(
+                                "mr-2 h-4 w-4",
+                                region.value === field.value
+                                  ? "opacity-100"
+                                  : "opacity-0"
+                              )}
+                            />
+                            {region.label}
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </CommandList>
+                  </Command>
+                </PopoverContent>
+              </Popover>
+              <FormDescription className="text-green-800 text-[13px]">
+                {
+                  shippingFee !== 0 && Boolean(shippingFee) && (
+                    <>
+                      Shipping fee: {formatCurrency(shippingFee)}
+                    </>
+                  )
+                }
+              </FormDescription>
+              <FormMessage className="text-xs" />
+            </FormItem>
+          )}
+        />
             <FormField
               control={form.control}
               name="orderNote"
               render={({ field }) => (
-                <FormItem>
+                <FormItem> 
                   <FormLabel>Order Note</FormLabel>
                   <FormControl>
                     <Textarea

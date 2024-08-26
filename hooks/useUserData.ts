@@ -8,9 +8,11 @@ type UserInformation = {
   lastName: string;
   address: string;
   phone: string;
-  city: string;
   country: string;
   orderNote: string;
+  state: string;
+  region: string;
+  shippingFee: number;
 };
 
 type UserDetailStore = {
@@ -28,9 +30,11 @@ export const useUserDetails = create(
         lastName: "",
         address: "",
         phone: "",
-        city: "",
         country: "",
         orderNote: "",
+        state: "",
+        region: "",
+        shippingFee: 0,
       },
       setUserDetail: (detail) => {
         const details = { ...get().details, ...detail };
@@ -44,9 +48,11 @@ export const useUserDetails = create(
           lastName: "",
           address: "",
           phone: "",
-          city: "",
           country: "",
           orderNote: "",
+          state: "",
+          region: "",
+          shippingFee: 0
         };
         set({ details });
         toast.success("Fields are cleared!");
@@ -54,7 +60,7 @@ export const useUserDetails = create(
     }),
     {
       name: "@shipping-data-storage",
-      storage: createJSONStorage(() => sessionStorage),
+      storage: createJSONStorage(() => localStorage),
     }
   )
 );
