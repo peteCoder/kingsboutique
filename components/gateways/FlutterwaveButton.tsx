@@ -49,7 +49,7 @@ const FlutterwaveButton = () => {
       // If true we should redirect the user to the payment gateway URL
       const retrievedData = response.data;
 
-      console.log("RETRIEVED DATA", retrievedData);
+      // console.log("RETRIEVED DATA", retrievedData);
 
       // Check if the response was successful or not
       if (retrievedData.status === true) {

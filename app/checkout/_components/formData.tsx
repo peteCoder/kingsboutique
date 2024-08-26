@@ -115,7 +115,7 @@ const FormData = ({
 
     const data = {...values, shippingFee}
 
-    console.log("data for form: ", cart.displayCartData());
+    console.log("data for form: ", data);
 
     userShippingData.setUserDetail(data);
 
@@ -134,6 +134,7 @@ const FormData = ({
 
   useEffect(() => {
     setHasMounted(true);
+    cart.setShippingFee(0);
   }, []);
 
   if (!hasMounted) {
@@ -303,7 +304,7 @@ const FormData = ({
                 </PopoverTrigger>
                 <PopoverContent className="w-full p-0">
                   <Command>
-                    <CommandInput placeholder="Search state..." />
+                    <CommandInput required={true} placeholder="Search state..." />
                     <CommandList>
                       <CommandEmpty>No state found.</CommandEmpty>
                       <CommandGroup>
@@ -363,7 +364,7 @@ const FormData = ({
                 </PopoverTrigger>
                 <PopoverContent className="w-full p-0">
                   <Command>
-                    <CommandInput placeholder="Search region..." />
+                    <CommandInput required={true} placeholder="Search region..." />
                     <CommandList>
                       <CommandEmpty>No region found.</CommandEmpty>
                       <CommandGroup>

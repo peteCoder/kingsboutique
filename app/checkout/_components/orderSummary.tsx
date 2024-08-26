@@ -51,6 +51,8 @@ const OrderSummary = () => {
             </div>
           ))}
 
+
+          {cart.shippingFee !== 0 && cart.shippingFee && (
             <div
               className="flex items-center justify-between text-sm mt-2"
             >
@@ -62,6 +64,8 @@ const OrderSummary = () => {
                 {formatCurrency(cart.shippingFee)}
               </div>
             </div>
+          )}
+          
         </div>
         <div className="mt-5">
           <Separator />
