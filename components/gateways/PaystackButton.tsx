@@ -36,7 +36,7 @@ const PaystackButton = () => {
         address: userData.details.address,
         name: `${userData.details.firstName} ${userData.details.lastName}`,
         country: userData.details.country,
-        city: userData.details.city,
+        city: userData.details.region,
         orderNote: userData.details.orderNote,
       },
     };
