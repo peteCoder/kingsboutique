@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { sanityClient } from "@/lib/client";
 import { ProductSanitySchemaResult } from "@/types";
-import { CartItems, OrderUserSchemaResult } from "@/types";
 import { getServerSession } from "next-auth";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
@@ -197,6 +196,11 @@ export async function POST(
   return NextResponse.json({ message: "Working", headers: corsHeader });
 }
 
+
+
 export async function GET(req: Request) {
   return NextResponse.json({ message: "Working" });
 }
+
+
+

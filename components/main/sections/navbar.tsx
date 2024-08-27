@@ -14,9 +14,7 @@ import CartDropdownForDesktop from "../cart-dropdown-desktop";
 import { ThemeModeToggle } from "@/components/theme-dropdown";
 import { cn } from "@/lib/utils";
 import { Search } from "lucide-react";
-import { useFilter } from "@/hooks/useFilter";
-
-
+import { useFilter } from "@/hooks/useFilter"; 
 
 const navLinks = [
   {
@@ -42,7 +40,6 @@ const Navbar = () => {
   const pathname = usePathname();
 
   const filter = useFilter();
-
 
   return (
     <header className="">
