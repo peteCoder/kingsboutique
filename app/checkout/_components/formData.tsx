@@ -47,17 +47,19 @@ import { getNigerianRegionsAndShippingBasedOnState, getNigerianStates } from "@/
 import { cn, formatCurrency } from "@/lib/utils";
 import { Check, ChevronsUpDown } from "lucide-react";
 
+
 const formSchema = z.object({
-  firstName: z.string(),
-  lastName: z.string(),
-  email: z.string().email(),
-  address: z.string(),
-  country: z.string(),
-  phone: z.string(),
+  firstName: z.string().min(3, {message: "First Name is required."}),
+  lastName: z.string().min(3, {message: "Last Name is required."}),
+  email: z.string().email({message: "Please enter a valid email address"}),
+  address: z.string().min(3, {message: "Address is required."}),
+  country: z.string().min(3, {message: "Country is required."}),
+  phone: z.string().min(3, {message: "Please enter a valid phone number"}),
+  region: z.string().min(3, {message: "Please select a valid region"}),
+  state: z.string().min(3, {message: "Please select a valid state"}),
   orderNote: z.string(),
-  region: z.string(),
-  state: z.string(),
 });
+
 
 const FormData = ({
   shippingDetails,
@@ -166,11 +168,9 @@ const FormData = ({
                       <Input
                         className="placeholder:font-light"
                         placeholder="John"
-                        required
                         {...field}
                       />
                     </FormControl>
-                    <FormDescription>Enter your first name</FormDescription>
                     <FormMessage className="text-xs" />
                   </FormItem>
                 )}
@@ -186,11 +186,9 @@ const FormData = ({
                       <Input
                         className="placeholder:font-light"
                         placeholder="Doe"
-                        required
                         {...field}
                       />
                     </FormControl>
-                    <FormDescription>Enter your last name</FormDescription>
                     <FormMessage className="text-xs" />
                   </FormItem>
                 )}
@@ -208,11 +206,9 @@ const FormData = ({
                       className="placeholder:font-light"
                       placeholder="email@gmail.com"
                       {...field}
-                      required
                       readOnly={userEmail ? true : false}
                     />
                   </FormControl>
-                  <FormDescription>Enter your email</FormDescription>
                   <FormMessage className="text-xs" />
                 </FormItem>
               )}
@@ -228,11 +224,9 @@ const FormData = ({
                       className="placeholder:font-light "
                       placeholder="09073828343"
                       {...field}
-                      required
                       type="number"
                     />
                   </FormControl>
-                  <FormDescription>Enter your phone</FormDescription>
                   <FormMessage className="text-xs" />
                 </FormItem>
               )}
@@ -247,11 +241,9 @@ const FormData = ({
                     <Input
                       className="placeholder:font-light"
                       placeholder="Type your address here"
-                      required
                       {...field}
                     />
                   </FormControl>
-                  <FormDescription>Enter your address</FormDescription>
                   <FormMessage className="text-xs" />
                 </FormItem>
               )}
@@ -266,12 +258,10 @@ const FormData = ({
                     <Input
                       className="placeholder:font-light "
                       placeholder="Nigeria"
-                      required
                       disabled={true}
                       {...field}
                     />
                   </FormControl>
-                  <FormDescription>Enter your country</FormDescription>
                   <FormMessage className="text-xs" />
                 </FormItem>
               )}
@@ -304,7 +294,7 @@ const FormData = ({
                 </PopoverTrigger>
                 <PopoverContent className="w-full p-0">
                   <Command>
-                    <CommandInput required={true} placeholder="Search state..." />
+                    <CommandInput placeholder="Search state..." />
                     <CommandList>
                       <CommandEmpty>No state found.</CommandEmpty>
                       <CommandGroup>
@@ -364,7 +354,7 @@ const FormData = ({
                 </PopoverTrigger>
                 <PopoverContent className="w-full p-0">
                   <Command>
-                    <CommandInput required={true} placeholder="Search region..." />
+                    <CommandInput placeholder="Search region..." />
                     <CommandList>
                       <CommandEmpty>No region found.</CommandEmpty>
                       <CommandGroup>
