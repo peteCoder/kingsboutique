@@ -78,6 +78,8 @@ const DetailPageInfo = ({ data }: { data: ProductSanitySchemaResult }) => {
     }
   };
 
+  const productIsOutOfStock = data?.qty_available < 1;
+
   useEffect(() => {
     setHasMounted(true);
   }, []);
@@ -93,7 +95,7 @@ const DetailPageInfo = ({ data }: { data: ProductSanitySchemaResult }) => {
           {formatCurrency(data?.price)}
         </div>
       <div className="">
-        {data?.qty_available &&
+        {data?.qty_available > 0 &&
           "Available: " + data?.qty_available + "  in Stock"}
       </div>
 
@@ -155,9 +157,19 @@ const DetailPageInfo = ({ data }: { data: ProductSanitySchemaResult }) => {
               }
             }
             className="uppercase flex gap-1 items-center w-full min-h-[56px] flex-1"
+            disabled={productIsOutOfStock}
           >
-            <HiOutlineShoppingBag size={18} />
-            <span>Add to cart</span>
+            
+            {data?.qty_available > 0 ? (
+              <>
+                <HiOutlineShoppingBag size={18} />
+                <span>Add to cart</span>
+              </>
+            ) : (
+              <>
+                <span>Out of stock</span>
+              </>
+            )}
           </Button>
         ) : (
           <Button
@@ -175,7 +187,7 @@ const DetailPageInfo = ({ data }: { data: ProductSanitySchemaResult }) => {
           {data?.sizes?.length > 0 && (
             <>
               <div className="text-gray-500 text-sm mb-2">Sizes</div>
-              <Select onValueChange={onChangeSize} defaultValue="">
+              <Select onValueChange={onChangeSize} defaultValue="" disabled={productIsOutOfStock}>
                 <SelectTrigger className="md:w-[180px] w-full">
                   <SelectValue placeholder="Select a size" />
                 </SelectTrigger>
@@ -232,6 +244,7 @@ const DetailPageInfo = ({ data }: { data: ProductSanitySchemaResult }) => {
               favourites.removeItemFromFavourites(data._id);
             }
           }}
+          disabled={productIsOutOfStock}
         >
           {!productHasBeenAddedToFavouritesAlready(data._id) ? (
             <>

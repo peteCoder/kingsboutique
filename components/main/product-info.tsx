@@ -58,6 +58,8 @@ const ProductInfo = ({ data }: { data: ProductSanitySchemaResult }) => {
     });
   };
 
+  const productIsOutOfStock = data?.qty_available < 1;
+
   return (
     <div className="space-y-4">
       <div className="">Available: {data?.qty_available}</div>

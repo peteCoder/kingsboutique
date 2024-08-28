@@ -75,8 +75,6 @@ const ProductCard: React.FC<ProductProps> = ({ index, product }) => {
 
   return (
     <div
-      data-aos="fade-up"
-      data-aos-once={true}
       className="text-center p-1 sm:p-0"
       onClick={() =>
         product.qty_available > 0 && router.push(`/product/${product?._id}`)
@@ -185,7 +183,6 @@ const ProductCard: React.FC<ProductProps> = ({ index, product }) => {
               {product?.name.slice(0, 10)}
               {product?.name.length > 10 && "..."}
             </div>
-            
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@ import Navbar from "@/components/main/sections/navbar";
 import Trending from "@/components/main/sections/trending";
 import type { Metadata } from "next";
 
-export const revalidate = 3600; // revalidate the data at most every hour
+export const revalidate = 0; // revalidate the data 
 
 
 export const metadata: Metadata = {

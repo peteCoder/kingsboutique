@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { sanityClient } from "@/lib/client";
 import CategoryCard from "@/components/main/category-card";
+import { ProductSanitySchemaResult } from "@/types";
+import { CartItems } from "@/hooks/useCart";
 
 const corsHeader = {
   "Access-Control-Allow-Origin": "*",
@@ -57,10 +59,11 @@ export async function POST(req: Request) {
         const cartProductIDsSerialized = metaData?.productIds;
 
         // Transforms string serialized array to real array
-        const productsIDs = JSON.parse(cartProductIDsSerialized);
+        const cart: {_id: string, qty: number}[] = JSON.parse(cartProductIDsSerialized);
+        console.log("This is are the respective product IDs: ", cart)
 
         const cartItems = await Promise.all(
-          productsIDs.map(async (_id: string) => await getProduct(_id))
+          cart.map(async (cartitem: {_id: string, qty: number}) => await getProduct(cartitem._id))
         );
 
         // Update the paymentStatus of the order to Paid
@@ -77,30 +80,36 @@ export async function POST(req: Request) {
           }
         }
 
-        if (cartItems.length > 0) {
+        // Cubana Sneakers3 - 2 to be 0
+
+        if (cart.length > 0) {
           // Change the product quantity available
-          const changeProductAvailability = await Promise.all(
-            cartItems.map(async (item: any) => {
+          await Promise.all(
+            cart.map(async (item: {_id: string, qty: number}) => {
               // Get the particular product
-              const product = await getProduct(item._id);
+              const product: ProductSanitySchemaResult = await getProduct(item._id);
               // Reduce the available quantity by the quantity of this item in the product
               let newQuantityAvailable = product.qty_available - item.qty;
               // If there is not enough stock to cover the order, do not modify the stock
+              console.log("Product Decrement Computation: ");
+              console.log(`${product.qty_available} - ${item.qty} = ${newQuantityAvailable}`);
+
               if (newQuantityAvailable >= 0) {
+                // The sanity schema studio not updated...
                 await sanityClient
                   .patch(item._id)
                   .set({
                     qty_available: newQuantityAvailable,
-                  })
-                  .commit();
+                  }).commit();
+
+                  console.log("Product was updated indeed.")
 
                 if (newQuantityAvailable === 0) {
                   await sanityClient
                     .patch(item._id)
                     .set({
                       is_featured: false,
-                    })
-                    .commit();
+                    }).commit();
                 }
               }
             })

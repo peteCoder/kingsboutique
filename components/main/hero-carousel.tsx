@@ -83,7 +83,7 @@ export function CarouselTransition({
   );
 
   return (
-    <div className="w-full" data-aos="fade-up" data-aos-once={true}>
+    <div className="w-full">
       {!(heroBanner.length > 0) ? (
         <Carousel
           className=""

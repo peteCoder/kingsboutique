@@ -4,6 +4,7 @@ import { ProductSanitySchemaResult } from "@/types";
 import { getServerSession } from "next-auth";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
+import { CartItems } from "@/hooks/useCart";
 
 const corsHeader = {
   "Access-Control-Allow-Origin": "*",
@@ -126,8 +127,10 @@ export async function POST(
                   customer_id: activeUser._id,
                   // Getting all the product ids for items in cart
                   // To be used in the webhook
+
+                  // Change this
                   productIds: JSON.stringify(
-                    cartItems.map((item: ProductSanitySchemaResult) => item._id)
+                    cartItems.map((item: CartItems) => ({_id:item._id, qty: item.qty}))
                   ),
                 },
                 customer: {

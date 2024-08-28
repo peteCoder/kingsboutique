@@ -7,9 +7,9 @@ import axios from "axios";
 import LoadProductList from "@/app/shop/_components/LoadProductList";
 
 import ScrollAnimation from "react-animate-on-scroll";
-import "animate.css/animate.compat.css";
-import AOS from "aos";
-import "aos/dist/aos.css";
+// import "animate.css/animate.compat.css";
+// import AOS from "aos";
+// import "aos/dist/aos.css";
 
 const AllProductsBasedOnCategory = ({ categoryId }: { categoryId: string }) => {
   const [products, setProducts] = useState<ProductSanitySchemaResult[]>([]);
@@ -22,7 +22,7 @@ const AllProductsBasedOnCategory = ({ categoryId }: { categoryId: string }) => {
       try {
         setIsLoading(true);
         const response = await fetch(`/api/category/${categoryId}`, {
-          cache: "no-store",
+          next: {revalidate : 0}
         });
         const categoryProducts = await response.json();
 
@@ -39,7 +39,6 @@ const AllProductsBasedOnCategory = ({ categoryId }: { categoryId: string }) => {
   }, [categoryId, hasMounted]);
 
   useEffect(() => {
-    AOS.init({ duration: 1200 });
     setHasMounted(true);
   }, []);
 
@@ -68,14 +67,6 @@ const AllProductsBasedOnCategory = ({ categoryId }: { categoryId: string }) => {
           </div>
 
         </>
-
-        
-        
-          // <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:grid-cols-5 gap-2">
-          //   {products?.slice(0, 5)?.map((product, i) => (
-          //     <ProductCard key={product?._id} index={i} product={product} />
-          //   ))}
-          // </div>
       )}
     </>
   );
