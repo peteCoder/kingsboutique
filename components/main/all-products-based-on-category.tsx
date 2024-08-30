@@ -22,7 +22,7 @@ const AllProductsBasedOnCategory = ({ categoryId }: { categoryId: string }) => {
       try {
         setIsLoading(true);
         const response = await fetch(`/api/category/${categoryId}`, {
-          next: {revalidate : 0}
+          next: {revalidate : 0}, cache: "no-cache"
         });
         const categoryProducts = await response.json();
 

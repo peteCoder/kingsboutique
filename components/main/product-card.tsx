@@ -16,6 +16,7 @@ import usePreviewModal from "@/hooks/usePreviewModal";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/hooks/useCart";
 import { useFavourites } from "@/hooks/useFavourites";
+import { useToast } from "../ui/use-toast";
 
 // Type
 interface ProductProps {
@@ -36,6 +37,8 @@ const ProductCard: React.FC<ProductProps> = ({ index, product }) => {
   const [activeColour, setActiveColour] = useState("");
 
   const cart = useCart();
+
+  const { toast } = useToast();
 
   const favourites = useFavourites();
   const productsInFavourites = favourites.displayFavouritesData();
@@ -82,21 +85,30 @@ const ProductCard: React.FC<ProductProps> = ({ index, product }) => {
     >
       <div className="relative group duration-700 min-h-[250px] md:min-h-[350px] bg-muted rounded-t-md overflow-hidden">
         <div className="absolute top-0 right-0 flex flex-col md:space-y-2 z-10 group-hover:opacity-100 opacity-0 translate-x-[100%] group-hover:translate-x-0 duration-700 md:mr-3 mt-2">
-          <div
+          {/* Removed Preview Icon */}
+          {/* <div
             className="bg-white hover:bg-primary hover:text-white cursor-pointer duration-700 text-black w-7 h-7 md:w-10 md:h-10 rounded-full m-1 flex items-center justify-center"
             id="quickView"
             onClick={showPopupModalForProduct}
           >
             <IoEyeOutline className="w-[13px] h-[13px] md:w-[18px] md:h-[18px]" />
-          </div>
+          </div> */}
 
           <div
             onClick={(e) => {
               e.stopPropagation();
               if (!productHasBeenAddedToFavouritesAlready(product?._id)) {
                 favourites.addItemToFavourites(product);
+                toast({
+                  title: "Added to Favourites",
+                  description: "Product was added to Favourites"
+                });
               } else {
                 favourites.removeItemFromFavourites(product?._id);
+                toast({
+                  title: "Removed to Favourites",
+                  description: "Product was removed from Favourites"
+                });
               }
             }}
             className={cn(

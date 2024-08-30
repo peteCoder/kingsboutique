@@ -7,10 +7,13 @@ import { Button } from "@/components/ui/button";
 import { useRouter, useSearchParams } from "next/navigation";
 import BeatLoader from "react-spinners/BeatLoader";
 import { useCart } from "@/hooks/useCart";
+import { useToast } from "@/components/ui/use-toast";
 
 const CartFormData = () => {
   const { data: session } = useSession();
   const [loadingCheckout, setLoadingCheckout] = useState(false);
+
+  const { toast } = useToast();
 
   const cart = useCart();
   const searchParams = useSearchParams();
@@ -34,6 +37,10 @@ const CartFormData = () => {
       searchParams.get("status") === "completed"
     ) {
       cart.resetCart();
+      toast({
+        title: "Purchase was successful",
+        description: "You will be notified via an email. Thank you for ordering. You are the best."
+      })
     }
   }, [cart, searchParams]);
 
