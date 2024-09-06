@@ -26,7 +26,7 @@ const AllProductsBasedOnCategory = ({ categoryId }: { categoryId: string }) => {
         });
         const categoryProducts = await response.json();
 
-        console.log("categoryProducts: ", categoryProducts);
+        // console.log("categoryProducts: ", categoryProducts);
         setProducts(categoryProducts);
       } catch (error) {
         console.log("Error loading products for this category", error);
