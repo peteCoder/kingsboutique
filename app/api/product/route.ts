@@ -1,7 +1,11 @@
 import { sanityClient } from "@/lib/client";
 import { NextRequest, NextResponse } from "next/server";
 
+<<<<<<< HEAD
 export const revalidate = 0;
+=======
+export const dynamic = "force-dynamic";
+>>>>>>> e182f41ffe1809ee01f337bde10c5f41fbf0643f
 
 export async function GET(req: NextRequest) {
   try {

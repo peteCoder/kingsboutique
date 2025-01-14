@@ -3,7 +3,11 @@ import React, { useEffect, useState } from "react";
 import LoadProductList from "./LoadProductList";
 import axios from "axios";
 import ProductCard from "@/components/main/product-card";
+<<<<<<< HEAD
 import useSWR from "swr";
+=======
+
+>>>>>>> e182f41ffe1809ee01f337bde10c5f41fbf0643f
 import qs from "query-string";
 import { useFilter } from "@/hooks/useFilter";
 import { GrEmptyCircle } from "react-icons/gr";
@@ -28,9 +32,12 @@ const ProductsList = () => {
   const colourId = filteredData?.filteredData?.colour?._id;
   const searchTerm = searching?.search?.searcTerm;
 
+<<<<<<< HEAD
 
   const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
+=======
+>>>>>>> e182f41ffe1809ee01f337bde10c5f41fbf0643f
   
 
   useEffect(() => {
@@ -65,14 +72,20 @@ const ProductsList = () => {
     setHasMounted(true);
   }, []);
 
+<<<<<<< HEAD
   
 
+=======
+>>>>>>> e182f41ffe1809ee01f337bde10c5f41fbf0643f
   if (!hasMounted) {
     return <LoadProductList numberOfRenderedProducts={8} />;
   }
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> e182f41ffe1809ee01f337bde10c5f41fbf0643f
   return (
     <div className="md:px-3 py-5">
       <>

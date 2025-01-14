@@ -53,7 +53,10 @@
     "react-icons": "^4.12.0",
     "react-spinners": "^0.13.8",
     "swiper": "^10.0.0",
+<<<<<<< HEAD
     "swr": "^2.3.0",
+=======
+>>>>>>> e182f41ffe1809ee01f337bde10c5f41fbf0643f
     "tailwind-merge": "^2.1.0",
     "tailwindcss-animate": "^1.0.7",
     "uuid": "^9.0.1",
