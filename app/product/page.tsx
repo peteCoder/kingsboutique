@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 
 import type { Metadata } from "next";
 
-export const revalidate = 3600; // revalidate the data at most every hour
+export const revalidate = 0; // revalidate the data at most every hour
 
 export const metadata: Metadata = {
   title: "Products",
